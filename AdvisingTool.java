@@ -33,16 +33,16 @@ public class AdvisingTool extends JFrame {
 	private JTextField firstNameField_updateMajor;
 	private JTextField lastNameField_updateMajor;
 	private JTextField currentMajorField;
-	private String lastScreen = "";
-	private JLabel changingLabel;
-	private JButton liberalArtsCoreButton;
-	private JButton studiesButton;
-	private JButton majorCoreButton;
-	private JButton majorElectivesButton;
-	private Color red = new Color(246, 97, 81);
-	private Color orange = new Color(255, 190, 111);
-	private Color yellow = new Color(249, 240, 107);
-	private Color green = new Color(143, 240, 164);
+	private String newOrUpdate = ""; // Used for determining if user is creating a new record or updating an existing one
+	private JLabel changingLabel; // Used on the "Course Summary" panel to indicate which category of courses are displayed
+	private JButton liberalArtsCoreButton; // Color-changing button indicates progress
+	private JButton studiesButton; // Color-changing button indicates progress
+	private JButton majorCoreButton; // Color-changing button indicates progress
+	private JButton majorElectivesButton; // Color-changing button indicates progress
+	private Color red = new Color(246, 97, 81);        //
+	private Color orange = new Color(255, 190, 111);   // Colors for
+	private Color yellow = new Color(249, 240, 107);   // color-changing buttons
+	private Color green = new Color(143, 240, 164);    //
 	
 	//Student Info
 	private String studentFirstName = "";
@@ -101,6 +101,7 @@ public class AdvisingTool extends JFrame {
 		updateStudentRecordBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e)
 			{
+				// Change card
 				setCardLayoutView("update student record");
 			}
 		});
@@ -115,6 +116,7 @@ public class AdvisingTool extends JFrame {
 		createStudentRecordBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) 
 			{
+				// Change card
 				setCardLayoutView("create student record");
 			}
 		});
@@ -128,6 +130,7 @@ public class AdvisingTool extends JFrame {
 		updateMajorBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e)
 			{
+				// Change card
 				setCardLayoutView("update major");
 			}
 		});
@@ -141,7 +144,9 @@ public class AdvisingTool extends JFrame {
 		deleteStudentRecordBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e)
 			{
-				
+				// Open file explorer & delete or go to a different panel to delete?
+				// Pop-up ask for confirmation
+				// Pop-up confirm delete
 			}
 		});
 		StartScreen.add(deleteStudentRecordBtn);
@@ -218,7 +223,9 @@ public class AdvisingTool extends JFrame {
 		nextButton_updateRecord.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e)
 			{
-				lastScreen = "update student record";
+				newOrUpdate = "update";
+				
+				// Change card
 				setCardLayoutView("degree progress");
 			}
 		});
@@ -227,6 +234,15 @@ public class AdvisingTool extends JFrame {
 		UpdateStudentRecord.add(nextButton_updateRecord);
 		
 		JButton loadStudentButton_updateRecord = new JButton("Load Student Record");
+		loadStudentButton_updateRecord.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e)
+			{
+				// open file explorer
+				// get student info
+				// populate text fields & major checkboxes on updateRecord panel
+				// set student info to info from file
+			}
+		});
 		loadStudentButton_updateRecord.setFont(new Font("Dialog", Font.BOLD, 16));
 		loadStudentButton_updateRecord.setBounds(203, 508, 260, 25);
 		UpdateStudentRecord.add(loadStudentButton_updateRecord);
@@ -235,6 +251,7 @@ public class AdvisingTool extends JFrame {
 		backButton_updateRecord.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e)
 			{
+				// Change card
 				setCardLayoutView("start");
 			}
 		});
@@ -317,7 +334,7 @@ public class AdvisingTool extends JFrame {
 		nextBtn_createRecord.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e)
 			{
-				lastScreen = "create student record";
+				newOrUpdate = "new";
 				
 				// Get student info from textboxes/checkboxes
 				studentFirstName = firstNameField_createRecord.getText();
@@ -346,6 +363,7 @@ public class AdvisingTool extends JFrame {
 		backBtn_createRecord.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e)
 			{
+				// Change card
 				setCardLayoutView("start");
 			}
 		});
@@ -370,6 +388,7 @@ public class AdvisingTool extends JFrame {
 		backBtn_updateMajor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e)
 			{
+				// Change card
 				setCardLayoutView("start");
 			}
 		});
@@ -378,6 +397,17 @@ public class AdvisingTool extends JFrame {
 		UpdateMajor.add(backBtn_updateMajor);
 		
 		JButton nextBtn_updateMajor = new JButton("Next");
+		nextBtn_updateMajor.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e)
+			{
+				// pop-up ask for confirmation
+				// get new major from checkboxes
+				// open student file and update only major (will we need to change file name?)
+				// pop-up confirm update
+				// Clear student info variables
+				// Change card to "start"
+			}
+		});
 		nextBtn_updateMajor.setFont(new Font("Dialog", Font.BOLD, 16));
 		nextBtn_updateMajor.setBounds(539, 508, 117, 25);
 		UpdateMajor.add(nextBtn_updateMajor);
@@ -441,6 +471,16 @@ public class AdvisingTool extends JFrame {
 		UpdateMajor.add(currentMajorField);
 		
 		JButton loadBtn_updateMajor = new JButton("Load Student Record");
+		loadBtn_updateMajor.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e)
+			{
+				// open file explorer
+				// get student info
+				// populate text fields (firstname, lastname, current major)
+				// set student info to info from file
+				// save filename in a variable to update record to new major when 'next' is clicked
+			}
+		});
 		loadBtn_updateMajor.setFont(new Font("Dialog", Font.BOLD, 16));
 		loadBtn_updateMajor.setBounds(209, 510, 260, 25);
 		UpdateMajor.add(loadBtn_updateMajor);
@@ -464,12 +504,14 @@ public class AdvisingTool extends JFrame {
 		backBtn_degreeProgress.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e)
 			{
-				if(lastScreen == "create student record") 
+				if(newOrUpdate == "new") 
 				{
+					// Change card
 					setCardLayoutView("create student record");
 				}
 				else
 				{
+					// Change card
 					setCardLayoutView("update student record");
 				}
 			}
@@ -482,6 +524,9 @@ public class AdvisingTool extends JFrame {
 		nextBtn_degreeProgress.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e)
 			{
+				// If newOrUpdate == "update", populate textArea_completedCourses with existing info from file
+						
+				// Change card
 				setCardLayoutView("completed courses");
 			}
 		});
@@ -493,7 +538,10 @@ public class AdvisingTool extends JFrame {
 		liberalArtsCoreButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e)
 			{
+				// Update label on Course Summary panel
 				changingLabel.setText("Liberal Arts Core");
+				
+				// Change card
 				setCardLayoutView("course summary");
 			}
 		});
@@ -506,7 +554,10 @@ public class AdvisingTool extends JFrame {
 		studiesButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e)
 			{
+				// Update label on Course Summary panel
 				changingLabel.setText("Four Studies");
+				
+				// Change card
 				setCardLayoutView("course summary");
 			}
 		});
@@ -519,7 +570,10 @@ public class AdvisingTool extends JFrame {
 		majorCoreButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e)
 			{
+				// Update label on Course Summary panel
 				changingLabel.setText("Major Core");
+				
+				// Change card
 				setCardLayoutView("course summary");
 			}
 		});
@@ -532,7 +586,10 @@ public class AdvisingTool extends JFrame {
 		majorElectivesButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e)
 			{
+				// Update label on Course Summary panel
 				changingLabel.setText("Major Electives");
+				
+				// Change card
 				setCardLayoutView("course summary");
 			}
 		});
@@ -563,6 +620,7 @@ public class AdvisingTool extends JFrame {
 		backBtn_completedCourses.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e)
 			{
+				// Change card
 				setCardLayoutView("degree progress");
 			}
 		});
@@ -575,6 +633,10 @@ public class AdvisingTool extends JFrame {
 			public void actionPerformed(ActionEvent e)
 			{
 				completedCourses = textArea_completedCourses.getText();
+				
+				// If newOrUpdate == "update", populate textArea_inProgress with existing info from file
+				
+				// Change card
 				setCardLayoutView("courses in progress");
 			}
 		});
@@ -615,7 +677,12 @@ public class AdvisingTool extends JFrame {
 		nextBtn_inProgress.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e)
 			{
+				// If newOrUpdate == "update", populate textArea_regCourses with existing info from file
+				
+				// Get updated info from text area
 				coursesInProgress = textArea_inProgress.getText();
+				
+				// Change card
 				setCardLayoutView("courses registered");
 			}
 		});
@@ -658,9 +725,18 @@ public class AdvisingTool extends JFrame {
 			{
 				coursesRegistered = textArea_regCourses.getText();
 				
-				// Create new student file if user came from "create student record"
+				// If newOrUpdate == "new":
+				//		Pop-up ask for confirmation
+				// 		Create new student file and write info
+				//		Pop-up confirm new record created
 				
-				// Open and update student file is user came from "update student record"
+				// If newOrUpdate == "update":
+				// 		Pop-up ask for confirmation
+				// 		Open and update student file
+				// 		Pop-up confirm update
+				
+				// Clear student info variables
+				// Change card to "start"
 				
 			}
 		});
