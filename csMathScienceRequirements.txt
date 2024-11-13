@@ -1,0 +1,5 @@
+MTH 2040 Calculus I 4
+MTH 2050 Calculus II 4
+MTH 2180 Applied Probability & Statistics 3
+STA 2180 Applied Probability & Statistics 3
+CSC 3710 Discrete Structures 3

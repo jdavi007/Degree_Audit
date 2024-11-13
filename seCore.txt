@@ -1,0 +1,22 @@
+SWE 1790 Engineering Leadership 3
+SWE 3110 Software Requirements and Design 3
+SWE 3120 Software Testing 3
+SWE 4980 Capstone Project I 1
+SWE 4990 Capstone Project II 1
+SWE 3240 Software Quality & Configuration Management 3
+SWE 3420 Software Maintenance 3
+SWE 4240 Software Project Management 3
+CSC 1010 Introduction to Programming in Python 4
+CSC 1180 Foundations of Programming in C++ 4
+CSC 2180 Data Structures 4
+CSC 2300 Software Engineering 3
+SWE 2300 Software Engineering 3
+CSC 3180 Introduction to Algorithms 3
+CSC 3260 Introduction to Human Computer Interaction 3
+CSC 3400 Database Design & Applications 3
+CSC 3710 Discrete Structures 3
+MTH 2040 Calculus I 4
+MTH 2050 Calculus II 4
+MTH 2180 Applied Probability & Statistics 3
+STA 2180 Applied Probability & Statistics 3
+MTH 3030 Introduction to Linear Algebra with Applications 3

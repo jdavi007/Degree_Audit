@@ -1,0 +1,7 @@
+ART
+ENG
+HIS
+HUM
+MUS
+PHI
+THT

@@ -1,0 +1,26 @@
+MUS 3140 Guitar Ensemble  1
+MUS 3151 Concert Choir  1
+MUS 3152 Highland Chorale  1
+MUS 3122 Highland Cavalier Pep Band  1
+MUS 3123 Jazz Ensemble  1
+MUS 3127 Bluegrass Ensemble  1
+MUS 3128 Percussion Ensemble  1
+MUS 3129 String Ensemble  1
+MUS 3111 Highland Winds  1
+MUS 3112 Marching Highland Cavaliers  1
+MUS 1127 Bluegrass Ensemble  1
+MUS 1128 Percussion Ensemble  1
+MUS 1129 String Ensemble  1
+MUS 1140 Guitar Ensemble  1
+MUS 1151 Concert Choir  1
+MUS 1152 Highland Chorale  1
+MUS 1111 Highland Winds  1
+MUS 1122 Highland Cavalier Pep Band  1
+MUS 1123 Jazz Ensemble  1
+ENG 3030 African-Amer. Poetry & Prose  3
+ENG 3010 Appalachian Poetry & Prose  3
+PHI 1110 Ethical Decision Making Modern World  3
+PHI 3300 Philosophy Of Religion  3
+SOC 1100 Introduction To Sociology  3
+SOC 1200 Contemporary Social Problems  3
+HUM 1850 Introduction To Appalachian Studies  3

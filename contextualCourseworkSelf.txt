@@ -1,0 +1,110 @@
+MUS 1070 Everyone Can Create Music IPAD  3
+MUS 1311 Applied Music Secondary: Trumpet  1
+MUS 1312 Applied Music Secondary: Horn  1
+MUS 1313 Applied Music Secondary: Trombone  1
+MUS 1314 Applied Music Secondary: Euphonium  1
+MUS 1315 Applied Music Secondary: Tuba  1
+MUS 1321 Applied Music Secondary: Flute  1
+MUS 1322 Applied Music Secondary: Oboe  1
+MUS 1323 Applied Music Secondary: Clarinet  1
+MUS 1324 Applied Music Secondary: Bassoon  1
+MUS 1325 Applied Music Secondary: Saxophone  1
+MUS 1331 Applied Music Secondary: Voice  1
+MUS 1341 Applied Music Secondary: Percussion  1
+MUS 1351 Applied Music Secondary: Piano  1
+MUS 1352 Applied Music Secondary: Organ  1
+MUS 1361 Applied Music Secondary: Violin  1
+MUS 1362 Applied Music Secondary: Viola  1
+MUS 1363 Applied Music Secondary: Cello  1
+MUS 1364 Applied Music Secondary: Double Bass  1
+MUS 1365 Applied Music Secondary: Guitar  1
+MUS 1371 Applied Music Secondary: Composition  1
+MUS 1411 Applied Music Principal: Trumpet  2
+MUS 1412 Applied Music Principal: Horn  2
+MUS 1413 Applied Music Principal: Trombone  2
+MUS 1414 Applied Music Principal: Euphonium  2
+MUS 1415 Applied Music Principal: Tuba  2
+MUS 1421 Applied Music Principal: Flute  2
+MUS 1422 Applied Music Principal: Oboe  2
+MUS 1423 Applied Music Principal: Clarinet  2
+MUS 1424 Applied Music Principal: Bassoon  2
+MUS 1425 Applied Music Principal: Saxophone  2
+MUS 1431 Applied Music Principal: Voice  2
+MUS 1441 Applied Music Principal: Percussion  2
+MUS 1451 Applied Music Principal: Piano  2
+MUS 1452 Applied Music Principal: Organ  2
+MUS 1461 Applied Music Principal: Violin  2
+MUS 1462 Applied Music Principal: Viola  2
+MUS 1463 Applied Music Principal: Cello  2
+MUS 1464 Applied Music Principal: Double Bass  2
+MUS 1465 Applied Music Principal: Guitar  2
+MUS 1551 Music Theory I  3
+MUS 2411 Applied Music Principal: Trumpet  2
+MUS 2412 Applied Music Principal: Horn  2
+MUS 2413 Applied Music Principal: Trombone  2
+MUS 2414 Applied Music Principal: Euphorium  2
+MUS 2415 Applied Music Principal: Tuba  2
+MUS 2421 Applied Music Principal: Flute  2
+MUS 2422 Applied Music Principal: Oboe  2
+MUS 2423 Applied Music Principal: Clarinet  2
+MUS 2424 Applied Music Principal: Bassoon  2
+MUS 2425 Applied Music Principal:Saxophone  2
+MUS 2431 Applied Music Principal: Voice  2
+MUS 2441 Applied Music Principal:Percussion  2
+MUS 2451 Applied Music Principal: Piano  2
+MUS 2452 Applied Music Principal: Organ  2
+MUS 2461 Applied Music Principal: Violin  2
+MUS 2462 Applied Music Principal: Viola  2
+MUS 2463 Applied Music Principal: Cello  2
+MUS 2464 Applied Music Principal: Double Bass  2
+MUS 2465 Applied Music Principal: Guitar  2
+MUS 3412 Applied Music Principal: Horn  2
+MUS 3413 Applied Music Principal: Trombone  2
+MUS 3414 Applied Music Principal: Euphorium  2
+MUS 3415 Applied Music Principal: Tuba  2
+MUS 3421 Applied Music Principal: Flute  2
+MUS 3422 Applied Music Principal: Oboe  2
+MUS 3423 Applied Music Principal: Clarinet  2
+MUS 3424 Applied Music Principal: Bassoon  2
+MUS 3425 Applied Music Principal: Saxophone  2
+MUS 3431 Applied Music Principal: Voice  2
+MUS 3441 Applied Music Principal: Percussion  2
+MUS 3451 Applied Music Principal: Piano  2
+MUS 3452 Applied Music Principal: Organ  2
+MUS 3461 Applied Music Principal: Violin  2
+MUS 3462 Applied Music Principal: Viola  2
+MUS 3463 Applied Music Principal: Cello  2
+MUS 3464 Applied Music Principal: Double Bass  2
+MUS 3465 Applied Music Principal: Guitar  2
+MUS 3520 Beginning Conducting  2
+MUS 4412 Applied Music Principal: Horn  2
+MUS 4413 Applied Music Principal: Trombone  2
+MUS 4414 Applied Music Principal: Euphorium  2
+MUS 4415 Applied Music Principal: Tuba  2
+MUS 4421 Applied Music Principal: Flute  2
+MUS 4422 Applied Music Principal: Oboe  2
+MUS 4423 Applied Music Principal: Clarinet  2
+MUS 4424 Applied Music Principal: Bassoon  2
+MUS 4425 Applied Music Principal: Saxophone  2
+MUS 4431 Applied Music Principal: Voice  2
+MUS 4441 Applied Music Principal: Percussion  2
+MUS 4451 Applied Music Principal: Piano  2
+MUS 4452 Applied Music Principal: Organ  2
+MUS 4461 Applied Music Principal: Violin  2
+MUS 4462 Applied Music Principal: Viola  2
+MUS 4463 Applied Music Principal: Cello  2
+MUS 4464 Applied Music Principal: Double Bass  2
+MUS 4465 Applied Music Principal: Guitar  2
+ART 1200 Basic Painting  3
+ART 2310 Topics in Sculpture  3
+ART 2330 Papermaking  3
+ART 2400 Digital Imaging  3
+ART 2920 Printmaking  3
+ART 3230 Wheel Thrown Ceramics  3
+ENG 3200 Introduction To Poetry  3
+PHI 1030 Logic I  3
+PSY 1100 Introduction To Psychology  3
+SWE 1790 Engineering Leadership  3
+HUM 3450 Introduction To Women’s Studies  3
+PHI 1040 Theories Of Human Nature  3
+PED 1900 Physical Education Activity Courses (Basic Skills)  1

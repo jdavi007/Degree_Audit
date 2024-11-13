@@ -1,0 +1,17 @@
+CSC 2220 Programming in Java 3
+CSC 2230 Programming in C# 3
+CSC 2240 Programming in Python 3
+CSC 3050 Digital Logic 3
+CSC 3250 Unix Systems 3
+CSC 3260 Introduction to Human Computer Interaction 3
+CSC 3380 Introduction to Numerical Methods 3
+CSC 3600 Operations Research 3
+CSC 3750 Web Technologies 3
+CSC 4110 Advanced Database Systems 3
+CSC 4150 Introduction to Robotics & Artificial Intelligence 3
+CSC 4240 Software Project Management 3
+CSC 4280 Cybersecurity 3
+CSC 4281 Penetration Testing 3
+CSC 4282 Digital Forensics 3
+CSC 4380 Information Security 3
+CSC 4690 Mobile Development 3

@@ -1,0 +1,12 @@
+MTH 3060 Calculus III 4
+MTH 3100 Introduction to Mathematical Proofs 3
+MTH 3110 Ordinary Differential Equations 3
+MTH 3120 Introduction to Geometry 3
+MTH 3200 Introduction to Number Theory 3
+MTH 3250 Probability and Statistics I 3
+MTH 3350 Abstract Algebra I 3
+MTH 3380 Introduction to Numerical Methods 3
+MTH 3400 Multivariable Calculus 3
+MTH 3440 Advanced Calculus I 3
+MTH 4360 Abstract Algebra II 3
+MTH 4450 Advanced Calculus II 3

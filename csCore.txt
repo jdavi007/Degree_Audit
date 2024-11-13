@@ -1,0 +1,13 @@
+SWE 1790 Engineering Leadership 3
+CSC 1010 Introduction to Programming in Python 4
+CSC 1180 Foundations of Programming in C++ 4
+CSC 2180 Data Structures 4
+CSC 2300 Software Engineering 3
+SWE 2300 Software Engineering 3
+CSC 3180 Introduction to Algorithms 3
+CSC 3400 Database Design & Applications 3
+CSC 4000 Operating Systems: Theory/Practice 3
+CSC 4200 Programming Languages 3
+CSC 4300 Computer Architecture 3
+CSC 4350 Computer Networks 3
+CSC 4990 Computer Science Seminar 1

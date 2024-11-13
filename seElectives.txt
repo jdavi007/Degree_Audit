@@ -1,0 +1,19 @@
+CSC 2220 Programming in Java 3
+CSC 2230 Programming in C# 3
+CSC 2240 Programming in Python 3
+CSC 4000 Operating Systems 3
+CSC 4110 Advanced Database Systems 3
+CSC 4150 Introduction to Robotics & Artificial Intelligence 3
+CSC 4200 Programming Languages 3
+CSC 4280 Cybersecurity 3
+CSC 4281 Penetration Testing 3
+CSC 4300 Computer Architecture 3
+CSC 4350 Computer Networks 3
+CSC 4380 Information Security 3
+CSC 4690 Mobile Development 3
+DSC 3500 Data Analytics & Modeling 3
+MIS 3500 Data Analytics & Modeling 3
+DSC 4350 Cloud & Collaboration Computing 3
+MIS 4350 Cloud & Collaboration Computing 3
+DSC 4500 Data Visualization 3
+MIS 4500 Data Visualization 3

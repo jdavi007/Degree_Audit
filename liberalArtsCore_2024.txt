@@ -1,0 +1,41 @@
+SEM 1010 Freshman Success Seminar 1
+ENG 1010 Composition I 3
+ENG 1020 Composition II 3
+ENG 1030 Honors Composition 3
+FRE 1010 Elementary French I 3
+FRE 1020 Elementary French II 3
+FRE 1030 Accelerated Elementary French 3
+SPA 1010 Elementary Spanish I 3
+SPA 1020 Elementary Spanish II 3
+SPA 1030 Accelerated Elementary Spanish 3
+GER 1010 Elementary German I 3
+GER 1020 Elementary German II 3
+GER 1030 Accelerated Elementary German 3
+MTH 1010 College Algebra 3
+MTH 1050 Applications of Mathematics 3
+MTH 1110 Precalculus I 3
+MTH 1210 Precalculus II 3
+MTH 1180 Elementary Probability & Statistics 3
+MTH 2040 Calculus I 4
+MTH 2050 Calculus II 4
+BIO 1010 Principles of Biology 3
+BIO 1011 Principles of Biology Lab 1
+BIO 1020 Introduction to Biological Diversity 3
+BIO 1021 Introduction to Biological Diversity Lab 1
+BIO 1030 Basic Life Functions 3
+BIO 1031 Basic Life Functions Lab 1
+CHM 1010 College Chemistry I 3
+CHM 1011 College Chemistry I Lab 1
+CHM 1020 College Chemistry II 3
+CHM 1021 College Chemistry II Lab 1
+GLG 1010 Physical Geology 4
+GLG 2005 Introduction to Oceanography 4
+GLG 2010 Introduction to Meteorology 4
+PHY 1000 Introduction to Astronomy I 3
+PHY 1001 Introduction to Astronomy I Lab 1
+PHY 1002 Introduction to Astronomy II 3
+PHY 1003 Introduction to Astronomy II Lab 1
+PHY 1010 Introduction to Physics I 4
+PHY 1011 General Physics Lab I 1
+PHY 1020 Introduction to Physics II 4
+PHY 1021 General Physics Lab II 1
