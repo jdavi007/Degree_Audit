@@ -35,6 +35,23 @@ public class AdvisingTool extends JFrame {
 	private JTextField currentMajorField;
 	private String lastScreen = "";
 	private JLabel changingLabel;
+	private JButton liberalArtsCoreButton;
+	private JButton studiesButton;
+	private JButton majorCoreButton;
+	private JButton majorElectivesButton;
+	private Color red = new Color(246, 97, 81);
+	private Color orange = new Color(255, 190, 111);
+	private Color yellow = new Color(249, 240, 107);
+	private Color green = new Color(143, 240, 164);
+	
+	//Student Info
+	private String studentFirstName = "";
+	private String studentLastName = "";
+	private String studentCatalogYear = "";
+	private String studentMajor = "";
+	private String completedCourses = "";
+	private String coursesInProgress = "";
+	private String coursesRegistered = "";
 
 	/**
 	 * Launch the application.
@@ -301,6 +318,23 @@ public class AdvisingTool extends JFrame {
 			public void actionPerformed(ActionEvent e)
 			{
 				lastScreen = "create student record";
+				
+				// Get student info from textboxes/checkboxes
+				studentFirstName = firstNameField_createRecord.getText();
+				studentLastName = lastNameField_createRecord.getText();
+				studentCatalogYear = yearField_createRecord.getText();
+				if(CSmajorCheckBox_createRecord.isSelected()) {studentMajor = "Computer Science";}
+				else if (SWEmajorCheckBox_createRecord.isSelected()) {studentMajor = "Software Engineering";}
+				else if (MISmajorCheckBox_createRecord.isSelected()) {studentMajor = "Management Information Systems";}
+				else {studentMajor = "Mathematics";}
+				
+				//Change button colors on Degree Progress Panel
+				liberalArtsCoreButton.setBackground(red);
+				studiesButton.setBackground(red);
+				majorCoreButton.setBackground(red);
+				majorElectivesButton.setBackground(red);
+				
+				// Change card
 				setCardLayoutView("degree progress");
 			}
 		});
@@ -455,7 +489,7 @@ public class AdvisingTool extends JFrame {
 		nextBtn_degreeProgress.setBounds(539, 507, 117, 25);
 		DegreeProgress.add(nextBtn_degreeProgress);
 		
-		JButton liberalArtsCoreButton = new JButton("Liberal Arts Core");
+		liberalArtsCoreButton = new JButton("Liberal Arts Core");
 		liberalArtsCoreButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e)
 			{
@@ -468,7 +502,7 @@ public class AdvisingTool extends JFrame {
 		liberalArtsCoreButton.setBounds(156, 65, 330, 35);
 		DegreeProgress.add(liberalArtsCoreButton);
 		
-		JButton studiesButton = new JButton("Studies");
+		studiesButton = new JButton("Studies");
 		studiesButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e)
 			{
@@ -481,7 +515,7 @@ public class AdvisingTool extends JFrame {
 		studiesButton.setBounds(156, 130, 330, 35);
 		DegreeProgress.add(studiesButton);
 		
-		JButton majorCoreButton = new JButton("Major - Core");
+		majorCoreButton = new JButton("Major - Core");
 		majorCoreButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e)
 			{
@@ -494,7 +528,7 @@ public class AdvisingTool extends JFrame {
 		majorCoreButton.setBounds(156, 196, 330, 35);
 		DegreeProgress.add(majorCoreButton);
 		
-		JButton majorElectivesButton = new JButton("Major - Electives");
+		majorElectivesButton = new JButton("Major - Electives");
 		majorElectivesButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e)
 			{
@@ -518,6 +552,13 @@ public class AdvisingTool extends JFrame {
 		completedCoursesLabel.setBounds(226, 0, 202, 22);
 		CompletedCourses.add(completedCoursesLabel);
 		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(12, 40, 644, 439);
+		CompletedCourses.add(scrollPane);
+		
+		JTextArea textArea_completedCourses = new JTextArea();
+		scrollPane.setViewportView(textArea_completedCourses);
+		
 		JButton backBtn_completedCourses = new JButton("Back");
 		backBtn_completedCourses.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e)
@@ -533,19 +574,13 @@ public class AdvisingTool extends JFrame {
 		nextBtn_completedCourses.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e)
 			{
+				completedCourses = textArea_completedCourses.getText();
 				setCardLayoutView("courses in progress");
 			}
 		});
 		nextBtn_completedCourses.setFont(new Font("Dialog", Font.BOLD, 16));
 		nextBtn_completedCourses.setBounds(539, 507, 117, 25);
 		CompletedCourses.add(nextBtn_completedCourses);
-		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(12, 40, 644, 439);
-		CompletedCourses.add(scrollPane);
-		
-		JTextArea textArea_completedCourses = new JTextArea();
-		scrollPane.setViewportView(textArea_completedCourses);
 		CompletedCourses.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{
 				backBtn_completedCourses, nextBtn_completedCourses, textArea_completedCourses}));
 		
@@ -557,6 +592,13 @@ public class AdvisingTool extends JFrame {
 		coursesInProgressLabel.setFont(new Font("Dialog", Font.BOLD, 18));
 		coursesInProgressLabel.setBounds(221, 0, 224, 22);
 		CoursesInProgress.add(coursesInProgressLabel);
+		
+		JScrollPane scrollPane_1 = new JScrollPane();
+		scrollPane_1.setBounds(12, 40, 644, 439);
+		CoursesInProgress.add(scrollPane_1);
+		
+		JTextArea textArea_inProgress = new JTextArea();
+		scrollPane_1.setViewportView(textArea_inProgress);
 		
 		JButton backBtn_inProgress = new JButton("Back");
 		backBtn_inProgress.addActionListener(new ActionListener() {
@@ -573,19 +615,13 @@ public class AdvisingTool extends JFrame {
 		nextBtn_inProgress.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e)
 			{
+				coursesInProgress = textArea_inProgress.getText();
 				setCardLayoutView("courses registered");
 			}
 		});
 		nextBtn_inProgress.setFont(new Font("Dialog", Font.BOLD, 16));
 		nextBtn_inProgress.setBounds(539, 507, 117, 25);
 		CoursesInProgress.add(nextBtn_inProgress);
-		
-		JScrollPane scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(12, 40, 644, 439);
-		CoursesInProgress.add(scrollPane_1);
-		
-		JTextArea textArea_inProgress = new JTextArea();
-		scrollPane_1.setViewportView(textArea_inProgress);
 		CoursesInProgress.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{
 				textArea_inProgress, backBtn_inProgress, nextBtn_inProgress}));
 		
@@ -597,6 +633,13 @@ public class AdvisingTool extends JFrame {
 		registeredCoursesLabel.setFont(new Font("Dialog", Font.BOLD, 18));
 		registeredCoursesLabel.setBounds(226, 0, 202, 22);
 		CoursesRegistered.add(registeredCoursesLabel);
+		
+		JScrollPane scrollPane_2 = new JScrollPane();
+		scrollPane_2.setBounds(12, 40, 644, 439);
+		CoursesRegistered.add(scrollPane_2);
+		
+		JTextArea textArea_regCourses = new JTextArea();
+		scrollPane_2.setViewportView(textArea_regCourses);
 		
 		JButton backBtn_regCourses = new JButton("Back");
 		backBtn_regCourses.addActionListener(new ActionListener() {
@@ -610,16 +653,20 @@ public class AdvisingTool extends JFrame {
 		CoursesRegistered.add(backBtn_regCourses);
 		
 		JButton nextBtn_regCourses = new JButton("Next");
+		nextBtn_regCourses.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e)
+			{
+				coursesRegistered = textArea_regCourses.getText();
+				
+				// Create new student file if user came from "create student record"
+				
+				// Open and update student file is user came from "update student record"
+				
+			}
+		});
 		nextBtn_regCourses.setFont(new Font("Dialog", Font.BOLD, 16));
 		nextBtn_regCourses.setBounds(539, 507, 117, 25);
 		CoursesRegistered.add(nextBtn_regCourses);
-		
-		JScrollPane scrollPane_2 = new JScrollPane();
-		scrollPane_2.setBounds(12, 40, 644, 439);
-		CoursesRegistered.add(scrollPane_2);
-		
-		JTextArea textArea_regCourses = new JTextArea();
-		scrollPane_2.setViewportView(textArea_regCourses);
 		CoursesRegistered.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{
 				textArea_regCourses, backBtn_regCourses, nextBtn_regCourses}));
 		
