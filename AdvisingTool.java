@@ -3,8 +3,11 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.filechooser.FileSystemView;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.awt.event.ActionEvent;
 import java.awt.CardLayout;
 import org.eclipse.wb.swing.FocusTraversalOnArray;
@@ -13,10 +16,13 @@ import java.awt.Font;
 import javax.swing.JTextField;
 import java.awt.Rectangle;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JCheckBox;
+import javax.swing.JFileChooser;
 import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
 import java.awt.Color;
+import java.io.File;
 
 public class AdvisingTool extends JFrame {
 
@@ -39,6 +45,7 @@ public class AdvisingTool extends JFrame {
 	private JButton studiesButton; // Color-changing button indicates progress
 	private JButton majorCoreButton; // Color-changing button indicates progress
 	private JButton majorElectivesButton; // Color-changing button indicates progress
+	private JTextArea textArea_courseSummary;
 	private Color red = new Color(246, 97, 81);        //
 	private Color orange = new Color(255, 190, 111);   // Colors for
 	private Color yellow = new Color(249, 240, 107);   // color-changing buttons
@@ -241,6 +248,7 @@ public class AdvisingTool extends JFrame {
 				// get student info
 				// populate text fields & major checkboxes on updateRecord panel
 				// set student info to info from file
+				loadStudent();
 			}
 		});
 		loadStudentButton_updateRecord.setFont(new Font("Dialog", Font.BOLD, 16));
@@ -479,6 +487,7 @@ public class AdvisingTool extends JFrame {
 				// populate text fields (firstname, lastname, current major)
 				// set student info to info from file
 				// save filename in a variable to update record to new major when 'next' is clicked
+				loadStudent(); // This function loads student info from a .txt file
 			}
 		});
 		loadBtn_updateMajor.setFont(new Font("Dialog", Font.BOLD, 16));
@@ -540,6 +549,21 @@ public class AdvisingTool extends JFrame {
 			{
 				// Update label on Course Summary panel
 				changingLabel.setText("Liberal Arts Core");
+				
+				/*
+				// Testing a read from file - this works
+				try
+				{
+					File myFile = new File("res/liberalArtsCore_2024.txt");
+					Path filePath = myFile.toPath(); // Cast file data type to file path data type
+					String liberalArtsCourses = Files.readString(filePath); // Read data from file as a string
+					textArea_courseSummary.setText(liberalArtsCourses); // Write data to textArea
+				}
+				catch (Exception ex)
+				{
+					System.out.println("File Read error"); // replace with pop-up ***
+				}
+				*/
 				
 				// Change card
 				setCardLayoutView("course summary");
@@ -770,7 +794,7 @@ public class AdvisingTool extends JFrame {
 		scrollPane_2_1.setBounds(12, 40, 644, 439);
 		CourseSummary.add(scrollPane_2_1);
 		
-		JTextArea textArea_courseSummary = new JTextArea();
+		textArea_courseSummary = new JTextArea();
 		scrollPane_2_1.setViewportView(textArea_courseSummary);
 		
 		changingLabel = new JLabel("");
@@ -799,8 +823,38 @@ public class AdvisingTool extends JFrame {
 	}
 	
 	
+	// Function to change card of card layout - used to navigate between each panel
 	private void setCardLayoutView(String card) 
 	{
 		cardLayout.show(MainPanel, card);
+	}
+	
+	
+	// Function to load student info from text file - in progress
+	private void loadStudent() 
+	{
+		try 
+		{
+			JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory()); // Opens file explorer
+			int returnValue = jfc.showOpenDialog(null); 
+			
+			if (returnValue == JFileChooser.APPROVE_OPTION) // Check for valid file - if invalid, file explorer closes & nothing happens
+			{
+				File openedFile = jfc.getSelectedFile(); // User selected file
+				Path filePath = openedFile.toPath(); // Gets file path
+				String fileData = Files.readString(filePath); // Read data from file as a string
+				
+				// split fileData string or whatever to get student info into relevant variables
+				// need studentFirstName, studentLastName, studentCatalogYear, studentMajor,
+				// completedCourses, coursesInProgress, coursesRegistered
+			}
+		}
+		catch(Exception ex)
+		{
+			// Error message pop-up
+			JOptionPane.showMessageDialog(null, 
+					"Error: A problem was encountered loading the file.",
+					"Degree Audit: Error",JOptionPane.PLAIN_MESSAGE);
+		}
 	}
 }
