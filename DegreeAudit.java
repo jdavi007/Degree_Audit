@@ -1,5 +1,6 @@
-import java.awt.EventQueue;
 
+//--------------------------------------------------------------------------------------------------------------------------Imports
+import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -23,12 +24,13 @@ import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
 import java.awt.Color;
 import java.io.File;
-import javax.swing.JList;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+
+// DegreeAudit class start
 public class DegreeAudit extends JFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -106,13 +108,19 @@ public class DegreeAudit extends JFrame {
 	Path libAPath = libAFile.toPath();
 
 	//---------------------------------------------------------------------------------------------------------------------Launch the application
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
+	public static void main(String[] args) 
+	{
+		EventQueue.invokeLater(new Runnable() 
+		{
+			public void run() 
+			{
+				try 
+				{
 					DegreeAudit frame = new DegreeAudit();
 					frame.setVisible(true);
-				} catch (Exception e) {
+				} 
+				catch (Exception e) 
+				{
 					e.printStackTrace();
 				}
 			}
@@ -164,13 +172,14 @@ public class DegreeAudit extends JFrame {
 					"Degree Audit: Error",JOptionPane.PLAIN_MESSAGE);
 		}
 		
-		//---------------------------------------------------------------------------------------------------------------------Start Screen
+		//---------------------------------------------------------------------------------------------------------------------Start panel
 		JPanel StartScreen = new JPanel();
 		MainPanel.add(StartScreen, "start");
 		
-		JButton updateStudentRecordBtn = new JButton("Update Student Record");
+		JButton updateStudentRecordBtn = new JButton("Update Student Record"); // Update Student Record button
 		updateStudentRecordBtn.setBounds(12, 23, 739, 100);
-		updateStudentRecordBtn.addActionListener(new ActionListener() {
+		updateStudentRecordBtn.addActionListener(new ActionListener() 
+		{
 			public void actionPerformed(ActionEvent e)
 			{
 				// Change card
@@ -182,10 +191,11 @@ public class DegreeAudit extends JFrame {
 		StartScreen.add(updateStudentRecordBtn);
 		
 		
-		JButton createStudentRecordBtn = new JButton("Create Student Record");
+		JButton createStudentRecordBtn = new JButton("Create Student Record"); // Create Student Record button
 		createStudentRecordBtn.setBounds(12, 193, 739, 100);
 		createStudentRecordBtn.setFont(new Font("Dialog", Font.BOLD, 18));
-		createStudentRecordBtn.addActionListener(new ActionListener() {
+		createStudentRecordBtn.addActionListener(new ActionListener() 
+		{
 			public void actionPerformed(ActionEvent e) 
 			{
 				// Change card
@@ -195,11 +205,11 @@ public class DegreeAudit extends JFrame {
 		StartScreen.add(createStudentRecordBtn);
 		
 		
-		
-		JButton updateMajorBtn = new JButton("Update Major");
+		JButton updateMajorBtn = new JButton("Update Major"); // Update Major button
 		updateMajorBtn.setBounds(12, 368, 739, 100);
 		updateMajorBtn.setFont(new Font("Dialog", Font.BOLD, 18));
-		updateMajorBtn.addActionListener(new ActionListener() {
+		updateMajorBtn.addActionListener(new ActionListener() 
+		{
 			public void actionPerformed(ActionEvent e)
 			{
 				// Change card
@@ -209,29 +219,31 @@ public class DegreeAudit extends JFrame {
 		StartScreen.add(updateMajorBtn);
 		
 		
-		
-		JButton deleteStudentRecordBtn = new JButton("Delete Student Record");
+		JButton deleteStudentRecordBtn = new JButton("Delete Student Record"); // Delete Student Record button
 		deleteStudentRecordBtn.setBounds(12, 535, 739, 100);
 		deleteStudentRecordBtn.setFont(new Font("Dialog", Font.BOLD, 18));
-		deleteStudentRecordBtn.addActionListener(new ActionListener() {
+		deleteStudentRecordBtn.addActionListener(new ActionListener() 
+		{
 			public void actionPerformed(ActionEvent e)
 			{
+				// TODO:
 				// Open file explorer & delete or go to a different panel to delete?
 				// Pop-up ask for confirmation
 				// Pop-up confirm delete
 			}
 		});
 		StartScreen.add(deleteStudentRecordBtn);
+		
+		// Start Screen 'tab' traversal policy
 		StartScreen.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]
 				{updateStudentRecordBtn, createStudentRecordBtn, updateMajorBtn, deleteStudentRecordBtn}));
 		
-		//---------------------------------------------------------------------------------------------------------------------Update Record Screen
-		
+		//---------------------------------------------------------------------------------------------------------------------Update Record panel
 		JPanel UpdateStudentRecord = new JPanel();
 		MainPanel.add(UpdateStudentRecord, "update student record");
 		UpdateStudentRecord.setLayout(null);
 		
-		JLabel stdntRecordLabel = new JLabel("Update Student Record");
+		JLabel stdntRecordLabel = new JLabel("Update Student Record"); // Page Title Label
 		stdntRecordLabel.setFont(new Font("Dialog", Font.BOLD, 18));
 		stdntRecordLabel.setBounds(254, 0, 260, 15);
 		UpdateStudentRecord.add(stdntRecordLabel);
@@ -242,62 +254,63 @@ public class DegreeAudit extends JFrame {
 		UpdateStudentRecord.add(firstNameTextField_updateRecord);
 		firstNameTextField_updateRecord.setColumns(10);
 		
-		JLabel firstNameLabel = new JLabel("First Name:");
+		JLabel firstNameLabel = new JLabel("First Name:"); // First Name label
 		firstNameLabel.setFont(new Font("Dialog", Font.BOLD, 16));
 		firstNameLabel.setBounds(12, 65, 114, 15);
 		UpdateStudentRecord.add(firstNameLabel);
 		
-		JLabel lastNameLabel = new JLabel("Last Name:");
+		JLabel lastNameLabel = new JLabel("Last Name:"); // Last Name label
 		lastNameLabel.setFont(new Font("Dialog", Font.BOLD, 16));
 		lastNameLabel.setBounds(12, 100, 114, 15);
 		UpdateStudentRecord.add(lastNameLabel);
 		
-		lastNameTextField_updateRecord = new JTextField();
+		lastNameTextField_updateRecord = new JTextField(); // Last Name text field
 		lastNameTextField_updateRecord.setFont(new Font("Dialog", Font.PLAIN, 14));
 		lastNameTextField_updateRecord.setColumns(10);
 		lastNameTextField_updateRecord.setBounds(130, 98, 204, 25);
 		UpdateStudentRecord.add(lastNameTextField_updateRecord);
 		
-		JLabel catalogYearLabel = new JLabel("Catalog Year:");
+		JLabel catalogYearLabel = new JLabel("Catalog Year:"); // Catalog Year label
 		catalogYearLabel.setFont(new Font("Dialog", Font.BOLD, 16));
 		catalogYearLabel.setBounds(12, 137, 133, 15);
 		UpdateStudentRecord.add(catalogYearLabel);
 		
-		yearTextField_updateRecord = new JTextField();
+		yearTextField_updateRecord = new JTextField(); // Catalog Year text field
 		yearTextField_updateRecord.setFont(new Font("Dialog", Font.PLAIN, 14));
 		yearTextField_updateRecord.setColumns(10);
 		yearTextField_updateRecord.setBounds(156, 133, 178, 25);
 		UpdateStudentRecord.add(yearTextField_updateRecord);
 		
-		JLabel majorLabel = new JLabel("Major:");
+		JLabel majorLabel = new JLabel("Major:"); // Major label
 		majorLabel.setFont(new Font("Dialog", Font.BOLD, 16));
 		majorLabel.setBounds(12, 208, 59, 15);
 		UpdateStudentRecord.add(majorLabel);
 		
-		JCheckBox CSmajorCheckBox_updateRecord = new JCheckBox("CS");
+		JCheckBox CSmajorCheckBox_updateRecord = new JCheckBox("CS"); // CS Major check box
 		CSmajorCheckBox_updateRecord.setFont(new Font("Dialog", Font.BOLD, 16));
 		CSmajorCheckBox_updateRecord.setBounds(85, 205, 60, 23);
 		UpdateStudentRecord.add(CSmajorCheckBox_updateRecord);
 		
-		JCheckBox SWEmajorCheckBox_updateRecord = new JCheckBox("SWE");
+		JCheckBox SWEmajorCheckBox_updateRecord = new JCheckBox("SWE"); // SWE Major check box 
 		SWEmajorCheckBox_updateRecord.setFont(new Font("Dialog", Font.BOLD, 16));
 		SWEmajorCheckBox_updateRecord.setBounds(149, 205, 64, 23);
 		UpdateStudentRecord.add(SWEmajorCheckBox_updateRecord);
 		
-		JCheckBox MISmajorCheckBox_updateRecord = new JCheckBox("MIS");
+		JCheckBox MISmajorCheckBox_updateRecord = new JCheckBox("MIS"); // MIS Major check box
 		MISmajorCheckBox_updateRecord.setEnabled(false);
 		MISmajorCheckBox_updateRecord.setFont(new Font("Dialog", Font.BOLD, 16));
 		MISmajorCheckBox_updateRecord.setBounds(220, 205, 60, 23);
 		UpdateStudentRecord.add(MISmajorCheckBox_updateRecord);
 		
-		JCheckBox mathMajorCheckBox_updateRecord = new JCheckBox("MATH");
+		JCheckBox mathMajorCheckBox_updateRecord = new JCheckBox("MATH"); // Math Major check box
 		mathMajorCheckBox_updateRecord.setEnabled(false);
 		mathMajorCheckBox_updateRecord.setFont(new Font("Dialog", Font.BOLD, 16));
 		mathMajorCheckBox_updateRecord.setBounds(290, 205, 76, 23);
 		UpdateStudentRecord.add(mathMajorCheckBox_updateRecord);
 		
-		JButton nextButton_updateRecord = new JButton("Next");
-		nextButton_updateRecord.addActionListener(new ActionListener() {
+		JButton nextButton_updateRecord = new JButton("Next"); // Next button
+		nextButton_updateRecord.addActionListener(new ActionListener() 
+		{
 			public void actionPerformed(ActionEvent e)
 			{
 				newOrUpdate = "update";
@@ -310,13 +323,15 @@ public class DegreeAudit extends JFrame {
 		nextButton_updateRecord.setBounds(634, 610, 117, 25);
 		UpdateStudentRecord.add(nextButton_updateRecord);
 		
-		JButton loadStudentButton_updateRecord = new JButton("Load Student Record");
-		loadStudentButton_updateRecord.addActionListener(new ActionListener() {
+		JButton loadStudentButton_updateRecord = new JButton("Load Student Record"); // Load Student Record button
+		loadStudentButton_updateRecord.addActionListener(new ActionListener() 
+		{
 			public void actionPerformed(ActionEvent e)
 			{
 				// open file explorer & get student info
 				loadStudent();
 				
+				// TODO:
 				// populate text fields & major checkbox on updateRecord panel
 				// set student info to info from file
 			}
@@ -325,8 +340,9 @@ public class DegreeAudit extends JFrame {
 		loadStudentButton_updateRecord.setBounds(254, 610, 260, 25);
 		UpdateStudentRecord.add(loadStudentButton_updateRecord);
 		
-		JButton backButton_updateRecord = new JButton("Back");
-		backButton_updateRecord.addActionListener(new ActionListener() {
+		JButton backButton_updateRecord = new JButton("Back"); // Back button
+		backButton_updateRecord.addActionListener(new ActionListener() 
+		{
 			public void actionPerformed(ActionEvent e)
 			{
 				// Change card
@@ -336,84 +352,86 @@ public class DegreeAudit extends JFrame {
 		backButton_updateRecord.setFont(new Font("Dialog", Font.BOLD, 16));
 		backButton_updateRecord.setBounds(12, 610, 117, 25);
 		UpdateStudentRecord.add(backButton_updateRecord);
+		
+		// Update Record 'tab' traversal policy
 		UpdateStudentRecord.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]
 				{firstNameTextField_updateRecord, lastNameTextField_updateRecord, yearTextField_updateRecord, 
 						CSmajorCheckBox_updateRecord, SWEmajorCheckBox_updateRecord, MISmajorCheckBox_updateRecord, 
 						mathMajorCheckBox_updateRecord, backButton_updateRecord, loadStudentButton_updateRecord, nextButton_updateRecord}));
 		
-		//---------------------------------------------------------------------------------------------------------------------Create Record Screen
-		
+		//---------------------------------------------------------------------------------------------------------------------Create Record panel
 		JPanel CreateStudentRecord = new JPanel();
 		MainPanel.add(CreateStudentRecord, "create student record");
 		CreateStudentRecord.setLayout(null);
 		
-		JLabel firstNameLabel_1 = new JLabel("First Name:");
+		JLabel lblCreateStudentRecord = new JLabel("Create Student Record"); // Page Title label
+		lblCreateStudentRecord.setFont(new Font("Dialog", Font.BOLD, 18));
+		lblCreateStudentRecord.setBounds(261, 0, 260, 15);
+		CreateStudentRecord.add(lblCreateStudentRecord);
+		
+		JLabel firstNameLabel_1 = new JLabel("First Name:"); // First Name label
 		firstNameLabel_1.setFont(new Font("Dialog", Font.BOLD, 16));
 		firstNameLabel_1.setBounds(12, 65, 114, 15);
 		CreateStudentRecord.add(firstNameLabel_1);
 		
-		firstNameField_createRecord = new JTextField();
+		firstNameField_createRecord = new JTextField(); // First Name text field
 		firstNameField_createRecord.setFont(new Font("Dialog", Font.PLAIN, 16));
 		firstNameField_createRecord.setColumns(10);
 		firstNameField_createRecord.setBounds(130, 63, 204, 25);
 		CreateStudentRecord.add(firstNameField_createRecord);
 		
-		JLabel lastNameLabel_1 = new JLabel("Last Name:");
+		JLabel lastNameLabel_1 = new JLabel("Last Name:"); // Last Name label
 		lastNameLabel_1.setFont(new Font("Dialog", Font.BOLD, 16));
 		lastNameLabel_1.setBounds(12, 100, 114, 15);
 		CreateStudentRecord.add(lastNameLabel_1);
 		
-		lastNameField_createRecord = new JTextField();
+		lastNameField_createRecord = new JTextField(); // Last Name text field
 		lastNameField_createRecord.setFont(new Font("Dialog", Font.PLAIN, 14));
 		lastNameField_createRecord.setColumns(10);
 		lastNameField_createRecord.setBounds(130, 98, 204, 25);
 		CreateStudentRecord.add(lastNameField_createRecord);
 		
-		yearField_createRecord = new JTextField();
+		yearField_createRecord = new JTextField(); // Year text field
 		yearField_createRecord.setFont(new Font("Dialog", Font.PLAIN, 14));
 		yearField_createRecord.setColumns(10);
 		yearField_createRecord.setBounds(156, 133, 178, 25);
 		CreateStudentRecord.add(yearField_createRecord);
 		
-		JLabel catalogYearLabel_1 = new JLabel("Catalog Year:");
+		JLabel catalogYearLabel_1 = new JLabel("Catalog Year:"); // Year label
 		catalogYearLabel_1.setFont(new Font("Dialog", Font.BOLD, 16));
 		catalogYearLabel_1.setBounds(12, 137, 133, 15);
 		CreateStudentRecord.add(catalogYearLabel_1);
 		
-		JLabel lblCreateStudentRecord = new JLabel("Create Student Record");
-		lblCreateStudentRecord.setFont(new Font("Dialog", Font.BOLD, 18));
-		lblCreateStudentRecord.setBounds(261, 0, 260, 15);
-		CreateStudentRecord.add(lblCreateStudentRecord);
-		
-		JLabel majorLabel_1 = new JLabel("Major:");
+		JLabel majorLabel_1 = new JLabel("Major:"); // Major label
 		majorLabel_1.setFont(new Font("Dialog", Font.BOLD, 16));
 		majorLabel_1.setBounds(12, 208, 59, 15);
 		CreateStudentRecord.add(majorLabel_1);
 		
-		JCheckBox CSmajorCheckBox_createRecord = new JCheckBox("CS");
+		JCheckBox CSmajorCheckBox_createRecord = new JCheckBox("CS"); // CS Major check box
 		CSmajorCheckBox_createRecord.setFont(new Font("Dialog", Font.BOLD, 16));
 		CSmajorCheckBox_createRecord.setBounds(85, 205, 60, 23);
 		CreateStudentRecord.add(CSmajorCheckBox_createRecord);
 		
-		JCheckBox SWEmajorCheckBox_createRecord = new JCheckBox("SWE");
+		JCheckBox SWEmajorCheckBox_createRecord = new JCheckBox("SWE"); // SWE Major check box
 		SWEmajorCheckBox_createRecord.setFont(new Font("Dialog", Font.BOLD, 16));
 		SWEmajorCheckBox_createRecord.setBounds(149, 205, 64, 23);
 		CreateStudentRecord.add(SWEmajorCheckBox_createRecord);
 		
-		JCheckBox MISmajorCheckBox_createRecord = new JCheckBox("MIS");
+		JCheckBox MISmajorCheckBox_createRecord = new JCheckBox("MIS"); // MIS Major check box
 		MISmajorCheckBox_createRecord.setEnabled(false);
 		MISmajorCheckBox_createRecord.setFont(new Font("Dialog", Font.BOLD, 16));
 		MISmajorCheckBox_createRecord.setBounds(220, 205, 60, 23);
 		CreateStudentRecord.add(MISmajorCheckBox_createRecord);
 		
-		JCheckBox mathMajorCheckBox_createRecord = new JCheckBox("MATH");
+		JCheckBox mathMajorCheckBox_createRecord = new JCheckBox("MATH"); // Math Major check box
 		mathMajorCheckBox_createRecord.setEnabled(false);
 		mathMajorCheckBox_createRecord.setFont(new Font("Dialog", Font.BOLD, 16));
 		mathMajorCheckBox_createRecord.setBounds(290, 205, 76, 23);
 		CreateStudentRecord.add(mathMajorCheckBox_createRecord);
 		
-		JButton nextBtn_createRecord = new JButton("Next");
-		nextBtn_createRecord.addActionListener(new ActionListener() {
+		JButton nextBtn_createRecord = new JButton("Next"); // Next button
+		nextBtn_createRecord.addActionListener(new ActionListener() 
+		{
 			public void actionPerformed(ActionEvent e)
 			{
 				newOrUpdate = "new";
@@ -441,8 +459,9 @@ public class DegreeAudit extends JFrame {
 		nextBtn_createRecord.setBounds(634, 610, 117, 25);
 		CreateStudentRecord.add(nextBtn_createRecord);
 		
-		JButton backBtn_createRecord = new JButton("Back");
-		backBtn_createRecord.addActionListener(new ActionListener() {
+		JButton backBtn_createRecord = new JButton("Back"); // Back button
+		backBtn_createRecord.addActionListener(new ActionListener() 
+		{
 			public void actionPerformed(ActionEvent e)
 			{
 				// Change card
@@ -452,24 +471,26 @@ public class DegreeAudit extends JFrame {
 		backBtn_createRecord.setFont(new Font("Dialog", Font.BOLD, 16));
 		backBtn_createRecord.setBounds(12, 610, 117, 25);
 		CreateStudentRecord.add(backBtn_createRecord);
+		
+		// Create Record 'tab' traversal policy
 		CreateStudentRecord.setFocusTraversalPolicy(new FocusTraversalOnArray(
 				new Component[]{firstNameField_createRecord, lastNameField_createRecord, yearField_createRecord, 
 						CSmajorCheckBox_createRecord, SWEmajorCheckBox_createRecord, MISmajorCheckBox_createRecord,
 						mathMajorCheckBox_createRecord, backBtn_createRecord, nextBtn_createRecord}));
 		
-		//---------------------------------------------------------------------------------------------------------------------Update Major Screen
-		
+		//---------------------------------------------------------------------------------------------------------------------Update Major panel
 		JPanel UpdateMajor = new JPanel();
 		MainPanel.add(UpdateMajor, "update major");
 		UpdateMajor.setLayout(null);
 		
-		JLabel updateMajorLabel = new JLabel("Update Major");
+		JLabel updateMajorLabel = new JLabel("Update Major"); // Page Title label
 		updateMajorLabel.setFont(new Font("Dialog", Font.BOLD, 18));
 		updateMajorLabel.setBounds(302, 0, 260, 15);
 		UpdateMajor.add(updateMajorLabel);
 		
-		JButton backBtn_updateMajor = new JButton("Back");
-		backBtn_updateMajor.addActionListener(new ActionListener() {
+		JButton backBtn_updateMajor = new JButton("Back"); // Back button
+		backBtn_updateMajor.addActionListener(new ActionListener() 
+		{
 			public void actionPerformed(ActionEvent e)
 			{
 				// Change card
@@ -480,10 +501,12 @@ public class DegreeAudit extends JFrame {
 		backBtn_updateMajor.setBounds(12, 610, 117, 25);
 		UpdateMajor.add(backBtn_updateMajor);
 		
-		JButton nextBtn_updateMajor = new JButton("Next");
-		nextBtn_updateMajor.addActionListener(new ActionListener() {
+		JButton nextBtn_updateMajor = new JButton("Next"); // Next button
+		nextBtn_updateMajor.addActionListener(new ActionListener() 
+		{
 			public void actionPerformed(ActionEvent e)
 			{
+				// TODO:
 				// pop-up ask for confirmation
 				// get new major from checkboxes
 				// open student file and update only major (will need to change file name)
@@ -498,73 +521,75 @@ public class DegreeAudit extends JFrame {
 		nextBtn_updateMajor.setBounds(634, 610, 117, 25);
 		UpdateMajor.add(nextBtn_updateMajor);
 		
-		JLabel changeToLabel = new JLabel("Change to:");
+		JLabel changeToLabel = new JLabel("Change to:"); // Change Major label
 		changeToLabel.setFont(new Font("Dialog", Font.BOLD, 16));
 		changeToLabel.setBounds(12, 208, 97, 15);
 		UpdateMajor.add(changeToLabel);
 		
-		JCheckBox CSmajorCheckBox_updateMajor = new JCheckBox("CS");
+		JCheckBox CSmajorCheckBox_updateMajor = new JCheckBox("CS"); // CS Major check box
 		CSmajorCheckBox_updateMajor.setFont(new Font("Dialog", Font.BOLD, 16));
 		CSmajorCheckBox_updateMajor.setBounds(156, 204, 60, 23);
 		UpdateMajor.add(CSmajorCheckBox_updateMajor);
 		
-		JCheckBox SWEmajorCheckBox_updateMajor = new JCheckBox("SWE");
+		JCheckBox SWEmajorCheckBox_updateMajor = new JCheckBox("SWE"); // SWE Major check box
 		SWEmajorCheckBox_updateMajor.setFont(new Font("Dialog", Font.BOLD, 16));
 		SWEmajorCheckBox_updateMajor.setBounds(220, 204, 64, 23);
 		UpdateMajor.add(SWEmajorCheckBox_updateMajor);
 		
-		JCheckBox MISmajorCheckBox_updateMajor = new JCheckBox("MIS");
+		JCheckBox MISmajorCheckBox_updateMajor = new JCheckBox("MIS"); // MIS Major check box
 		MISmajorCheckBox_updateMajor.setEnabled(false);
 		MISmajorCheckBox_updateMajor.setFont(new Font("Dialog", Font.BOLD, 16));
 		MISmajorCheckBox_updateMajor.setBounds(291, 204, 60, 23);
 		UpdateMajor.add(MISmajorCheckBox_updateMajor);
 		
-		JCheckBox mathMajorCheckBox_updateMajor = new JCheckBox("MATH");
+		JCheckBox mathMajorCheckBox_updateMajor = new JCheckBox("MATH"); // Math Major check box
 		mathMajorCheckBox_updateMajor.setFont(new Font("Dialog", Font.BOLD, 16));
 		mathMajorCheckBox_updateMajor.setBounds(361, 204, 76, 23);
 		UpdateMajor.add(mathMajorCheckBox_updateMajor);
 		
-		JLabel firstNameLabel_1_1 = new JLabel("First Name:");
+		JLabel firstNameLabel_1_1 = new JLabel("First Name:"); // First Name label
 		firstNameLabel_1_1.setFont(new Font("Dialog", Font.BOLD, 16));
 		firstNameLabel_1_1.setBounds(12, 65, 114, 15);
 		UpdateMajor.add(firstNameLabel_1_1);
 		
-		JLabel lastNameLabel_1_1 = new JLabel("Last Name:");
+		JLabel lastNameLabel_1_1 = new JLabel("Last Name:"); // Last Name label
 		lastNameLabel_1_1.setFont(new Font("Dialog", Font.BOLD, 16));
 		lastNameLabel_1_1.setBounds(12, 100, 114, 15);
 		UpdateMajor.add(lastNameLabel_1_1);
 		
-		firstNameField_updateMajor = new JTextField();
+		firstNameField_updateMajor = new JTextField(); // First Name text field
 		firstNameField_updateMajor.setFont(new Font("Dialog", Font.PLAIN, 16));
 		firstNameField_updateMajor.setColumns(10);
 		firstNameField_updateMajor.setBounds(130, 63, 204, 25);
 		UpdateMajor.add(firstNameField_updateMajor);
 		
-		lastNameField_updateMajor = new JTextField();
+		lastNameField_updateMajor = new JTextField(); // Last Name text field
 		lastNameField_updateMajor.setFont(new Font("Dialog", Font.PLAIN, 14));
 		lastNameField_updateMajor.setColumns(10);
 		lastNameField_updateMajor.setBounds(130, 98, 204, 25);
 		UpdateMajor.add(lastNameField_updateMajor);
 		
-		JLabel currentMajorLabel = new JLabel("Current Major:");
+		JLabel currentMajorLabel = new JLabel("Current Major:"); // Current Major label
 		currentMajorLabel.setFont(new Font("Dialog", Font.BOLD, 16));
 		currentMajorLabel.setBounds(12, 137, 133, 15);
 		UpdateMajor.add(currentMajorLabel);
 		
-		currentMajorField = new JTextField();
+		currentMajorField = new JTextField(); // Current Major text field
 		currentMajorField.setFont(new Font("Dialog", Font.PLAIN, 14));
 		currentMajorField.setColumns(10);
 		currentMajorField.setBounds(156, 133, 178, 25);
 		UpdateMajor.add(currentMajorField);
 		
-		JButton loadBtn_updateMajor = new JButton("Load Student Record");
-		loadBtn_updateMajor.addActionListener(new ActionListener() {
+		JButton loadBtn_updateMajor = new JButton("Load Student Record"); // Load Student Record button
+		loadBtn_updateMajor.addActionListener(new ActionListener() 
+		{
 			public void actionPerformed(ActionEvent e)
 			{
 				// open file explorer & get student info
 				loadStudent();
 				
-				// populate text fields (firstname, lastname, current major)
+				// TODO:
+				// populate text fields (firstName, lastName, current major)
 				// set student info to info from file
 				// save filename in a variable to update record to new major when 'next' is clicked
 			}
@@ -572,24 +597,26 @@ public class DegreeAudit extends JFrame {
 		loadBtn_updateMajor.setFont(new Font("Dialog", Font.BOLD, 16));
 		loadBtn_updateMajor.setBounds(254, 610, 260, 25);
 		UpdateMajor.add(loadBtn_updateMajor);
+		
+		// Update Major 'tab' traversal policy
 		UpdateMajor.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{
 				firstNameField_updateMajor, lastNameField_updateMajor, currentMajorField, 
 				CSmajorCheckBox_updateMajor, SWEmajorCheckBox_updateMajor, MISmajorCheckBox_updateMajor, 
 				mathMajorCheckBox_updateMajor, backBtn_updateMajor, loadBtn_updateMajor, nextBtn_updateMajor}));
 		
-		//---------------------------------------------------------------------------------------------------------------------Degree Progress Screen
-		
+		//---------------------------------------------------------------------------------------------------------------------Degree Progress panel
 		JPanel DegreeProgress = new JPanel();
 		MainPanel.add(DegreeProgress, "degree progress");
 		DegreeProgress.setLayout(null);
 		
-		JLabel degreeProgressLabel = new JLabel("Degree Progress");
+		JLabel degreeProgressLabel = new JLabel("Degree Progress"); // Page Title label
 		degreeProgressLabel.setBounds(298, 0, 169, 22);
 		degreeProgressLabel.setFont(new Font("Dialog", Font.BOLD, 18));
 		DegreeProgress.add(degreeProgressLabel);
 		
-		JButton backBtn_degreeProgress = new JButton("Back");
-		backBtn_degreeProgress.addActionListener(new ActionListener() {
+		JButton backBtn_degreeProgress = new JButton("Back"); // Back button
+		backBtn_degreeProgress.addActionListener(new ActionListener() 
+		{
 			public void actionPerformed(ActionEvent e)
 			{
 				if(newOrUpdate == "new") 
@@ -608,15 +635,17 @@ public class DegreeAudit extends JFrame {
 		backBtn_degreeProgress.setBounds(12, 610, 117, 25);
 		DegreeProgress.add(backBtn_degreeProgress);
 		
-		JButton nextBtn_degreeProgress = new JButton("Next");
-		nextBtn_degreeProgress.addActionListener(new ActionListener() {
+		JButton nextBtn_degreeProgress = new JButton("Next"); // Next button
+		nextBtn_degreeProgress.addActionListener(new ActionListener() 
+		{
 			public void actionPerformed(ActionEvent e)
 			{
-				// If newOrUpdate == "update", populate textArea_completedCourses with existing info from file
+				// TODO:
+				// If newOrUpdate == "update", populate textArea_registered, 
+				// textArea_inProgress, & textArea_complete with existing info from file
 				
-				
-				textArea_available.setText(allCourses);
-				textArea_available.setCaretPosition(0);
+				textArea_available.setText(allCourses); // Default textArea_available to show all available courses
+				textArea_available.setCaretPosition(0); // Moves to top of list so it doesn't look weird
 				
 				// Change card
 				setCardLayoutView("courses");
@@ -626,13 +655,15 @@ public class DegreeAudit extends JFrame {
 		nextBtn_degreeProgress.setBounds(634, 610, 117, 25);
 		DegreeProgress.add(nextBtn_degreeProgress);
 		
-		liberalArtsCoreButton = new JButton("Liberal Arts Core");
-		liberalArtsCoreButton.addActionListener(new ActionListener() {
+		liberalArtsCoreButton = new JButton("Liberal Arts Core"); // Liberal Arts Core button
+		liberalArtsCoreButton.addActionListener(new ActionListener() 
+		{
 			public void actionPerformed(ActionEvent e)
 			{
 				// Update label on Course Summary panel
 				changingLabel.setText("Liberal Arts Core");
 				
+				// TODO:
 				//find student's liberal arts courses
 				//calculate progress and change button color (will need to do this on the 'next' button on the previous screen)
 				//populate textArea_courseSummary with student's lib arts courses
@@ -646,13 +677,15 @@ public class DegreeAudit extends JFrame {
 		liberalArtsCoreButton.setBounds(12, 41, 739, 100);
 		DegreeProgress.add(liberalArtsCoreButton);
 		
-		studiesButton = new JButton("Studies");
-		studiesButton.addActionListener(new ActionListener() {
+		studiesButton = new JButton("Studies"); // Studies button
+		studiesButton.addActionListener(new ActionListener() 
+		{
 			public void actionPerformed(ActionEvent e)
 			{
 				// Update label on Course Summary panel
 				changingLabel.setText("Four Studies");
 				
+				// TODO:
 				//find student's 4-studies courses
 				//calculate progress and change button color (will need to do this on the 'next' button on the previous screen)
 				//populate textArea_courseSummary with student's 4-studies courses
@@ -666,13 +699,15 @@ public class DegreeAudit extends JFrame {
 		studiesButton.setBounds(12, 190, 739, 100);
 		DegreeProgress.add(studiesButton);
 		
-		majorCoreButton = new JButton("Major - Core");
-		majorCoreButton.addActionListener(new ActionListener() {
+		majorCoreButton = new JButton("Major - Core"); // Major Core button
+		majorCoreButton.addActionListener(new ActionListener() 
+		{
 			public void actionPerformed(ActionEvent e)
 			{
 				// Update label on Course Summary panel
 				changingLabel.setText("Major Core");
 				
+				// TODO:
 				//find student's major core courses
 				//calculate progress and change button color (will need to do this on the 'next' button on the previous screen)
 				//populate textArea_courseSummary with student's major core courses
@@ -686,13 +721,15 @@ public class DegreeAudit extends JFrame {
 		majorCoreButton.setBounds(12, 339, 739, 100);
 		DegreeProgress.add(majorCoreButton);
 		
-		majorElectivesButton = new JButton("Major - Electives");
-		majorElectivesButton.addActionListener(new ActionListener() {
+		majorElectivesButton = new JButton("Major - Electives"); // Major Electives button
+		majorElectivesButton.addActionListener(new ActionListener() 
+		{
 			public void actionPerformed(ActionEvent e)
 			{
 				// Update label on Course Summary panel
 				changingLabel.setText("Major Electives");
 				
+				// TODO:
 				//find student's major elective courses
 				//calculate progress and change button color (will need to do this on the 'next' button on the previous screen)
 				//populate textArea_courseSummary with student's major elective courses
@@ -705,22 +742,24 @@ public class DegreeAudit extends JFrame {
 		majorElectivesButton.setFont(new Font("Dialog", Font.BOLD, 18));
 		majorElectivesButton.setBounds(12, 484, 739, 100);
 		DegreeProgress.add(majorElectivesButton);
+		
+		// Degree Progress 'tab' traversal policy
 		DegreeProgress.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{
 				liberalArtsCoreButton, studiesButton, majorCoreButton, majorElectivesButton, backBtn_degreeProgress, nextBtn_degreeProgress}));
 		
-		//---------------------------------------------------------------------------------------------------------------------Course Summary Screens
-		
+		//---------------------------------------------------------------------------------------------------------------------Course Summary panel
 		JPanel CourseSummary = new JPanel();
 		MainPanel.add(CourseSummary, "course summary");
 		CourseSummary.setLayout(null);
 		
-		JLabel courseSummaryLabel = new JLabel("Course Summary - ");
+		JLabel courseSummaryLabel = new JLabel("Course Summary - "); // Page Title label
 		courseSummaryLabel.setFont(new Font("Dialog", Font.BOLD, 18));
 		courseSummaryLabel.setBounds(205, 0, 202, 22);
 		CourseSummary.add(courseSummaryLabel);
 		
-		JButton backBtn_courseSummary = new JButton("Back");
-		backBtn_courseSummary.addActionListener(new ActionListener() {
+		JButton backBtn_courseSummary = new JButton("Back"); // Back button
+		backBtn_courseSummary.addActionListener(new ActionListener() 
+		{
 			public void actionPerformed(ActionEvent e)
 			{
 				setCardLayoutView("degree progress");
@@ -730,31 +769,36 @@ public class DegreeAudit extends JFrame {
 		backBtn_courseSummary.setBounds(12, 610, 117, 25);
 		CourseSummary.add(backBtn_courseSummary);
 		
-		JScrollPane scrollPane_2_1 = new JScrollPane();
+		JScrollPane scrollPane_2_1 = new JScrollPane(); // Scroll pane
 		scrollPane_2_1.setBounds(12, 40, 739, 558);
 		CourseSummary.add(scrollPane_2_1);
 		
-		textArea_courseSummary = new JTextArea();
+		textArea_courseSummary = new JTextArea(); // Course Summary text area
 		scrollPane_2_1.setViewportView(textArea_courseSummary);
 		
-		changingLabel = new JLabel("");
+		changingLabel = new JLabel(""); // Changing label - updates based on which button was clicked to get to this panel
 		changingLabel.setFont(new Font("Dialog", Font.BOLD, 18));
 		changingLabel.setBounds(407, 4, 315, 15);
 		CourseSummary.add(changingLabel);
 		
-		//---------------------------------------------------------------------------------------------------------------------Course Selection Screen
-		
+		//---------------------------------------------------------------------------------------------------------------------Course Selection panel
 		JPanel Courses = new JPanel();
 		MainPanel.add(Courses, "courses");
 		Courses.setLayout(null);
 		
-		JScrollPane scrollPane_inProgress = new JScrollPane();
+		JLabel coursesLabel = new JLabel("Courses"); // Page Title label
+		coursesLabel.setFont(new Font("Dialog", Font.BOLD, 18));
+		coursesLabel.setBounds(335, 0, 202, 22);
+		Courses.add(coursesLabel);
+		
+		JScrollPane scrollPane_inProgress = new JScrollPane(); // In Progress Courses scroll pane
 		scrollPane_inProgress.setBounds(402, 59, 155, 539);
 		Courses.add(scrollPane_inProgress);
 		
-		JTextArea textArea_inProgress = new JTextArea();
+		JTextArea textArea_inProgress = new JTextArea(); // In Progress Courses text area
 		textArea_inProgress.setFont(new Font("Dialog", Font.PLAIN, 16));
-		textArea_inProgress.addMouseListener(new MouseAdapter() {
+		textArea_inProgress.addMouseListener(new MouseAdapter() 
+		{
 			@Override
 			public void mouseClicked(MouseEvent e)
 			{
@@ -777,13 +821,14 @@ public class DegreeAudit extends JFrame {
 		textArea_inProgress.setEditable(false);
 		scrollPane_inProgress.setViewportView(textArea_inProgress);
 		
-		JScrollPane scrollPane_complete = new JScrollPane();
+		JScrollPane scrollPane_complete = new JScrollPane(); // Completed Courses scroll pane
 		scrollPane_complete.setBounds(600, 59, 155, 539);
 		Courses.add(scrollPane_complete);
 		
-		JTextArea textArea_complete = new JTextArea();
+		JTextArea textArea_complete = new JTextArea(); // Completed Courses text area
 		textArea_complete.setFont(new Font("Dialog", Font.PLAIN, 16));
-		textArea_complete.addMouseListener(new MouseAdapter() {
+		textArea_complete.addMouseListener(new MouseAdapter() 
+		{
 			@Override
 			public void mouseClicked(MouseEvent e)
 			{
@@ -806,13 +851,14 @@ public class DegreeAudit extends JFrame {
 		textArea_complete.setEditable(false);
 		scrollPane_complete.setViewportView(textArea_complete);
 		
-		JScrollPane scrollPane_registered = new JScrollPane();
+		JScrollPane scrollPane_registered = new JScrollPane(); // Registered Courses scroll pane
 		scrollPane_registered.setBounds(204, 59, 155, 539);
 		Courses.add(scrollPane_registered);
 		
-		JTextArea textArea_registered = new JTextArea();
+		JTextArea textArea_registered = new JTextArea(); // Registered Courses text area
 		textArea_registered.setFont(new Font("Dialog", Font.PLAIN, 16));
-		textArea_registered.addMouseListener(new MouseAdapter() {
+		textArea_registered.addMouseListener(new MouseAdapter() 
+		{
 			@Override
 			public void mouseClicked(MouseEvent e)
 			{
@@ -835,13 +881,14 @@ public class DegreeAudit extends JFrame {
 		textArea_registered.setEditable(false);
 		scrollPane_registered.setViewportView(textArea_registered);
 		
-		JScrollPane scrollPane_available = new JScrollPane();
+		JScrollPane scrollPane_available = new JScrollPane(); // Available Courses scroll pane
 		scrollPane_available.setBounds(8, 59, 155, 539);
 		Courses.add(scrollPane_available);
 		
-		textArea_available = new JTextArea();
+		textArea_available = new JTextArea(); // Available Courses text area
 		textArea_available.setFont(new Font("Dialog", Font.PLAIN, 16));
-		textArea_available.addMouseListener(new MouseAdapter() {
+		textArea_available.addMouseListener(new MouseAdapter() 
+		{
 			@Override
 			public void mouseClicked(MouseEvent e)
 			{
@@ -864,16 +911,12 @@ public class DegreeAudit extends JFrame {
 		textArea_available.setEditable(false);
 		scrollPane_available.setViewportView(textArea_available);
 		
-		JLabel coursesLabel = new JLabel("Courses");
-		coursesLabel.setFont(new Font("Dialog", Font.BOLD, 18));
-		coursesLabel.setBounds(335, 0, 202, 22);
-		Courses.add(coursesLabel);
-		
-		JComboBox filterComboBox = new JComboBox();
-		filterComboBox.addActionListener(new ActionListener() {
+		JComboBox filterComboBox = new JComboBox(); // Course Filter combo box
+		filterComboBox.addActionListener(new ActionListener() 
+		{
 			public void actionPerformed(ActionEvent e)
 			{
-				// Sorting various courses			
+				// Getting filter option from combo box		
 				Object selected = filterComboBox.getSelectedItem();
 				
 				
@@ -948,13 +991,14 @@ public class DegreeAudit extends JFrame {
 		filterComboBox.setBounds(297, 612, 260, 22);
 		Courses.add(filterComboBox);
 		
-		JLabel availableCoursesLabel = new JLabel("     Available");
+		JLabel availableCoursesLabel = new JLabel("     Available"); // Available label
 		availableCoursesLabel.setFont(new Font("Dialog", Font.BOLD, 16));
 		availableCoursesLabel.setBounds(8, 32, 130, 15);
 		Courses.add(availableCoursesLabel);
 		
-		JButton btn_regToInProg = new JButton(">");
-		btn_regToInProg.addActionListener(new ActionListener() {
+		JButton btn_regToInProg = new JButton(">"); // Registered Courses -> In Progress Courses button
+		btn_regToInProg.addActionListener(new ActionListener() 
+		{
 			public void actionPerformed(ActionEvent e)
 			{
 				if(textArea_registered.getSelectedText() != null) 
@@ -969,8 +1013,9 @@ public class DegreeAudit extends JFrame {
 		btn_regToInProg.setBounds(360, 264, 40, 25);
 		Courses.add(btn_regToInProg);
 		
-		JButton btn_inProgToReg = new JButton("<");
-		btn_inProgToReg.addActionListener(new ActionListener() {
+		JButton btn_inProgToReg = new JButton("<"); // Registered Courses <- In Progress Courses button
+		btn_inProgToReg.addActionListener(new ActionListener() 
+		{
 			public void actionPerformed(ActionEvent e)
 			{
 				if(textArea_inProgress.getSelectedText() != null) 
@@ -985,8 +1030,9 @@ public class DegreeAudit extends JFrame {
 		btn_inProgToReg.setBounds(360, 301, 40, 25);
 		Courses.add(btn_inProgToReg);
 		
-		JButton btn_availableToReg = new JButton(">");
-		btn_availableToReg.addActionListener(new ActionListener() {
+		JButton btn_availableToReg = new JButton(">"); // Available Courses -> Registered Courses button
+		btn_availableToReg.addActionListener(new ActionListener() 
+		{
 			public void actionPerformed(ActionEvent e)
 			{
 				if(textArea_available.getSelectedText() != null) 
@@ -1001,23 +1047,24 @@ public class DegreeAudit extends JFrame {
 		btn_availableToReg.setBounds(163, 264, 40, 25);
 		Courses.add(btn_availableToReg);
 		
-		JLabel lblNewLabel = new JLabel("  Registered");
+		JLabel lblNewLabel = new JLabel("  Registered"); // Registered label
 		lblNewLabel.setFont(new Font("Dialog", Font.BOLD, 16));
 		lblNewLabel.setBounds(223, 32, 130, 15);
 		Courses.add(lblNewLabel);
 		
-		JLabel lblInProgress = new JLabel("  In Progress");
+		JLabel lblInProgress = new JLabel("  In Progress"); // In Progress label
 		lblInProgress.setFont(new Font("Dialog", Font.BOLD, 16));
 		lblInProgress.setBounds(417, 32, 130, 15);
 		Courses.add(lblInProgress);
 		
-		JLabel lblNewLabel_1 = new JLabel("   Complete");
+		JLabel lblNewLabel_1 = new JLabel("   Complete"); // Complete label
 		lblNewLabel_1.setFont(new Font("Dialog", Font.BOLD, 16));
 		lblNewLabel_1.setBounds(621, 32, 130, 15);
 		Courses.add(lblNewLabel_1);
 		
-		JButton btn_inProgToComplete = new JButton(">");
-		btn_inProgToComplete.addActionListener(new ActionListener() {
+		JButton btn_inProgToComplete = new JButton(">"); // In Progress Courses -> Completed Courses button
+		btn_inProgToComplete.addActionListener(new ActionListener() 
+		{
 			public void actionPerformed(ActionEvent e)
 			{
 				if(textArea_inProgress.getSelectedText() != null) 
@@ -1032,8 +1079,9 @@ public class DegreeAudit extends JFrame {
 		btn_inProgToComplete.setBounds(558, 266, 40, 25);
 		Courses.add(btn_inProgToComplete);
 		
-		JButton btn_completeToInProg = new JButton("<");
-		btn_completeToInProg.addActionListener(new ActionListener() {
+		JButton btn_completeToInProg = new JButton("<"); // In Progress Courses <- Completed Courses button
+		btn_completeToInProg.addActionListener(new ActionListener() 
+		{
 			public void actionPerformed(ActionEvent e)
 			{
 				if(textArea_complete.getSelectedText() != null) 
@@ -1048,8 +1096,9 @@ public class DegreeAudit extends JFrame {
 		btn_completeToInProg.setBounds(558, 301, 40, 25);
 		Courses.add(btn_completeToInProg);
 		
-		JButton btnSubmitRecord = new JButton("Submit Record");
-		btnSubmitRecord.addActionListener(new ActionListener() {
+		JButton btnSubmitRecord = new JButton("Submit Record"); // Submit Record button
+		btnSubmitRecord.addActionListener(new ActionListener() 
+		{
 			public void actionPerformed(ActionEvent e)
 			{	
 				// get course info from lists
@@ -1057,7 +1106,7 @@ public class DegreeAudit extends JFrame {
 				coursesInProgress = textArea_inProgress.getText();
 				coursesRegistered = textArea_registered.getText();
 				
-				
+				// TODO:
 				// If newOrUpdate == "new":
 				//		Pop-up ask for confirmation
 				// 		Create new student file and write info
@@ -1069,15 +1118,26 @@ public class DegreeAudit extends JFrame {
 				// 		Pop-up confirm update
 				
 				// Clear student info variables
-				// Change card to "start"
+				studentFirstName = "";
+				studentLastName = "";
+				studentCatalogYear = "";
+				studentMajor = "";
+				coursesRegistered = "";
+				coursesInProgress = "";
+				completedCourses = "";
+				
+				
+				// Change card
+				setCardLayoutView("start");
 			}
 		});
 		btnSubmitRecord.setFont(new Font("Dialog", Font.BOLD, 16));
 		btnSubmitRecord.setBounds(587, 610, 164, 25);
 		Courses.add(btnSubmitRecord);
 		
-		JButton btn_regToAvailable = new JButton("<");
-		btn_regToAvailable.addActionListener(new ActionListener() {
+		JButton btn_regToAvailable = new JButton("<"); // Available Courses <- Registered Courses button
+		btn_regToAvailable.addActionListener(new ActionListener() 
+		{
 			public void actionPerformed(ActionEvent e)
 			{
 				if(textArea_registered.getSelectedText() != null) 
@@ -1092,13 +1152,14 @@ public class DegreeAudit extends JFrame {
 		btn_regToAvailable.setBounds(163, 299, 40, 25);
 		Courses.add(btn_regToAvailable);
 		
-		JLabel lblFilter = new JLabel("Filter by:");
+		JLabel lblFilter = new JLabel("Filter by:"); // Filter label
 		lblFilter.setFont(new Font("Dialog", Font.BOLD, 16));
 		lblFilter.setBounds(214, 615, 85, 15);
 		Courses.add(lblFilter);
 		
-		JButton backBtn_courses = new JButton("Back");
-		backBtn_courses.addActionListener(new ActionListener() {
+		JButton backBtn_courses = new JButton("Back"); // Back button
+		backBtn_courses.addActionListener(new ActionListener() 
+		{
 			public void actionPerformed(ActionEvent e)
 			{
 				setCardLayoutView("degree progress");
@@ -1107,6 +1168,8 @@ public class DegreeAudit extends JFrame {
 		backBtn_courses.setFont(new Font("Dialog", Font.BOLD, 16));
 		backBtn_courses.setBounds(8, 611, 117, 25);
 		Courses.add(backBtn_courses);
+		
+		// Application full 'tab' traversal policy
 		MainPanel.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]
 				{StartScreen, UpdateStudentRecord, CreateStudentRecord, UpdateMajor, 
 						stdntRecordLabel, firstNameTextField_updateRecord, firstNameLabel, 
@@ -1159,6 +1222,7 @@ public class DegreeAudit extends JFrame {
 				Path filePath = openedFile.toPath(); // Gets file path
 				String fileData = Files.readString(filePath); // Read data from file as a string
 				
+				// TODO:
 				// split fileData string or whatever to get student info into relevant variables
 				// need studentFirstName, studentLastName, studentCatalogYear, studentMajor,
 				// completedCourses, coursesInProgress, coursesRegistered
