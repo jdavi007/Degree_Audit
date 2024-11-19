@@ -72,7 +72,7 @@ public class DegreeAudit extends JFrame {
 	
 	//---------------------------------------------------------------------------------------------------------------------File data
 	private String csMajor = null;
-	private String csElec = null;
+	private String csElec = null; // Need to add csMathScienceRequirements.txt. I forgot it ***
 	private String csCourses = null;
 	private String seCore = null;
 	private String seElec = null;
