@@ -1,3 +1,9 @@
+/*
+ * CSC 2220 - Group Project
+ * Jacob Davis, Kaylee Strope, Dylan Dray
+ * November 22, 2024
+ */
+
 
 //--------------------------------------------------------------------------------------------------------------------------Imports
 import java.awt.EventQueue;
@@ -48,8 +54,8 @@ public class DegreeAudit extends JFrame {
 	private JTextField firstNameField_updateMajor;
 	private JTextField lastNameField_updateMajor;
 	private JTextField currentMajorField;
-	private JTextArea textArea_courseSummary;
-	private JTextArea textArea_available;
+	private JTextArea textArea_courseSummary; 
+	private JTextArea textArea_available; // Used for setting text area content
 	private String newOrUpdate = ""; // Used for determining if user is creating a new record or updating an existing one
 	private JLabel changingLabel; // Used on the "Course Summary" panel to indicate which category of courses are displayed
 	private JButton liberalArtsCoreButton; // Color-changing button indicates progress
@@ -71,8 +77,8 @@ public class DegreeAudit extends JFrame {
 	private String coursesRegistered = "";
 	
 	//---------------------------------------------------------------------------------------------------------------------File data
-	private String csMajor = null;
-	private String csElec = null; // Need to add csMathScienceRequirements.txt. I forgot it ***
+	private String csMajor = null; // File content string declarations
+	private String csElec = null; // Need to add csMathScienceRequirements.txt. I forgot it - Jacob
 	private String csCourses = null;
 	private String seCore = null;
 	private String seElec = null;
@@ -85,7 +91,7 @@ public class DegreeAudit extends JFrame {
 	private String libA = null;
 	private String allCourses = null;
 	
-	File csFile = new File("res/csCore.txt");
+	File csFile = new File("res/csCore.txt"); // File variables
 	File csElecFile = new File("res/csElectives.txt");
 	File seCoreFile = new File("res/seCore.txt");
 	File seElecFile = new File("res/seElectives.txt");
@@ -315,6 +321,8 @@ public class DegreeAudit extends JFrame {
 			{
 				newOrUpdate = "update";
 				
+				// Change button colors on Degree Progress Panel based on progress
+				
 				// Change card
 				setCardLayoutView("degree progress");
 			}
@@ -332,7 +340,7 @@ public class DegreeAudit extends JFrame {
 				loadStudent();
 				
 				// TODO:
-				// populate text fields & major checkbox on updateRecord panel
+				// populate text fields & major check box on updateRecord panel
 				// set student info to info from file
 			}
 		});
@@ -436,7 +444,7 @@ public class DegreeAudit extends JFrame {
 			{
 				newOrUpdate = "new";
 				
-				// Get student info from textboxes/checkboxes
+				// Get student info from text boxes/check boxes
 				studentFirstName = firstNameField_createRecord.getText();
 				studentLastName = lastNameField_createRecord.getText();
 				studentCatalogYear = yearField_createRecord.getText();
@@ -445,7 +453,7 @@ public class DegreeAudit extends JFrame {
 				else if (MISmajorCheckBox_createRecord.isSelected()) {studentMajor = "Management Information Systems";}
 				else {studentMajor = "Mathematics";}
 				
-				//Change button colors on Degree Progress Panel
+				// Set button colors to red on Degree Progress Panel
 				liberalArtsCoreButton.setBackground(red);
 				studiesButton.setBackground(red);
 				majorCoreButton.setBackground(red);
@@ -508,7 +516,7 @@ public class DegreeAudit extends JFrame {
 			{
 				// TODO:
 				// pop-up ask for confirmation
-				// get new major from checkboxes
+				// get new major from check boxes
 				// open student file and update only major (will need to change file name)
 				// pop-up confirm update
 				// Clear student info variables
@@ -987,7 +995,8 @@ public class DegreeAudit extends JFrame {
 			}
 		});
 		filterComboBox.setModel(new DefaultComboBoxModel(new String[] 
-				{"None", "Major Core", "Major Electives", "Liberal Arts Core", "CS", "SWE", "Community", "Nation", "Self", "World"}));
+				{"None", "Major Core", "Major Electives", "Liberal Arts Core", 
+						"CSC", "SWE", "Community", "Nation", "Self", "World"}));
 		filterComboBox.setBounds(297, 612, 260, 22);
 		Courses.add(filterComboBox);
 		
@@ -1169,7 +1178,7 @@ public class DegreeAudit extends JFrame {
 		backBtn_courses.setBounds(8, 611, 117, 25);
 		Courses.add(backBtn_courses);
 		
-		// Application full 'tab' traversal policy
+		// Application's full 'tab' traversal policy
 		MainPanel.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]
 				{StartScreen, UpdateStudentRecord, CreateStudentRecord, UpdateMajor, 
 						stdntRecordLabel, firstNameTextField_updateRecord, firstNameLabel, 
@@ -1226,6 +1235,9 @@ public class DegreeAudit extends JFrame {
 				// split fileData string or whatever to get student info into relevant variables
 				// need studentFirstName, studentLastName, studentCatalogYear, studentMajor,
 				// completedCourses, coursesInProgress, coursesRegistered
+				// update to stringBuilder instead of Strings
+				
+				// make variables to track progress for button colors on degree progress panel
 			}
 		}
 		catch(Exception ex)
