@@ -30,6 +30,8 @@ import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
 import java.awt.Color;
 import java.io.File;
+import java.io.FileWriter;
+
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.event.MouseAdapter;
@@ -338,10 +340,27 @@ public class DegreeAudit extends JFrame {
 			{
 				// open file explorer & get student info
 				loadStudent();
+				firstNameTextField_updateRecord.setText(studentFirstName);
+				lastNameTextField_updateRecord.setText(studentLastName);
+				yearTextField_updateRecord.setText(studentCatalogYear);
 				
-				// TODO:
-				// populate text fields & major check box on updateRecord panel
-				// set student info to info from file
+				if(studentMajor == "Computer Science") 
+				{
+					CSmajorCheckBox_updateRecord.doClick();
+				}
+				else if(studentMajor == "Software Engineering") 
+				{
+					SWEmajorCheckBox_updateRecord.doClick();
+				}
+				else if(studentMajor == "Management Information Systems") 
+				{
+					MISmajorCheckBox_updateRecord.doClick();
+				}
+				else if(studentMajor == "Mathematics") 
+				{
+					mathMajorCheckBox_updateRecord.doClick();
+				}
+				
 			}
 		});
 		loadStudentButton_updateRecord.setFont(new Font("Dialog", Font.BOLD, 16));
@@ -595,9 +614,13 @@ public class DegreeAudit extends JFrame {
 			{
 				// open file explorer & get student info
 				loadStudent();
+				firstNameField_updateMajor.setText(studentFirstName);
+				lastNameField_updateMajor.setText(studentLastName);
+				currentMajorField.setText(studentMajor);
 				
 				// TODO:
 				// populate text fields (firstName, lastName, current major)
+				
 				// set student info to info from file
 				// save filename in a variable to update record to new major when 'next' is clicked
 			}
@@ -1110,21 +1133,81 @@ public class DegreeAudit extends JFrame {
 		{
 			public void actionPerformed(ActionEvent e)
 			{	
+				// StringBuilder declarations
+				StringBuilder fileName = new StringBuilder();
+				StringBuilder fileText = new StringBuilder();
+				
 				// get course info from lists
 				completedCourses = textArea_complete.getText();
 				coursesInProgress = textArea_inProgress.getText();
 				coursesRegistered = textArea_registered.getText();
 				
-				// TODO:
-				// If newOrUpdate == "new":
-				//		Pop-up ask for confirmation
-				// 		Create new student file and write info
-				//		Pop-up confirm new record created
+				// Creating filename
+				fileName.append(studentLastName)
+				.append("_")
+				.append(studentFirstName)
+				.append("_");
 				
-				// If newOrUpdate == "update":
-				// 		Pop-up ask for confirmation
-				// 		Open and update student file
-				// 		Pop-up confirm update
+				if(studentMajor == "Computer Science") 
+				{
+					fileName.append("CSC");
+				}
+				else if(studentMajor == "Software Engineering") 
+				{
+					fileName.append("SWE");
+				}
+				else if(studentMajor == "Management Information Systems") 
+				{
+					fileName.append("MIS");
+				}
+				else if(studentMajor == "Mathematics")
+				{
+					fileName.append("MATH");
+				}
+				fileName.append(".txt");
+				
+				// File declaration
+				File studentFile = new File(fileName.toString());
+				
+				// Creating text for output to file
+				fileText.append("Last Name: ")
+				.append(studentLastName)
+				.append("\n")
+				.append("First Name: ")
+				.append(studentFirstName)
+				.append("\n")
+				.append("Catalog Year: ")
+				.append(studentCatalogYear)
+				.append("\n")
+				.append("Major: ")
+				.append(studentMajor)
+				.append("\n\n")
+				.append("Registered Courses:\n")
+				.append(coursesRegistered)
+				.append("\n")
+				.append("Courses In Progress:\n")
+				.append(coursesInProgress)
+				.append("\n")
+				.append("Completed Courses:\n")
+				.append(completedCourses);
+				// System.out.print(fileText); // testing
+				
+				// Writing to file
+				// TODO: Add pop-up for confirmation
+					
+				// If confirmed:
+				try 
+				{
+					FileWriter writer = new FileWriter(studentFile);
+					writer.write(fileText.toString());
+					writer.close();
+				}
+				catch (Exception ex) 
+				{
+					JOptionPane.showMessageDialog(null, 
+							"Error: A problem was encountered writing to the file.",
+							"Degree Audit: Error",JOptionPane.PLAIN_MESSAGE);
+				}
 				
 				// Clear student info variables
 				studentFirstName = "";
@@ -1220,6 +1303,7 @@ public class DegreeAudit extends JFrame {
 	// Function to load student info from text file - in progress
 	private void loadStudent() 
 	{
+		
 		try 
 		{
 			JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory()); // Opens file explorer
@@ -1229,13 +1313,53 @@ public class DegreeAudit extends JFrame {
 			{
 				File openedFile = jfc.getSelectedFile(); // User selected file
 				Path filePath = openedFile.toPath(); // Gets file path
-				String fileData = Files.readString(filePath); // Read data from file as a string
+				String fileText = Files.readString(filePath); // Read data from file as a string
+				String lines[] = fileText.split("\n"); // Splitting text by line
+				
+				// Getting last name
+				String line0[] = lines[0].split(" ");
+				studentLastName = line0[2];
+				
+				// Getting first name
+				String line1[] = lines[1].split(" ");
+				studentFirstName = line1[2];
+				
+				// Getting Catalog Year
+				String line2[] = lines[2].split(" ");
+				studentCatalogYear = line2[2];
+				
+				// Getting Major
+				String line3[] = lines[3].split(" ");
+				
+				if(line3[1].equals("Computer"))
+				{
+					studentMajor = "Computer Science";
+				}
+				else if(line3[1].equals("Software")) 
+				{
+					studentMajor = "Software Engineering";
+				}
+				else if(line3[1].equals("Management")) 
+				{
+					studentMajor = "Management Information Systems";
+				}
+				else if(line3[1].equals("Mathematics")) 
+				{
+					studentMajor = "Mathematics";
+				}
+				else 
+				{
+					studentMajor = "";
+				}
+				
+				
+				// Getting Courses
+				// Registered courses start at line 6
+				
+				
 				
 				// TODO:
-				// split fileData string or whatever to get student info into relevant variables
-				// need studentFirstName, studentLastName, studentCatalogYear, studentMajor,
-				// completedCourses, coursesInProgress, coursesRegistered
-				// update to stringBuilder instead of Strings
+				// get completedCourses, coursesInProgress, coursesRegistered
 				
 				// make variables to track progress for button colors on degree progress panel
 			}
