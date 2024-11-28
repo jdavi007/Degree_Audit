@@ -64,6 +64,10 @@ public class DegreeAudit extends JFrame {
 	private JTextArea textArea_inProgress;
 	private JTextArea textArea_complete;
 	private JTextArea textArea_registered;
+	private JCheckBox CSmajorCheckBox_updateMajor;
+	private JCheckBox SWEmajorCheckBox_updateMajor;
+	private JCheckBox MISmajorCheckBox_updateMajor;
+	private JCheckBox mathMajorCheckBox_updateMajor;
 	private String newOrUpdate = ""; // Used for determining if user is creating a new record or updating an existing one
 	private JLabel changingLabel; // Used on the "Course Summary" panel to indicate which category of courses are displayed
 	private JButton liberalArtsCoreButton; // Color-changing button indicates progress
@@ -350,6 +354,7 @@ public class DegreeAudit extends JFrame {
 				lastNameTextField_updateRecord.setText(studentLastName);
 				yearTextField_updateRecord.setText(studentCatalogYear);
 				
+				// Set major checked
 				if(studentMajor == "Computer Science") 
 				{
 					CSmajorCheckBox_updateRecord.doClick();
@@ -378,6 +383,38 @@ public class DegreeAudit extends JFrame {
 		{
 			public void actionPerformed(ActionEvent e)
 			{
+				// Reset text fields
+				firstNameTextField_updateRecord.setText(null);
+				lastNameTextField_updateRecord.setText(null);
+				yearTextField_updateRecord.setText(null);
+				
+				// Uncheck major
+				if(studentMajor == "Computer Science") 
+				{
+					CSmajorCheckBox_updateRecord.doClick();
+				}
+				else if(studentMajor == "Software Engineering") 
+				{
+					SWEmajorCheckBox_updateRecord.doClick();
+				}
+				else if(studentMajor == "Management Information Systems") 
+				{
+					MISmajorCheckBox_updateRecord.doClick();
+				}
+				else if(studentMajor == "Mathematics") 
+				{
+					mathMajorCheckBox_updateRecord.doClick();
+				}
+				
+				// Clear student variables
+				studentFirstName = "";
+				studentLastName = "";
+				studentCatalogYear = "";
+				studentMajor = "";
+				coursesRegistered = "";
+				coursesInProgress = "";
+				completedCourses = "";
+				
 				// Change card
 				setCardLayoutView("start");
 			}
@@ -497,6 +534,38 @@ public class DegreeAudit extends JFrame {
 		{
 			public void actionPerformed(ActionEvent e)
 			{
+				// Reset text fields
+				firstNameField_createRecord.setText(null);
+				lastNameField_createRecord.setText(null);
+				yearField_createRecord.setText(null);
+				
+				// Uncheck major
+				if(studentMajor == "Computer Science") 
+				{
+					CSmajorCheckBox_createRecord.doClick();
+				}
+				else if(studentMajor == "Software Engineering") 
+				{
+					SWEmajorCheckBox_createRecord.doClick();
+				}
+				else if(studentMajor == "Management Information Systems") 
+				{
+					MISmajorCheckBox_createRecord.doClick();
+				}
+				else if(studentMajor == "Mathematics") 
+				{
+					mathMajorCheckBox_createRecord.doClick();
+				}
+				
+				// Clear student variables
+				studentFirstName = "";
+				studentLastName = "";
+				studentCatalogYear = "";
+				studentMajor = "";
+				coursesRegistered = "";
+				coursesInProgress = "";
+				completedCourses = "";
+				
 				// Change card
 				setCardLayoutView("start");
 			}
@@ -526,6 +595,38 @@ public class DegreeAudit extends JFrame {
 		{
 			public void actionPerformed(ActionEvent e)
 			{
+				// Reset text fields
+				firstNameField_updateMajor.setText(null);
+				lastNameField_updateMajor.setText(null);
+				currentMajorField.setText(null);
+				
+				// Clear any checked boxes
+				if(CSmajorCheckBox_updateMajor.isSelected()) 
+				{
+					CSmajorCheckBox_updateMajor.doClick();
+				}
+				else if(SWEmajorCheckBox_updateMajor.isSelected())
+				{
+					SWEmajorCheckBox_updateMajor.doClick();
+				}
+				else if(MISmajorCheckBox_updateMajor.isSelected()) 
+				{
+					MISmajorCheckBox_updateMajor.doClick();
+				}
+				else if(mathMajorCheckBox_updateMajor.isSelected()) 
+				{
+					mathMajorCheckBox_updateMajor.doClick();
+				}
+				
+				// Clear student variables
+				studentFirstName = "";
+				studentLastName = "";
+				studentCatalogYear = "";
+				studentMajor = "";
+				coursesRegistered = "";
+				coursesInProgress = "";
+				completedCourses = "";
+				
 				// Change card
 				setCardLayoutView("start");
 			}
@@ -559,23 +660,23 @@ public class DegreeAudit extends JFrame {
 		changeToLabel.setBounds(12, 208, 97, 15);
 		UpdateMajor.add(changeToLabel);
 		
-		JCheckBox CSmajorCheckBox_updateMajor = new JCheckBox("CS"); // CS Major check box
+		CSmajorCheckBox_updateMajor = new JCheckBox("CS"); // CS Major check box
 		CSmajorCheckBox_updateMajor.setFont(new Font("Dialog", Font.BOLD, 16));
 		CSmajorCheckBox_updateMajor.setBounds(156, 204, 60, 23);
 		UpdateMajor.add(CSmajorCheckBox_updateMajor);
 		
-		JCheckBox SWEmajorCheckBox_updateMajor = new JCheckBox("SWE"); // SWE Major check box
+		SWEmajorCheckBox_updateMajor = new JCheckBox("SWE"); // SWE Major check box
 		SWEmajorCheckBox_updateMajor.setFont(new Font("Dialog", Font.BOLD, 16));
 		SWEmajorCheckBox_updateMajor.setBounds(220, 204, 64, 23);
 		UpdateMajor.add(SWEmajorCheckBox_updateMajor);
 		
-		JCheckBox MISmajorCheckBox_updateMajor = new JCheckBox("MIS"); // MIS Major check box
+		MISmajorCheckBox_updateMajor = new JCheckBox("MIS"); // MIS Major check box
 		MISmajorCheckBox_updateMajor.setEnabled(false);
 		MISmajorCheckBox_updateMajor.setFont(new Font("Dialog", Font.BOLD, 16));
 		MISmajorCheckBox_updateMajor.setBounds(291, 204, 60, 23);
 		UpdateMajor.add(MISmajorCheckBox_updateMajor);
 		
-		JCheckBox mathMajorCheckBox_updateMajor = new JCheckBox("MATH"); // Math Major check box
+		mathMajorCheckBox_updateMajor = new JCheckBox("MATH"); // Math Major check box
 		mathMajorCheckBox_updateMajor.setFont(new Font("Dialog", Font.BOLD, 16));
 		mathMajorCheckBox_updateMajor.setBounds(361, 204, 76, 23);
 		UpdateMajor.add(mathMajorCheckBox_updateMajor);
@@ -1370,17 +1471,23 @@ public class DegreeAudit extends JFrame {
 				Iterator<String> iterator = lines.iterator(); // Used to iterate over courses - this was needed to remove lines while iterating through them
 				int section = 0; // Used to indicate which section of courses are being collected
 				
-				while (iterator.hasNext()) {
+				while(iterator.hasNext())
+				{
 				    String line = iterator.next();
 
-				    switch (section) {
+				    switch (section)
+				    {
 				        case 0: // Getting courses in progress
-				            if (line.equals("Courses In Progress:")) // If this string has been reached, all in progress courses have been retrieved
+				            if(line.equals("Courses In Progress:")) // If this string has been reached, all registered courses have been retrieved
 				            {
-				                coursesRegistered = courses.toString(); // Cast courses to string and set coursesRegisterd variable
+				                coursesRegistered = courses.toString(); // Cast StringBuilder to string and set coursesRegisterd variable
 				                courses = new StringBuilder(); // Empty courses for next set
 				                section = 1; // Move to next section
-				            } 
+				            }
+				            else if(line.equals("")) // Accounts for blank line
+				            {
+				            	break;
+				            }
 				            else
 				            {
 				                courses.append(line).append("\n"); // Add current line to courses
@@ -1388,15 +1495,19 @@ public class DegreeAudit extends JFrame {
 				            break;
 
 				        case 1: // Getting courses registered
-				            if (line.equals("Completed Courses:")) // Repeats the above process to get in progress courses
+				            if(line.equals("Completed Courses:")) // If this string has been reached, all in-progress courses have been retrieved
 				            {
-				                coursesInProgress = courses.toString();
-				                courses = new StringBuilder();
-				                section = 2;
+				                coursesInProgress = courses.toString(); // Cast StringBuilder to string and set coursesInProgress variable
+				                courses = new StringBuilder(); // Empty courses for next set
+				                section = 2; // Move to next section
+				            }
+				            else if(line.equals("")) // Accounts for blank line
+				            {
+				            	break;
 				            }
 				            else 
 				            {
-				                courses.append(line).append("\n");
+				                courses.append(line).append("\n"); // Add current line to courses
 				            }
 				            break;
 
