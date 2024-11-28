@@ -15,6 +15,9 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
 import java.awt.event.ActionEvent;
 import java.awt.CardLayout;
 import org.eclipse.wb.swing.FocusTraversalOnArray;
@@ -57,7 +60,10 @@ public class DegreeAudit extends JFrame {
 	private JTextField lastNameField_updateMajor;
 	private JTextField currentMajorField;
 	private JTextArea textArea_courseSummary; 
-	private JTextArea textArea_available; // Used for setting text area content
+	private JTextArea textArea_available;
+	private JTextArea textArea_inProgress;
+	private JTextArea textArea_complete;
+	private JTextArea textArea_registered;
 	private String newOrUpdate = ""; // Used for determining if user is creating a new record or updating an existing one
 	private JLabel changingLabel; // Used on the "Course Summary" panel to indicate which category of courses are displayed
 	private JButton liberalArtsCoreButton; // Color-changing button indicates progress
@@ -323,7 +329,7 @@ public class DegreeAudit extends JFrame {
 			{
 				newOrUpdate = "update";
 				
-				// Change button colors on Degree Progress Panel based on progress
+				// TODO: Change button colors on Degree Progress Panel based on course progress
 				
 				// Change card
 				setCardLayoutView("degree progress");
@@ -617,12 +623,6 @@ public class DegreeAudit extends JFrame {
 				firstNameField_updateMajor.setText(studentFirstName);
 				lastNameField_updateMajor.setText(studentLastName);
 				currentMajorField.setText(studentMajor);
-				
-				// TODO:
-				// populate text fields (firstName, lastName, current major)
-				
-				// set student info to info from file
-				// save filename in a variable to update record to new major when 'next' is clicked
 			}
 		});
 		loadBtn_updateMajor.setFont(new Font("Dialog", Font.BOLD, 16));
@@ -671,9 +671,13 @@ public class DegreeAudit extends JFrame {
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				// TODO:
-				// If newOrUpdate == "update", populate textArea_registered, 
-				// textArea_inProgress, & textArea_complete with existing info from file
+				// Populate text areas with courses
+				if(newOrUpdate == "update") 
+				{
+					textArea_registered.setText(coursesRegistered);
+					textArea_inProgress.setText(coursesInProgress);
+					textArea_complete.setText(completedCourses);
+				}
 				
 				textArea_available.setText(allCourses); // Default textArea_available to show all available courses
 				textArea_available.setCaretPosition(0); // Moves to top of list so it doesn't look weird
@@ -716,7 +720,7 @@ public class DegreeAudit extends JFrame {
 				// Update label on Course Summary panel
 				changingLabel.setText("Four Studies");
 				
-				// TODO:
+				// TODO:JTextArea textArea_inProgress
 				//find student's 4-studies courses
 				//calculate progress and change button color (will need to do this on the 'next' button on the previous screen)
 				//populate textArea_courseSummary with student's 4-studies courses
@@ -826,7 +830,7 @@ public class DegreeAudit extends JFrame {
 		scrollPane_inProgress.setBounds(402, 59, 155, 539);
 		Courses.add(scrollPane_inProgress);
 		
-		JTextArea textArea_inProgress = new JTextArea(); // In Progress Courses text area
+		textArea_inProgress = new JTextArea(); // In Progress Courses text area
 		textArea_inProgress.setFont(new Font("Dialog", Font.PLAIN, 16));
 		textArea_inProgress.addMouseListener(new MouseAdapter() 
 		{
@@ -856,7 +860,7 @@ public class DegreeAudit extends JFrame {
 		scrollPane_complete.setBounds(600, 59, 155, 539);
 		Courses.add(scrollPane_complete);
 		
-		JTextArea textArea_complete = new JTextArea(); // Completed Courses text area
+		textArea_complete = new JTextArea(); // Completed Courses text area
 		textArea_complete.setFont(new Font("Dialog", Font.PLAIN, 16));
 		textArea_complete.addMouseListener(new MouseAdapter() 
 		{
@@ -886,7 +890,7 @@ public class DegreeAudit extends JFrame {
 		scrollPane_registered.setBounds(204, 59, 155, 539);
 		Courses.add(scrollPane_registered);
 		
-		JTextArea textArea_registered = new JTextArea(); // Registered Courses text area
+		textArea_registered = new JTextArea(); // Registered Courses text area
 		textArea_registered.setFont(new Font("Dialog", Font.PLAIN, 16));
 		textArea_registered.addMouseListener(new MouseAdapter() 
 		{
@@ -1300,7 +1304,7 @@ public class DegreeAudit extends JFrame {
 	}
 	
 	
-	// Function to load student info from text file - in progress
+	// Function to load student info from text file - this works but there's probably a much simpler way to do it
 	private void loadStudent() 
 	{
 		
@@ -1314,24 +1318,25 @@ public class DegreeAudit extends JFrame {
 				File openedFile = jfc.getSelectedFile(); // User selected file
 				Path filePath = openedFile.toPath(); // Gets file path
 				String fileText = Files.readString(filePath); // Read data from file as a string
-				String lines[] = fileText.split("\n"); // Splitting text by line
+				String strLines[] = fileText.split("\n"); // Splitting text by line
+				ArrayList<String> lines = new ArrayList<String>(Arrays.asList(strLines)); // Converting to array list to be able to remove items
 				
 				// Getting last name
-				String line0[] = lines[0].split(" ");
+				String line0[] = lines.get(0).toString().split(" ");
 				studentLastName = line0[2];
 				
 				// Getting first name
-				String line1[] = lines[1].split(" ");
+				String line1[] = lines.get(1).toString().split(" ");
 				studentFirstName = line1[2];
 				
 				// Getting Catalog Year
-				String line2[] = lines[2].split(" ");
+				String line2[] = lines.get(2).toString().split(" ");
 				studentCatalogYear = line2[2];
 				
 				// Getting Major
-				String line3[] = lines[3].split(" ");
+				String line3[] = lines.get(3).toString().split(" ");
 				
-				if(line3[1].equals("Computer"))
+				if(line3[1].equals("Computer")) // Just checks the first word to make it simpler
 				{
 					studentMajor = "Computer Science";
 				}
@@ -1352,20 +1357,63 @@ public class DegreeAudit extends JFrame {
 					studentMajor = "";
 				}
 				
+				// Removing lines to get to courses
+				lines.remove(0);
+				lines.remove(0);
+				lines.remove(0);
+				lines.remove(0);
+				lines.remove(0);
+				lines.remove(0);
 				
 				// Getting Courses
-				// Registered courses start at line 6
+				StringBuilder courses = new StringBuilder();
+				Iterator<String> iterator = lines.iterator(); // Used to iterate over courses - this was needed to remove lines while iterating through them
+				int section = 0; // Used to indicate which section of courses are being collected
 				
-				
-				
-				// TODO:
-				// get completedCourses, coursesInProgress, coursesRegistered
-				
-				// make variables to track progress for button colors on degree progress panel
+				while (iterator.hasNext()) {
+				    String line = iterator.next();
+
+				    switch (section) {
+				        case 0: // Getting courses in progress
+				            if (line.equals("Courses In Progress:"))
+				            {
+				                coursesRegistered = courses.toString();
+				                courses = new StringBuilder();
+				                section = 1;
+				            } 
+				            else
+				            {
+				                courses.append(line).append("\n");
+				            }
+				            break;
+
+				        case 1: // Getting courses registered
+				            if (line.equals("Completed Courses:")) 
+				            {
+				                coursesInProgress = courses.toString();
+				                courses = new StringBuilder();
+				                section = 2;
+				            }
+				            else 
+				            {
+				                courses.append(line).append("\n");
+				            }
+				            break;
+
+				        case 2: // Getting completed courses
+				            if (!line.isEmpty()) 
+				            {
+				            	courses.append(line).append("\n");
+				            }
+				            completedCourses = courses.toString();
+				            break;
+				    }
+				}
 			}
 		}
 		catch(Exception ex)
 		{
+			ex.printStackTrace();
 			// Error message pop-up
 			JOptionPane.showMessageDialog(null, 
 					"Error: A problem was encountered loading the file.",
