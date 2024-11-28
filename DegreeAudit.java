@@ -50,24 +50,24 @@ public class DegreeAudit extends JFrame {
 	private JPanel contentPane;
 	private JPanel MainPanel;
 	private CardLayout cardLayout;
-	private JTextField firstNameTextField_updateRecord;
-	private JTextField lastNameTextField_updateRecord;
-	private JTextField yearTextField_updateRecord;
-	private JTextField firstNameField_createRecord;
-	private JTextField lastNameField_createRecord;
-	private JTextField yearField_createRecord;
-	private JTextField firstNameField_updateMajor;
-	private JTextField lastNameField_updateMajor;
-	private JTextField currentMajorField;
-	private JTextArea textArea_courseSummary; 
-	private JTextArea textArea_available;
-	private JTextArea textArea_inProgress;
-	private JTextArea textArea_complete;
-	private JTextArea textArea_registered;
-	private JCheckBox CSmajorCheckBox_updateMajor;
-	private JCheckBox SWEmajorCheckBox_updateMajor;
-	private JCheckBox MISmajorCheckBox_updateMajor;
-	private JCheckBox mathMajorCheckBox_updateMajor;
+	private JTextField firstNameTextField_updateRecord;		//
+	private JTextField lastNameTextField_updateRecord;		//
+	private JTextField yearTextField_updateRecord;			//
+	private JTextField firstNameField_createRecord;			//
+	private JTextField lastNameField_createRecord;			//
+	private JTextField yearField_createRecord;				//
+	private JTextField firstNameField_updateMajor; 			// All of these are used to update various GUI items
+	private JTextField lastNameField_updateMajor;			//
+	private JTextField currentMajorField;					//
+	private JTextArea textArea_courseSummary; 				//
+	private JTextArea textArea_available;					//
+	private JTextArea textArea_inProgress;					//
+	private JTextArea textArea_complete;					//
+	private JTextArea textArea_registered;					//
+	private JCheckBox CSmajorCheckBox_updateMajor;			//
+	private JCheckBox SWEmajorCheckBox_updateMajor;			//
+	private JCheckBox MISmajorCheckBox_updateMajor;			//
+	private JCheckBox mathMajorCheckBox_updateMajor;		//
 	private String newOrUpdate = ""; // Used for determining if user is creating a new record or updating an existing one
 	private JLabel changingLabel; // Used on the "Course Summary" panel to indicate which category of courses are displayed
 	private JButton liberalArtsCoreButton; // Color-changing button indicates progress
@@ -87,10 +87,14 @@ public class DegreeAudit extends JFrame {
 	private String completedCourses = "";
 	private String coursesInProgress = "";
 	private String coursesRegistered = "";
+	private StringBuilder libArts = new StringBuilder(); // variables to hold student's courses in each area
+	private StringBuilder studies = new StringBuilder();
+	private StringBuilder majorCore = new StringBuilder();
+	private StringBuilder majorElec = new StringBuilder();
 	
 	//---------------------------------------------------------------------------------------------------------------------File data
 	private String csMajor = null; // File content string declarations
-	private String csElec = null; // Need to add csMathScienceRequirements.txt. I forgot it - Jacob
+	private String csElec = null; // TODO: Need to add csMathScienceRequirements.txt. I forgot it - Jacob
 	private String csCourses = null;
 	private String seCore = null;
 	private String seElec = null;
@@ -333,7 +337,155 @@ public class DegreeAudit extends JFrame {
 			{
 				newOrUpdate = "update";
 				
-				// TODO: Change button colors on Degree Progress Panel based on course progress
+				// Sorting student's courses
+				StringBuilder studentCourses = new StringBuilder();
+				studentCourses.append(coursesRegistered).append(coursesInProgress).append(completedCourses);
+				String courses[] = studentCourses.toString().split("\n");
+				String fourStudies = comm + nati + self + world;
+				
+				// CS Major
+				if(studentMajor == "Computer Science") 
+				{
+					for(String course : courses) // Loop through student's courses 
+					{
+						for( String coreClass : csMajor.split("\n")) // Check for major core course
+						{
+							if(course.equals(coreClass)) 
+							{
+								majorCore.append(course).append("\n");
+							}
+						}
+						
+						for(String elecCourse : csElec.split("\n")) // Check for major elective
+						{
+							if(course.equals(elecCourse)) 
+							{
+								majorElec.append(course).append("\n");
+							}
+						}
+						
+						for(String libCourse : libA.split("\n")) // Check for liberal arts course 
+						{
+							if(course.equals(libCourse)) 
+							{
+								libArts.append(course).append("\n");
+							}
+						}
+						
+						for(String studiesCourse : fourStudies.split("\n")) // Check for four studies course 
+						{
+							if(course.equals(studiesCourse)) 
+							{
+								studies.append(course).append("\n");
+							}
+						}
+					}
+				}
+				
+				//----------------------------------------Change button colors
+				// No progress = red
+				if(majorCore.isEmpty()) 
+				{
+					majorCoreButton.setBackground(red);
+				}
+				
+				if(majorElec.isEmpty()) 
+				{
+					majorElectivesButton.setBackground(red);
+				}
+				
+				if(libArts.isEmpty()) 
+				{
+					liberalArtsCoreButton.setBackground(red);
+				}
+				
+				if(studies.isEmpty()) 
+				{
+					studiesButton.setBackground(red);
+				}
+				
+				// Registered = orange
+				for(String regCourse : coursesRegistered.split("\n"))  
+				{
+					for(String majorCourse : majorCore.toString().split("\n")) 
+					{
+						if(regCourse.equals(majorCourse)) 
+						{
+							majorCoreButton.setBackground(orange);
+							break;
+						}
+					}
+					
+					for(String elecCourse : majorElec.toString().split("\n")) 
+					{
+						if(regCourse.equals(elecCourse)) 
+						{
+							majorElectivesButton.setBackground(orange);
+							break;
+						}
+					}
+					
+					for(String libCourse : libArts.toString().split("\n")) 
+					{
+						if(regCourse.equals(libCourse)) 
+						{
+							liberalArtsCoreButton.setBackground(orange);
+							break;
+						}
+					}
+					
+					for(String studCourse : studies.toString().split("\n")) 
+					{
+						if(regCourse.equals(studCourse)) 
+						{
+							studiesButton.setBackground(orange);
+							break;
+						}
+					}
+				}
+				
+				// In progress = yellow
+				for(String progCourse : coursesInProgress.split("\n"))  
+				{
+					for(String majorCourse : majorCore.toString().split("\n")) 
+					{
+						if(progCourse.equals(majorCourse)) 
+						{
+							majorCoreButton.setBackground(yellow);
+							break;
+						}
+					}
+					
+					for(String elecCourse : majorElec.toString().split("\n")) 
+					{
+						if(progCourse.equals(elecCourse)) 
+						{
+							majorElectivesButton.setBackground(yellow);
+							break;
+						}
+					}
+					
+					for(String libCourse : libArts.toString().split("\n")) 
+					{
+						if(progCourse.equals(libCourse)) 
+						{
+							liberalArtsCoreButton.setBackground(yellow);
+							break;
+						}
+					}
+					
+					for(String studCourse : studies.toString().split("\n")) 
+					{
+						if(progCourse.equals(studCourse)) 
+						{
+							studiesButton.setBackground(yellow);
+							break;
+						}
+					}
+				}
+				
+				//TODO: check for a completed area - set button to green (not sure how to do this yet)
+				// Completed = green
 				
 				// Change card
 				setCardLayoutView("degree progress");
@@ -799,10 +951,8 @@ public class DegreeAudit extends JFrame {
 				// Update label on Course Summary panel
 				changingLabel.setText("Liberal Arts Core");
 				
-				// TODO:
-				//find student's liberal arts courses
-				//calculate progress and change button color (will need to do this on the 'next' button on the previous screen)
-				//populate textArea_courseSummary with student's lib arts courses
+				// Populate text area on course summary panel with student's liberal arts courses
+				textArea_courseSummary.setText(libArts.toString());
 				
 				// Change card
 				setCardLayoutView("course summary");
@@ -821,10 +971,8 @@ public class DegreeAudit extends JFrame {
 				// Update label on Course Summary panel
 				changingLabel.setText("Four Studies");
 				
-				// TODO:JTextArea textArea_inProgress
-				//find student's 4-studies courses
-				//calculate progress and change button color (will need to do this on the 'next' button on the previous screen)
-				//populate textArea_courseSummary with student's 4-studies courses
+				// Populate text area on course summary panel with student's four studies courses
+				textArea_courseSummary.setText(studies.toString());
 				
 				// Change card
 				setCardLayoutView("course summary");
@@ -843,10 +991,8 @@ public class DegreeAudit extends JFrame {
 				// Update label on Course Summary panel
 				changingLabel.setText("Major Core");
 				
-				// TODO:
-				//find student's major core courses
-				//calculate progress and change button color (will need to do this on the 'next' button on the previous screen)
-				//populate textArea_courseSummary with student's major core courses
+				// Populate text area on course summary panel with student's major core courses
+				textArea_courseSummary.setText(majorCore.toString());
 				
 				// Change card
 				setCardLayoutView("course summary");
@@ -865,10 +1011,8 @@ public class DegreeAudit extends JFrame {
 				// Update label on Course Summary panel
 				changingLabel.setText("Major Electives");
 				
-				// TODO:
-				//find student's major elective courses
-				//calculate progress and change button color (will need to do this on the 'next' button on the previous screen)
-				//populate textArea_courseSummary with student's major elective courses
+				// Populate text area on course summary panel with student's major elective courses
+				textArea_courseSummary.setText(majorElec.toString());
 				
 				// Change card
 				setCardLayoutView("course summary");
@@ -1524,7 +1668,8 @@ public class DegreeAudit extends JFrame {
 		}
 		catch(Exception ex)
 		{
-			ex.printStackTrace();
+			//ex.printStackTrace();
+			
 			// Error message pop-up
 			JOptionPane.showMessageDialog(null, 
 					"Error: A problem was encountered loading the file.",
