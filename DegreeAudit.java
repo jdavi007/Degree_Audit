@@ -1375,20 +1375,20 @@ public class DegreeAudit extends JFrame {
 
 				    switch (section) {
 				        case 0: // Getting courses in progress
-				            if (line.equals("Courses In Progress:"))
+				            if (line.equals("Courses In Progress:")) // If this string has been reached, all in progress courses have been retrieved
 				            {
-				                coursesRegistered = courses.toString();
-				                courses = new StringBuilder();
-				                section = 1;
+				                coursesRegistered = courses.toString(); // Cast courses to string and set coursesRegisterd variable
+				                courses = new StringBuilder(); // Empty courses for next set
+				                section = 1; // Move to next section
 				            } 
 				            else
 				            {
-				                courses.append(line).append("\n");
+				                courses.append(line).append("\n"); // Add current line to courses
 				            }
 				            break;
 
 				        case 1: // Getting courses registered
-				            if (line.equals("Completed Courses:")) 
+				            if (line.equals("Completed Courses:")) // Repeats the above process to get in progress courses
 				            {
 				                coursesInProgress = courses.toString();
 				                courses = new StringBuilder();
@@ -1401,7 +1401,7 @@ public class DegreeAudit extends JFrame {
 				            break;
 
 				        case 2: // Getting completed courses
-				            if (!line.isEmpty()) 
+				            if (!line.isEmpty()) // All that's left are completed courses
 				            {
 				            	courses.append(line).append("\n");
 				            }
