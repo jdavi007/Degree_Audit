@@ -532,11 +532,35 @@ public class DegreeAudit extends JFrame {
 				}
 				
 				// Completed = green
-				// Major Core
-				//TODO
+				// CS Major
+				if(studentMajor == "Computer Science") 
+				{
+					// Major Core
+					if(csMajor.length() == (majorCore.length()-1)) // Student's course strings have an extra "\n" somehow so just removed here 
+					{
+						majorCoreButton.setBackground(green);
+					}
 				
-				// Major Electives
-				//TODO
+					// Major Electives
+					if(csMajor.length() == (majorElec.length()-1))
+					{
+						majorCoreButton.setBackground(green);
+					}
+				}
+				else if(studentMajor == "Software Engineering") 
+				{
+					// Major Core
+					if(seCore.length() == (majorCore.length()-1)) // Student's course strings have an extra "\n" somehow so just removed here 
+					{
+						majorCoreButton.setBackground(green);
+					}
+				
+					// Major Electives
+					if(seElec.length() == (majorElec.length()-1))
+					{
+						majorCoreButton.setBackground(green);
+					}
+				}
 				
 				// Liberal Arts
 				// TODO
