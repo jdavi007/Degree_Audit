@@ -78,6 +78,7 @@ public class DegreeAudit extends JFrame {
 	private Color orange = new Color(255, 190, 111);   // Colors for
 	private Color yellow = new Color(249, 240, 107);   // color-changing buttons
 	private Color green = new Color(143, 240, 164);    //
+	private int confirmation = 0; // Used on pop-up confirmation windows
 	
 	//---------------------------------------------------------------------------------------------------------------------Student Info
 	private String studentFirstName = "";
@@ -91,10 +92,11 @@ public class DegreeAudit extends JFrame {
 	private StringBuilder studies = new StringBuilder();
 	private StringBuilder majorCore = new StringBuilder();
 	private StringBuilder majorElec = new StringBuilder();
+	private File studentRecord; // student record file variable
 	
 	//---------------------------------------------------------------------------------------------------------------------File data
 	private String csMajor = null; // File content string declarations
-	private String csElec = null; // TODO: Need to add csMathScienceRequirements.txt. I forgot it - Jacob
+	private String csElec = null; // TODO: Need to add csMathScienceRequirements.txt. I keep forgetting - Jacob
 	private String csCourses = null;
 	private String seCore = null;
 	private String seElec = null;
@@ -128,6 +130,9 @@ public class DegreeAudit extends JFrame {
 	Path selfPath = selfFile.toPath();
 	Path worldPath = worldFile.toPath();
 	Path libAPath = libAFile.toPath();
+	private JTextField firstNameField_delteRecord;
+	private JTextField lastNameField_deleteRecord;
+	private JTextField yearField_deleteRecord;
 
 	//---------------------------------------------------------------------------------------------------------------------Launch the application
 	public static void main(String[] args) 
@@ -248,10 +253,7 @@ public class DegreeAudit extends JFrame {
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				// TODO:
-				// Open file explorer & delete or go to a different panel to delete?
-				// Pop-up ask for confirmation
-				// Pop-up confirm delete
+				setCardLayoutView("delete record");
 			}
 		});
 		StartScreen.add(deleteStudentRecordBtn);
@@ -343,8 +345,8 @@ public class DegreeAudit extends JFrame {
 				String courses[] = studentCourses.toString().split("\n");
 				String fourStudies = comm + nati + self + world;
 				
-				// CS Major
-				if(studentMajor == "Computer Science") 
+				
+				if(studentMajor == "Computer Science") // CS Major
 				{
 					for(String course : courses) // Loop through student's courses 
 					{
@@ -381,32 +383,70 @@ public class DegreeAudit extends JFrame {
 						}
 					}
 				}
+				else if(studentMajor == "Software Engineering") // SWE Major
+				{
+					for(String course : courses) // Loop through student's courses 
+					{
+						for( String coreClass : seCore.split("\n")) // Check for major core course
+						{
+							if(course.equals(coreClass)) 
+							{
+								majorCore.append(course).append("\n");
+							}
+						}
+							
+						for(String elecCourse : seElec.split("\n")) // Check for major elective
+						{
+							if(course.equals(elecCourse)) 
+							{
+								majorElec.append(course).append("\n");
+							}
+						}
+							
+						for(String libCourse : libA.split("\n")) // Check for liberal arts course 
+						{
+							if(course.equals(libCourse)) 
+							{
+								libArts.append(course).append("\n");
+							}
+						}
+							
+						for(String studiesCourse : fourStudies.split("\n")) // Check for four studies course 
+						{
+							if(course.equals(studiesCourse)) 
+							{
+								studies.append(course).append("\n");
+							}
+						}
+					}
+				} // Didn't bother with other majors due to lack of course files for them
 				
 				//----------------------------------------Change button colors
 				// No progress = red
 				if(majorCore.isEmpty()) 
 				{
-					majorCoreButton.setBackground(red);
+					majorCoreButton.setBackground(red); // Major Core
 				}
 				
 				if(majorElec.isEmpty()) 
 				{
-					majorElectivesButton.setBackground(red);
+					majorElectivesButton.setBackground(red); // Major Electives
 				}
 				
 				if(libArts.isEmpty()) 
 				{
-					liberalArtsCoreButton.setBackground(red);
+					liberalArtsCoreButton.setBackground(red); // Liberal Arts
 				}
 				
 				if(studies.isEmpty()) 
 				{
-					studiesButton.setBackground(red);
+					studiesButton.setBackground(red); // Studies
 				}
 				
 				// Registered = orange
 				for(String regCourse : coursesRegistered.split("\n"))  
 				{
+					// Major Core
 					for(String majorCourse : majorCore.toString().split("\n")) 
 					{
 						if(regCourse.equals(majorCourse)) 
@@ -416,6 +456,7 @@ public class DegreeAudit extends JFrame {
 						}
 					}
 					
+					// Major Electives
 					for(String elecCourse : majorElec.toString().split("\n")) 
 					{
 						if(regCourse.equals(elecCourse)) 
@@ -425,6 +466,7 @@ public class DegreeAudit extends JFrame {
 						}
 					}
 					
+					// Liberal Arts
 					for(String libCourse : libArts.toString().split("\n")) 
 					{
 						if(regCourse.equals(libCourse)) 
@@ -434,6 +476,7 @@ public class DegreeAudit extends JFrame {
 						}
 					}
 					
+					// Studies
 					for(String studCourse : studies.toString().split("\n")) 
 					{
 						if(regCourse.equals(studCourse)) 
@@ -447,6 +490,7 @@ public class DegreeAudit extends JFrame {
 				// In progress = yellow
 				for(String progCourse : coursesInProgress.split("\n"))  
 				{
+					// Major Core
 					for(String majorCourse : majorCore.toString().split("\n")) 
 					{
 						if(progCourse.equals(majorCourse)) 
@@ -456,6 +500,7 @@ public class DegreeAudit extends JFrame {
 						}
 					}
 					
+					// Major Electives
 					for(String elecCourse : majorElec.toString().split("\n")) 
 					{
 						if(progCourse.equals(elecCourse)) 
@@ -465,6 +510,7 @@ public class DegreeAudit extends JFrame {
 						}
 					}
 					
+					// Lib Arts
 					for(String libCourse : libArts.toString().split("\n")) 
 					{
 						if(progCourse.equals(libCourse)) 
@@ -474,6 +520,7 @@ public class DegreeAudit extends JFrame {
 						}
 					}
 					
+					// Studies
 					for(String studCourse : studies.toString().split("\n")) 
 					{
 						if(progCourse.equals(studCourse)) 
@@ -484,8 +531,18 @@ public class DegreeAudit extends JFrame {
 					}
 				}
 				
-				//TODO: check for a completed area - set button to green (not sure how to do this yet)
 				// Completed = green
+				// Major Core
+				//TODO
+				
+				// Major Electives
+				//TODO
+				
+				// Liberal Arts
+				// TODO
+				
+				// Studies
+				// TODO
 				
 				// Change card
 				setCardLayoutView("degree progress");
@@ -540,7 +597,7 @@ public class DegreeAudit extends JFrame {
 				lastNameTextField_updateRecord.setText(null);
 				yearTextField_updateRecord.setText(null);
 				
-				// Uncheck major
+				// Un-check major
 				if(studentMajor == "Computer Science") 
 				{
 					CSmajorCheckBox_updateRecord.doClick();
@@ -558,14 +615,8 @@ public class DegreeAudit extends JFrame {
 					mathMajorCheckBox_updateRecord.doClick();
 				}
 				
-				// Clear student variables
-				studentFirstName = "";
-				studentLastName = "";
-				studentCatalogYear = "";
-				studentMajor = "";
-				coursesRegistered = "";
-				coursesInProgress = "";
-				completedCourses = "";
+				// Clear student info
+				clearStudent();
 				
 				// Change card
 				setCardLayoutView("start");
@@ -691,7 +742,7 @@ public class DegreeAudit extends JFrame {
 				lastNameField_createRecord.setText(null);
 				yearField_createRecord.setText(null);
 				
-				// Uncheck major
+				// Un-check major
 				if(studentMajor == "Computer Science") 
 				{
 					CSmajorCheckBox_createRecord.doClick();
@@ -710,13 +761,7 @@ public class DegreeAudit extends JFrame {
 				}
 				
 				// Clear student variables
-				studentFirstName = "";
-				studentLastName = "";
-				studentCatalogYear = "";
-				studentMajor = "";
-				coursesRegistered = "";
-				coursesInProgress = "";
-				completedCourses = "";
+				clearStudent();
 				
 				// Change card
 				setCardLayoutView("start");
@@ -770,14 +815,8 @@ public class DegreeAudit extends JFrame {
 					mathMajorCheckBox_updateMajor.doClick();
 				}
 				
-				// Clear student variables
-				studentFirstName = "";
-				studentLastName = "";
-				studentCatalogYear = "";
-				studentMajor = "";
-				coursesRegistered = "";
-				coursesInProgress = "";
-				completedCourses = "";
+				// Clear student info
+				clearStudent();
 				
 				// Change card
 				setCardLayoutView("start");
@@ -787,20 +826,118 @@ public class DegreeAudit extends JFrame {
 		backBtn_updateMajor.setBounds(12, 610, 117, 25);
 		UpdateMajor.add(backBtn_updateMajor);
 		
-		JButton nextBtn_updateMajor = new JButton("Next"); // Next button
+		JButton nextBtn_updateMajor = new JButton("Submit"); // Next button - changed to "Submit"
 		nextBtn_updateMajor.addActionListener(new ActionListener() 
 		{
 			public void actionPerformed(ActionEvent e)
-			{
-				// TODO:
-				// pop-up ask for confirmation
-				// get new major from check boxes
-				// open student file and update only major (will need to change file name)
-				// pop-up confirm update
-				// Clear student info variables
+			{		
+				// Pop-up to ask for confirmation
+				confirmation = JOptionPane.showConfirmDialog(null, 
+						"Are you sure you want to update the major?",
+						"Degree Audit: Confirm Sumbission",JOptionPane.YES_OPTION, JOptionPane.NO_OPTION);
 				
-				// Change card to "start"
-				setCardLayoutView("start");
+				if(confirmation == 0) // Check confirmation
+				{
+					StringBuilder newFileName = new StringBuilder(); // StringBuilder used to update filename
+					StringBuilder fileText = new StringBuilder(); // String builder used to update file content
+					
+					studentRecord.delete(); // Delete old file
+					
+					if(CSmajorCheckBox_updateMajor.isSelected()) // Get new major from check boxes
+					{
+						studentMajor = "Computer Science";
+					}
+					else if(SWEmajorCheckBox_updateMajor.isSelected())
+					{
+						studentMajor = "Software Engineering";
+					}
+					else if(MISmajorCheckBox_updateMajor.isSelected()) 
+					{
+						studentMajor = "Management Information Systems";
+					}
+					else if(mathMajorCheckBox_updateMajor.isSelected()) 
+					{
+						studentMajor = "Mathematics";
+					}
+					else 
+					{
+						studentMajor = null;
+					}
+					
+					// Creating filename with updated major
+					newFileName.append(studentLastName)
+					.append("_")
+					.append(studentFirstName)
+					.append("_");
+					
+					if(studentMajor == "Computer Science") 
+					{
+						newFileName.append("CSC");
+					}
+					else if(studentMajor == "Software Engineering") 
+					{
+						newFileName.append("SWE");
+					}
+					else if(studentMajor == "Management Information Systems") 
+					{
+						newFileName.append("MIS");
+					}
+					else if(studentMajor == "Mathematics")
+					{
+						newFileName.append("MATH");
+					}
+					newFileName.append(".txt");
+					
+					// Creating text for output to file
+					fileText.append("Last Name: ")
+					.append(studentLastName)
+					.append("\n")
+					.append("First Name: ")
+					.append(studentFirstName)
+					.append("\n")
+					.append("Catalog Year: ")
+					.append(studentCatalogYear)
+					.append("\n")
+					.append("Major: ")
+					.append(studentMajor)
+					.append("\n\n")
+					.append("Registered Courses:\n")
+					.append(coursesRegistered)
+					.append("\n")
+					.append("Courses In Progress:\n")
+					.append(coursesInProgress)
+					.append("\n")
+					.append("Completed Courses:\n")
+					.append(completedCourses);
+					
+					// File declaration
+					File updatedStudentFile = new File(newFileName.toString());
+					
+					// Creating updated file
+					try 
+					{
+						FileWriter writer = new FileWriter(updatedStudentFile);
+						writer.write(fileText.toString());
+						writer.close();
+					}
+					catch (Exception ex) 
+					{
+						JOptionPane.showMessageDialog(null, 
+							"Error: A problem was encountered writing to the file.",
+							"Degree Audit: Error",JOptionPane.PLAIN_MESSAGE);
+					}
+					
+					// Pop-up confirmation of changes
+					JOptionPane.showMessageDialog(null, 
+							"The student's major has been updated",
+							"Degree Audit: Confirmation",JOptionPane.PLAIN_MESSAGE);
+					
+					// Clear student info
+					clearStudent();
+				
+					// Change card to "start"
+					setCardLayoutView("start");
+				}
 			}
 		});
 		nextBtn_updateMajor.setFont(new Font("Dialog", Font.BOLD, 16));
@@ -829,6 +966,7 @@ public class DegreeAudit extends JFrame {
 		UpdateMajor.add(MISmajorCheckBox_updateMajor);
 		
 		mathMajorCheckBox_updateMajor = new JCheckBox("MATH"); // Math Major check box
+		mathMajorCheckBox_updateMajor.setEnabled(false);
 		mathMajorCheckBox_updateMajor.setFont(new Font("Dialog", Font.BOLD, 16));
 		mathMajorCheckBox_updateMajor.setBounds(361, 204, 76, 23);
 		UpdateMajor.add(mathMajorCheckBox_updateMajor);
@@ -1442,34 +1580,49 @@ public class DegreeAudit extends JFrame {
 				// System.out.print(fileText); // testing
 				
 				// Writing to file
-				// TODO: Add pop-up for confirmation
-					
-				// If confirmed:
-				try 
+				// Pop-up for confirmation
+				if(newOrUpdate == "update") // Displays different message for updating a record & creating new record
 				{
-					FileWriter writer = new FileWriter(studentFile);
-					writer.write(fileText.toString());
-					writer.close();
+					confirmation = JOptionPane.showConfirmDialog(null, 
+						"Are you sure you want to submit this record?",
+						"Degree Audit: Confirm Sumbission",JOptionPane.YES_OPTION, JOptionPane.NO_OPTION);
 				}
-				catch (Exception ex) 
+				else 
 				{
-					JOptionPane.showMessageDialog(null, 
+					confirmation = JOptionPane.showConfirmDialog(null, 
+							"Are you sure you want to create a new record?",
+							"Degree Audit: Confirm Sumbission",JOptionPane.YES_OPTION, JOptionPane.NO_OPTION);
+				}
+				
+				System.out.print(confirmation);
+					
+				// If confirmed, write changes to file, clear student info, & change card to start
+				if(confirmation == 0) 
+				{
+					try 
+					{
+						FileWriter writer = new FileWriter(studentFile);
+						writer.write(fileText.toString());
+						writer.close();
+					}
+					catch (Exception ex) 
+					{
+						JOptionPane.showMessageDialog(null, 
 							"Error: A problem was encountered writing to the file.",
 							"Degree Audit: Error",JOptionPane.PLAIN_MESSAGE);
+					}
+				
+					// Clear student info variables
+					clearStudent();
+					
+					// Pop-up confirmation of record creation
+					JOptionPane.showMessageDialog(null, 
+							"A new record has been created for the student.",
+							"Degree Audit: Record Created",JOptionPane.PLAIN_MESSAGE);
+					
+					// Change card
+					setCardLayoutView("start");
 				}
-				
-				// Clear student info variables
-				studentFirstName = "";
-				studentLastName = "";
-				studentCatalogYear = "";
-				studentMajor = "";
-				coursesRegistered = "";
-				coursesInProgress = "";
-				completedCourses = "";
-				
-				
-				// Change card
-				setCardLayoutView("start");
 			}
 		});
 		btnSubmitRecord.setFont(new Font("Dialog", Font.BOLD, 16));
@@ -1510,34 +1663,168 @@ public class DegreeAudit extends JFrame {
 		backBtn_courses.setBounds(8, 611, 117, 25);
 		Courses.add(backBtn_courses);
 		
-		// Application's full 'tab' traversal policy
-		MainPanel.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]
-				{StartScreen, UpdateStudentRecord, CreateStudentRecord, UpdateMajor, 
-						stdntRecordLabel, firstNameTextField_updateRecord, firstNameLabel, 
-						lastNameLabel, lastNameTextField_updateRecord, catalogYearLabel, 
-						yearTextField_updateRecord, majorLabel, CSmajorCheckBox_updateRecord, 
-						SWEmajorCheckBox_updateRecord, MISmajorCheckBox_updateRecord, 
-						mathMajorCheckBox_updateRecord, nextButton_updateRecord, 
-						loadStudentButton_updateRecord, firstNameLabel_1, firstNameField_createRecord, 
-						lastNameLabel_1, lastNameField_createRecord, yearField_createRecord, 
-						catalogYearLabel_1, lblCreateStudentRecord, majorLabel_1, 
-						CSmajorCheckBox_createRecord, SWEmajorCheckBox_createRecord, 
-						MISmajorCheckBox_createRecord, mathMajorCheckBox_createRecord, 
-						nextBtn_createRecord, backButton_updateRecord, backBtn_createRecord, 
-						updateMajorLabel, backBtn_updateMajor, nextBtn_updateMajor, changeToLabel, 
-						CSmajorCheckBox_updateMajor, SWEmajorCheckBox_updateMajor, MISmajorCheckBox_updateMajor, 
-						mathMajorCheckBox_updateMajor, firstNameLabel_1_1, lastNameLabel_1_1, 
-						firstNameField_updateMajor, lastNameField_updateMajor, currentMajorLabel, 
-						currentMajorField, loadBtn_updateMajor, DegreeProgress, degreeProgressLabel, 
-						backBtn_degreeProgress, nextBtn_degreeProgress, liberalArtsCoreButton, studiesButton, 
-						majorCoreButton, majorElectivesButton, CourseSummary, courseSummaryLabel, 
-						backBtn_courseSummary, scrollPane_2_1, textArea_courseSummary, changingLabel, 
-						Courses, scrollPane_available, scrollPane_registered, scrollPane_complete, 
-						scrollPane_inProgress, coursesLabel, filterComboBox, availableCoursesLabel, 
-						btn_regToInProg, btn_inProgToReg, lblNewLabel, lblInProgress, lblNewLabel_1, 
-						btn_inProgToComplete, btn_completeToInProg, btnSubmitRecord, btn_availableToReg, 
-						btn_regToAvailable, lblFilter, backBtn_courses, textArea_available, textArea_registered, 
-						textArea_inProgress, textArea_complete}));
+		//---------------------------------------------------------------------------------------------------------------------Delete Record panel
+		JPanel DeleteRecord = new JPanel();
+		DeleteRecord.setLayout(null);
+		MainPanel.add(DeleteRecord, "delete record");
+		
+		JLabel title_DeleteRecord = new JLabel("Delete Record"); // Panel Title label
+		title_DeleteRecord.setBounds(306, 0, 260, 15);
+		DeleteRecord.add(title_DeleteRecord);
+		
+		JLabel firstNameLabel_deleteRecord = new JLabel("First Name:"); // First Name label
+		firstNameLabel_deleteRecord.setFont(new Font("Dialog", Font.BOLD, 16));
+		firstNameLabel_deleteRecord.setBounds(12, 65, 114, 15);
+		DeleteRecord.add(firstNameLabel_deleteRecord);
+		
+		firstNameField_delteRecord = new JTextField(); // First Name field
+		firstNameField_delteRecord.setFont(new Font("Dialog", Font.PLAIN, 16));
+		firstNameField_delteRecord.setColumns(10);
+		firstNameField_delteRecord.setBounds(130, 63, 204, 25);
+		DeleteRecord.add(firstNameField_delteRecord);
+		
+		JLabel lastNameLabel_deleteRecord = new JLabel("Last Name:"); // Last Name label
+		lastNameLabel_deleteRecord.setFont(new Font("Dialog", Font.BOLD, 16));
+		lastNameLabel_deleteRecord.setBounds(12, 100, 114, 15);
+		DeleteRecord.add(lastNameLabel_deleteRecord);
+		
+		lastNameField_deleteRecord = new JTextField(); // Last Name field
+		lastNameField_deleteRecord.setFont(new Font("Dialog", Font.PLAIN, 14));
+		lastNameField_deleteRecord.setColumns(10);
+		lastNameField_deleteRecord.setBounds(130, 98, 204, 25);
+		DeleteRecord.add(lastNameField_deleteRecord);
+		
+		yearField_deleteRecord = new JTextField(); // Catalog Year text field
+		yearField_deleteRecord.setFont(new Font("Dialog", Font.PLAIN, 14));
+		yearField_deleteRecord.setColumns(10);
+		yearField_deleteRecord.setBounds(156, 133, 178, 25);
+		DeleteRecord.add(yearField_deleteRecord);
+		
+		JLabel catalogYearLabel_deleteRecord = new JLabel("Catalog Year:"); // Catalog Year label
+		catalogYearLabel_deleteRecord.setFont(new Font("Dialog", Font.BOLD, 16));
+		catalogYearLabel_deleteRecord.setBounds(12, 137, 133, 15);
+		DeleteRecord.add(catalogYearLabel_deleteRecord);
+		
+		JLabel majorLabel_deleteRecord = new JLabel("Major:"); // Major label
+		majorLabel_deleteRecord.setFont(new Font("Dialog", Font.BOLD, 16));
+		majorLabel_deleteRecord.setBounds(12, 208, 59, 15);
+		DeleteRecord.add(majorLabel_deleteRecord);
+		
+		JCheckBox CSmajorCheckBox_deleteRecord = new JCheckBox("CS"); // CS Major check-box
+		CSmajorCheckBox_deleteRecord.setFont(new Font("Dialog", Font.BOLD, 16));
+		CSmajorCheckBox_deleteRecord.setBounds(85, 205, 60, 23);
+		DeleteRecord.add(CSmajorCheckBox_deleteRecord);
+		
+		JCheckBox SWEmajorCheckBox_deleteRecord = new JCheckBox("SWE"); // SWE Major check-box
+		SWEmajorCheckBox_deleteRecord.setFont(new Font("Dialog", Font.BOLD, 16));
+		SWEmajorCheckBox_deleteRecord.setBounds(149, 205, 64, 23);
+		DeleteRecord.add(SWEmajorCheckBox_deleteRecord);
+		
+		JCheckBox MISmajorCheckBox_deleteRecord = new JCheckBox("MIS"); // MIS Major check-boc
+		MISmajorCheckBox_deleteRecord.setFont(new Font("Dialog", Font.BOLD, 16));
+		MISmajorCheckBox_deleteRecord.setEnabled(false);
+		MISmajorCheckBox_deleteRecord.setBounds(220, 205, 60, 23);
+		DeleteRecord.add(MISmajorCheckBox_deleteRecord);
+		
+		JCheckBox mathMajorCheckBox_deleteRecord = new JCheckBox("MATH"); // Math major check-box
+		mathMajorCheckBox_deleteRecord.setFont(new Font("Dialog", Font.BOLD, 16));
+		mathMajorCheckBox_deleteRecord.setEnabled(false);
+		mathMajorCheckBox_deleteRecord.setBounds(290, 205, 76, 23);
+		DeleteRecord.add(mathMajorCheckBox_deleteRecord);
+		
+		JButton deleteBtn_deleteRecord = new JButton("Delete Record"); // Delete Record button
+		deleteBtn_deleteRecord.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e)
+			{
+				// Check for no student loaded
+				if(!studentFirstName.isEmpty())
+				{
+					// Pop-up to ask for confirmation
+					confirmation = JOptionPane.showConfirmDialog(null, 
+						"Are you sure you want to delete this record?",
+						"Degree Audit: Delete Record",JOptionPane.YES_OPTION, JOptionPane.NO_OPTION);
+			
+					// Delete record
+					if(confirmation == 0) 
+					{
+						// Delete file
+						studentRecord.delete();
+					
+						// Clear student info
+						clearStudent();
+						
+						// Pop-up confirmation of deletion
+						JOptionPane.showMessageDialog(null, 
+								"The student's record has been deleted.",
+								"Degree Audit: Record Deleted",JOptionPane.PLAIN_MESSAGE);
+						
+						// Change card
+						setCardLayoutView("start");
+					}
+				}
+				else // No student loaded - can't delete record 
+				{
+					// Error message pop-up
+					JOptionPane.showMessageDialog(null, 
+							"Error: No student record has been loaded.",
+							"Degree Audit: Record Not Found",JOptionPane.PLAIN_MESSAGE);
+				}
+			}
+		});
+		deleteBtn_deleteRecord.setFont(new Font("Dialog", Font.BOLD, 16));
+		deleteBtn_deleteRecord.setBounds(590, 610, 161, 25);
+		DeleteRecord.add(deleteBtn_deleteRecord);
+		
+		JButton backBtn_deleteRecord = new JButton("Back"); // Back Button
+		backBtn_deleteRecord.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e)
+			{
+				// Clear student info
+				clearStudent();
+				
+				// Change card
+				setCardLayoutView("start");
+			}
+		});
+		backBtn_deleteRecord.setFont(new Font("Dialog", Font.BOLD, 16));
+		backBtn_deleteRecord.setBounds(12, 610, 117, 25);
+		DeleteRecord.add(backBtn_deleteRecord);
+		
+		JButton loadStudentButton_deleteRecord = new JButton("Load Student Record"); // Load Student button
+		loadStudentButton_deleteRecord.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e)
+			{
+				// Load Student
+				loadStudent();
+				
+				// Fill text areas
+				firstNameField_delteRecord.setText(studentFirstName);
+				lastNameField_deleteRecord.setText(studentLastName);
+				yearField_deleteRecord.setText(studentCatalogYear);
+				
+				// Fill major check-boxes
+				if(studentMajor == "Computer Science") 
+				{
+					CSmajorCheckBox_deleteRecord.doClick();
+				}
+				else if(studentMajor == "Software Engineering")
+				{
+					SWEmajorCheckBox_deleteRecord.doClick();
+				}
+				else if(studentMajor == "Management Information Systems") 
+				{
+					MISmajorCheckBox_deleteRecord.doClick();
+				}
+				else if(studentMajor == "Mathematics") 
+				{
+					mathMajorCheckBox_deleteRecord.doClick();
+				}
+			}
+		});
+		loadStudentButton_deleteRecord.setFont(new Font("Dialog", Font.BOLD, 16));
+		loadStudentButton_deleteRecord.setBounds(234, 611, 260, 25);
+		DeleteRecord.add(loadStudentButton_deleteRecord);
+		MainPanel.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{StartScreen, UpdateStudentRecord, CreateStudentRecord, UpdateMajor, stdntRecordLabel, firstNameTextField_updateRecord, firstNameLabel, lastNameLabel, lastNameTextField_updateRecord, catalogYearLabel, yearTextField_updateRecord, majorLabel, CSmajorCheckBox_updateRecord, SWEmajorCheckBox_updateRecord, MISmajorCheckBox_updateRecord, mathMajorCheckBox_updateRecord, nextButton_updateRecord, loadStudentButton_updateRecord, firstNameLabel_1, firstNameField_createRecord, lastNameLabel_1, lastNameField_createRecord, yearField_createRecord, catalogYearLabel_1, lblCreateStudentRecord, majorLabel_1, CSmajorCheckBox_createRecord, SWEmajorCheckBox_createRecord, MISmajorCheckBox_createRecord, mathMajorCheckBox_createRecord, nextBtn_createRecord, backButton_updateRecord, backBtn_createRecord, updateMajorLabel, backBtn_updateMajor, nextBtn_updateMajor, changeToLabel, CSmajorCheckBox_updateMajor, SWEmajorCheckBox_updateMajor, MISmajorCheckBox_updateMajor, mathMajorCheckBox_updateMajor, firstNameLabel_1_1, lastNameLabel_1_1, firstNameField_updateMajor, lastNameField_updateMajor, currentMajorLabel, currentMajorField, loadBtn_updateMajor, DegreeProgress, degreeProgressLabel, backBtn_degreeProgress, nextBtn_degreeProgress, liberalArtsCoreButton, studiesButton, majorCoreButton, majorElectivesButton, CourseSummary, courseSummaryLabel, backBtn_courseSummary, scrollPane_2_1, textArea_courseSummary, changingLabel, Courses, scrollPane_available, scrollPane_registered, scrollPane_complete, scrollPane_inProgress, coursesLabel, filterComboBox, availableCoursesLabel, btn_regToInProg, btn_inProgToReg, lblNewLabel, lblInProgress, lblNewLabel_1, btn_inProgToComplete, btn_completeToInProg, btnSubmitRecord, btn_availableToReg, btn_regToAvailable, lblFilter, backBtn_courses, textArea_available, textArea_registered, textArea_inProgress, textArea_complete, DeleteRecord, title_DeleteRecord, firstNameLabel_deleteRecord, firstNameField_delteRecord, lastNameLabel_deleteRecord, lastNameField_deleteRecord, yearField_deleteRecord, catalogYearLabel_deleteRecord, majorLabel_deleteRecord, CSmajorCheckBox_deleteRecord, SWEmajorCheckBox_deleteRecord, MISmajorCheckBox_deleteRecord, mathMajorCheckBox_deleteRecord, deleteBtn_deleteRecord, backBtn_deleteRecord, loadStudentButton_deleteRecord}));
 	}
 	
 	//---------------------------------------------------------------------------------------------------------------------Other Functions
@@ -1548,6 +1835,18 @@ public class DegreeAudit extends JFrame {
 		cardLayout.show(MainPanel, card);
 	}
 	
+	// Function to reset student variables
+	private void clearStudent()
+	{
+		// Clear student variables
+		studentFirstName = "";
+		studentLastName = "";
+		studentCatalogYear = "";
+		studentMajor = "";
+		coursesRegistered = "";
+		coursesInProgress = "";
+		completedCourses = "";
+	}
 	
 	// Function to load student info from text file - this works but there's probably a much simpler way to do it
 	private void loadStudent() 
@@ -1560,8 +1859,8 @@ public class DegreeAudit extends JFrame {
 			
 			if (returnValue == JFileChooser.APPROVE_OPTION) // Check for valid file - if invalid, file explorer closes & nothing happens
 			{
-				File openedFile = jfc.getSelectedFile(); // User selected file
-				Path filePath = openedFile.toPath(); // Gets file path
+				studentRecord = jfc.getSelectedFile(); // User selected file
+				Path filePath = studentRecord.toPath(); // Gets file path
 				String fileText = Files.readString(filePath); // Read data from file as a string
 				String strLines[] = fileText.split("\n"); // Splitting text by line
 				ArrayList<String> lines = new ArrayList<String>(Arrays.asList(strLines)); // Converting to array list to be able to remove items
