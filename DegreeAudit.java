@@ -68,6 +68,9 @@ public class DegreeAudit extends JFrame {
 	private JCheckBox SWEmajorCheckBox_updateMajor;			//
 	private JCheckBox MISmajorCheckBox_updateMajor;			//
 	private JCheckBox mathMajorCheckBox_updateMajor;		//
+	private JTextField firstNameField_delteRecord;			//
+	private JTextField lastNameField_deleteRecord;			//
+	private JTextField yearField_deleteRecord;				//
 	private String newOrUpdate = ""; // Used for determining if user is creating a new record or updating an existing one
 	private JLabel changingLabel; // Used on the "Course Summary" panel to indicate which category of courses are displayed
 	private JButton liberalArtsCoreButton; // Color-changing button indicates progress
@@ -130,9 +133,6 @@ public class DegreeAudit extends JFrame {
 	Path selfPath = selfFile.toPath();
 	Path worldPath = worldFile.toPath();
 	Path libAPath = libAFile.toPath();
-	private JTextField firstNameField_delteRecord;
-	private JTextField lastNameField_deleteRecord;
-	private JTextField yearField_deleteRecord;
 
 	//---------------------------------------------------------------------------------------------------------------------Launch the application
 	public static void main(String[] args) 
@@ -538,37 +538,48 @@ public class DegreeAudit extends JFrame {
 					if(studentMajor == "Computer Science") 
 					{
 						// Major Core
-						if(csMajor.length() == (majorCore.length()-1)) // Student's course strings have an extra "\n" somehow so just removed here 
+						// Student's course strings have an extra "\n" somehow so length is incorrect
+						if(csMajor.length() == (majorCore.length()-1))
 						{
 							majorCoreButton.setBackground(green);
 						}
 				
-						// Major Electives
-						if(csMajor.length() == (majorElec.length()-1))
-						{
-							majorCoreButton.setBackground(green);
-						}
+						// TODO: CSC Major Electives
+						// Cal 1, Cal 2, MTH/STA 2180, CSC 3710, 1 3k/4k level math
+						// 2k level programming class, 9 hours upper division course work
+						
 					}
 					else if(studentMajor == "Software Engineering") 
 					{
 						// Major Core
-						if(seCore.length() == (majorCore.length()-1)) // Student's course strings have an extra "\n" somehow so just removed here 
+						// Student's course strings have an extra "\n" somehow so length is incorrect
+						if(seCore.length() == (majorCore.length()-1))
 						{
 							majorCoreButton.setBackground(green);
 						}
 				
-						// Major Electives
-						if(seElec.length() == (majorElec.length()-1))
-						{
-							majorCoreButton.setBackground(green);
-						}
+						// TODO: SWE Major Electives
+						// 2 3k/4k level SWE Courses - 3240, 3420, or 4240
+						// CSC 1010, 1180, 2180, 2300, 3180 3660, 3400 all required
+						// Math: CSC 3710, MTH 2040, 2050, MTH/STA 2180, MTH 3030
+						// At least 30 hours of math & science courses
+						// 1 math course 3060 or higher
+						// 9 hours from the following:
+						// CSC 2220, 2230, 2240, 4000, 4110, 4150, 4200, 4280, 4281,
+						// 4300, 4350, 4380, 4690, 4950, 4960
+						// DSC/MIS 4350, 4500
+						
 					}
 				
-					// Liberal Arts - seminar, 2 sciences with labs, 2 math, 2 composition
-					// TODO
+					// TODO: Liberal Arts - minimum 48 hours
+					// ENG 1010 & either 1020 or 1030
+					// 2 languages courses 1010 & either 1020/1030
+					// 2 science courses with associated labs
 				
-					// Studies - 2 courses from each study?
-					// TODO
+					// TODO: 4 studies - minimum 21 hours
+					// humanities/fine arts - minimum 3 hours
+					// social/behavioral - minimum 3 hours
+					// DEI - minimum 3 hours
 				
 					// Change card
 					setCardLayoutView("degree progress");
