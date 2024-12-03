@@ -545,7 +545,7 @@ public class DegreeAudit extends JFrame {
 						}
 				
 						// TODO: CSC Major Electives
-						// Cal 1, Cal 2, MTH/STA 2180, CSC 3710, 1 3k/4k level math
+						// MTH/STA 2180, CSC 3710, 1 3k/4k level math
 						// 2k level programming class, 9 hours upper division course work
 						
 					}
@@ -571,15 +571,38 @@ public class DegreeAudit extends JFrame {
 						
 					}
 				
-					// TODO: Liberal Arts - minimum 48 hours
-					// ENG 1010 & either 1020 or 1030
-					// 2 languages courses 1010 & either 1020/1030
-					// 2 science courses with associated labs
+					// Liberal Arts - minimum 48 hours
+					// Instead of finding each required course, calculate hours of liberal arts courses student has had
+					// & compare with minimum required hours
+					String libAcourses[] = libArts.toString().split("\n");
+					int totalLibArtsHours = 0;
+					
+					// loop through student's liberal arts courses
+					for(String course : libAcourses) 
+					{
+						// adding course hours to total 
+						totalLibArtsHours += Integer.parseInt(String.valueOf(course.charAt(course.length()-1)));
+					}
+					
+					if(totalLibArtsHours >= 48) // If requirement is met, turn button green
+					{
+						liberalArtsCoreButton.setBackground(green);
+					}
 				
-					// TODO: 4 studies - minimum 21 hours
-					// humanities/fine arts - minimum 3 hours
-					// social/behavioral - minimum 3 hours
-					// DEI - minimum 3 hours
+					// 4 studies - minimum 21 hours
+					// Did the same as process as liberal arts for the studies courses
+					String studiesCourses[] = libArts.toString().split("\n");
+					int totalStudiesHours = 0;
+					
+					for(String course : studiesCourses) 
+					{
+						totalStudiesHours += Integer.parseInt(String.valueOf(course.charAt(course.length()-1)));
+					}
+					
+					if(totalStudiesHours >= 21) // If requirement is met, turn button green
+					{
+						studiesButton.setBackground(green);
+					}
 				
 					// Change card
 					setCardLayoutView("degree progress");
