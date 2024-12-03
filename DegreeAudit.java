@@ -337,239 +337,249 @@ public class DegreeAudit extends JFrame {
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				newOrUpdate = "update";
-				
-				// Sorting student's courses
-				StringBuilder studentCourses = new StringBuilder();
-				studentCourses.append(coursesRegistered).append(coursesInProgress).append(completedCourses);
-				String courses[] = studentCourses.toString().split("\n");
-				String fourStudies = comm + nati + self + world;
-				
-				
-				if(studentMajor == "Computer Science") // CS Major
+				if(!studentFirstName.isEmpty()) // Check to see if record has been loaded 
 				{
-					for(String course : courses) // Loop through student's courses 
+					newOrUpdate = "update";
+				
+					// Sorting student's courses
+					StringBuilder studentCourses = new StringBuilder();
+					studentCourses.append(coursesRegistered).append(coursesInProgress).append(completedCourses);
+					String courses[] = studentCourses.toString().split("\n");
+					String fourStudies = comm + nati + self + world;
+				
+				
+					if(studentMajor == "Computer Science") // CS Major
 					{
-						for( String coreClass : csMajor.split("\n")) // Check for major core course
+						for(String course : courses) // Loop through student's courses 
 						{
-							if(course.equals(coreClass)) 
+							for( String coreClass : csMajor.split("\n")) // Check for major core course
 							{
-								majorCore.append(course).append("\n");
+								if(course.equals(coreClass)) 
+								{
+									majorCore.append(course).append("\n");
+								}
 							}
-						}
 						
-						for(String elecCourse : csElec.split("\n")) // Check for major elective
-						{
-							if(course.equals(elecCourse)) 
+							for(String elecCourse : csElec.split("\n")) // Check for major elective
 							{
-								majorElec.append(course).append("\n");
+								if(course.equals(elecCourse)) 
+								{
+									majorElec.append(course).append("\n");
+								}
 							}
-						}
 						
-						for(String libCourse : libA.split("\n")) // Check for liberal arts course 
-						{
-							if(course.equals(libCourse)) 
+							for(String libCourse : libA.split("\n")) // Check for liberal arts course 
 							{
-								libArts.append(course).append("\n");
+								if(course.equals(libCourse)) 
+								{
+									libArts.append(course).append("\n");
+								}
 							}
-						}
 						
-						for(String studiesCourse : fourStudies.split("\n")) // Check for four studies course 
-						{
-							if(course.equals(studiesCourse)) 
+							for(String studiesCourse : fourStudies.split("\n")) // Check for four studies course 
 							{
-								studies.append(course).append("\n");
+								if(course.equals(studiesCourse)) 
+								{
+									studies.append(course).append("\n");
+								}
 							}
 						}
 					}
-				}
-				else if(studentMajor == "Software Engineering") // SWE Major
-				{
-					for(String course : courses) // Loop through student's courses 
+					else if(studentMajor == "Software Engineering") // SWE Major
 					{
-						for( String coreClass : seCore.split("\n")) // Check for major core course
+						for(String course : courses) // Loop through student's courses 
 						{
-							if(course.equals(coreClass)) 
+							for( String coreClass : seCore.split("\n")) // Check for major core course
 							{
-								majorCore.append(course).append("\n");
+								if(course.equals(coreClass)) 
+								{
+									majorCore.append(course).append("\n");
+								}
 							}
-						}
 							
-						for(String elecCourse : seElec.split("\n")) // Check for major elective
-						{
-							if(course.equals(elecCourse)) 
+							for(String elecCourse : seElec.split("\n")) // Check for major elective
 							{
-								majorElec.append(course).append("\n");
+								if(course.equals(elecCourse)) 
+								{
+									majorElec.append(course).append("\n");
+								}
 							}
-						}
 							
-						for(String libCourse : libA.split("\n")) // Check for liberal arts course 
-						{
-							if(course.equals(libCourse)) 
+							for(String libCourse : libA.split("\n")) // Check for liberal arts course 
 							{
-								libArts.append(course).append("\n");
+								if(course.equals(libCourse)) 
+								{
+									libArts.append(course).append("\n");
+								}
 							}
-						}
 							
-						for(String studiesCourse : fourStudies.split("\n")) // Check for four studies course 
-						{
-							if(course.equals(studiesCourse)) 
+							for(String studiesCourse : fourStudies.split("\n")) // Check for four studies course 
 							{
-								studies.append(course).append("\n");
+								if(course.equals(studiesCourse)) 
+								{
+									studies.append(course).append("\n");
+								}
+							}
+						}
+					} // Didn't bother with other majors due to lack of course files for them
+				
+					//----------------------------------------Change button colors
+					// No progress = red
+					if(majorCore.isEmpty()) 
+					{
+						majorCoreButton.setBackground(red); // Major Core
+					}
+				
+					if(majorElec.isEmpty()) 
+					{
+						majorElectivesButton.setBackground(red); // Major Electives
+					}
+				
+					if(libArts.isEmpty()) 
+					{
+						liberalArtsCoreButton.setBackground(red); // Liberal Arts
+					}
+				
+					if(studies.isEmpty()) 
+					{
+						studiesButton.setBackground(red); // Studies
+					}
+				
+					// Registered = orange
+					for(String regCourse : coursesRegistered.split("\n"))  
+					{
+						// Major Core
+						for(String majorCourse : majorCore.toString().split("\n")) 
+						{
+							if(regCourse.equals(majorCourse)) 
+							{
+								majorCoreButton.setBackground(orange);
+								break;
+							}
+						}
+					
+						// Major Electives
+						for(String elecCourse : majorElec.toString().split("\n")) 
+						{
+							if(regCourse.equals(elecCourse)) 
+							{
+								majorElectivesButton.setBackground(orange);
+								break;
+							}
+						}
+					
+						// Liberal Arts
+						for(String libCourse : libArts.toString().split("\n")) 
+						{
+							if(regCourse.equals(libCourse)) 
+							{
+								liberalArtsCoreButton.setBackground(orange);
+								break;
+							}
+						}
+					
+						// Studies
+						for(String studCourse : studies.toString().split("\n")) 
+						{
+							if(regCourse.equals(studCourse)) 
+							{
+								studiesButton.setBackground(orange);
+								break;
 							}
 						}
 					}
-				} // Didn't bother with other majors due to lack of course files for them
 				
-				//----------------------------------------Change button colors
-				// No progress = red
-				if(majorCore.isEmpty()) 
-				{
-					majorCoreButton.setBackground(red); // Major Core
-				}
-				
-				if(majorElec.isEmpty()) 
-				{
-					majorElectivesButton.setBackground(red); // Major Electives
-				}
-				
-				if(libArts.isEmpty()) 
-				{
-					liberalArtsCoreButton.setBackground(red); // Liberal Arts
-				}
-				
-				if(studies.isEmpty()) 
-				{
-					studiesButton.setBackground(red); // Studies
-				}
-				
-				// Registered = orange
-				for(String regCourse : coursesRegistered.split("\n"))  
-				{
-					// Major Core
-					for(String majorCourse : majorCore.toString().split("\n")) 
+					// In progress = yellow
+					for(String progCourse : coursesInProgress.split("\n"))  
 					{
-						if(regCourse.equals(majorCourse)) 
+						// Major Core
+						for(String majorCourse : majorCore.toString().split("\n")) 
 						{
-							majorCoreButton.setBackground(orange);
-							break;
+							if(progCourse.equals(majorCourse)) 
+							{
+								majorCoreButton.setBackground(yellow);
+								break;
+							}
 						}
-					}
 					
-					// Major Electives
-					for(String elecCourse : majorElec.toString().split("\n")) 
-					{
-						if(regCourse.equals(elecCourse)) 
+						// Major Electives
+						for(String elecCourse : majorElec.toString().split("\n")) 
 						{
-							majorElectivesButton.setBackground(orange);
-							break;
+							if(progCourse.equals(elecCourse)) 
+							{
+								majorElectivesButton.setBackground(yellow);
+								break;
+							}
 						}
-					}
 					
-					// Liberal Arts
-					for(String libCourse : libArts.toString().split("\n")) 
-					{
-						if(regCourse.equals(libCourse)) 
+						// Lib Arts
+						for(String libCourse : libArts.toString().split("\n")) 
 						{
-							liberalArtsCoreButton.setBackground(orange);
-							break;
+							if(progCourse.equals(libCourse)) 
+							{
+								liberalArtsCoreButton.setBackground(yellow);
+								break;
+							}
 						}
-					}
 					
-					// Studies
-					for(String studCourse : studies.toString().split("\n")) 
-					{
-						if(regCourse.equals(studCourse)) 
+						// Studies
+						for(String studCourse : studies.toString().split("\n")) 
 						{
-							studiesButton.setBackground(orange);
-							break;
+							if(progCourse.equals(studCourse)) 
+							{
+								studiesButton.setBackground(yellow);
+								break;
+							}
 						}
 					}
-				}
 				
-				// In progress = yellow
-				for(String progCourse : coursesInProgress.split("\n"))  
+					// Completed = green
+					// CS Major
+					if(studentMajor == "Computer Science") 
+					{
+						// Major Core
+						if(csMajor.length() == (majorCore.length()-1)) // Student's course strings have an extra "\n" somehow so just removed here 
+						{
+							majorCoreButton.setBackground(green);
+						}
+				
+						// Major Electives
+						if(csMajor.length() == (majorElec.length()-1))
+						{
+							majorCoreButton.setBackground(green);
+						}
+					}
+					else if(studentMajor == "Software Engineering") 
+					{
+						// Major Core
+						if(seCore.length() == (majorCore.length()-1)) // Student's course strings have an extra "\n" somehow so just removed here 
+						{
+							majorCoreButton.setBackground(green);
+						}
+				
+						// Major Electives
+						if(seElec.length() == (majorElec.length()-1))
+						{
+							majorCoreButton.setBackground(green);
+						}
+					}
+				
+					// Liberal Arts - seminar, 2 sciences with labs, 2 math, 2 composition
+					// TODO
+				
+					// Studies - 2 courses from each study?
+					// TODO
+				
+					// Change card
+					setCardLayoutView("degree progress");
+				}
+				else // No student loaded - can't update record 
 				{
-					// Major Core
-					for(String majorCourse : majorCore.toString().split("\n")) 
-					{
-						if(progCourse.equals(majorCourse)) 
-						{
-							majorCoreButton.setBackground(yellow);
-							break;
-						}
-					}
-					
-					// Major Electives
-					for(String elecCourse : majorElec.toString().split("\n")) 
-					{
-						if(progCourse.equals(elecCourse)) 
-						{
-							majorElectivesButton.setBackground(yellow);
-							break;
-						}
-					}
-					
-					// Lib Arts
-					for(String libCourse : libArts.toString().split("\n")) 
-					{
-						if(progCourse.equals(libCourse)) 
-						{
-							liberalArtsCoreButton.setBackground(yellow);
-							break;
-						}
-					}
-					
-					// Studies
-					for(String studCourse : studies.toString().split("\n")) 
-					{
-						if(progCourse.equals(studCourse)) 
-						{
-							studiesButton.setBackground(yellow);
-							break;
-						}
-					}
+					// Error message pop-up
+					JOptionPane.showMessageDialog(null, 
+							"Error: No student record has been loaded.",
+							"Degree Audit: Record Not Found",JOptionPane.PLAIN_MESSAGE);
 				}
-				
-				// Completed = green
-				// CS Major
-				if(studentMajor == "Computer Science") 
-				{
-					// Major Core
-					if(csMajor.length() == (majorCore.length()-1)) // Student's course strings have an extra "\n" somehow so just removed here 
-					{
-						majorCoreButton.setBackground(green);
-					}
-				
-					// Major Electives
-					if(csMajor.length() == (majorElec.length()-1))
-					{
-						majorCoreButton.setBackground(green);
-					}
-				}
-				else if(studentMajor == "Software Engineering") 
-				{
-					// Major Core
-					if(seCore.length() == (majorCore.length()-1)) // Student's course strings have an extra "\n" somehow so just removed here 
-					{
-						majorCoreButton.setBackground(green);
-					}
-				
-					// Major Electives
-					if(seElec.length() == (majorElec.length()-1))
-					{
-						majorCoreButton.setBackground(green);
-					}
-				}
-				
-				// Liberal Arts
-				// TODO
-				
-				// Studies
-				// TODO
-				
-				// Change card
-				setCardLayoutView("degree progress");
 			}
 		});
 		nextButton_updateRecord.setFont(new Font("Dialog", Font.BOLD, 16));
@@ -731,25 +741,36 @@ public class DegreeAudit extends JFrame {
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				newOrUpdate = "new";
+				// Checking text fields for missing required information
+				if(!firstNameField_createRecord.getText().isBlank() && !lastNameField_createRecord.getText().isBlank() && !yearField_createRecord.getText().isBlank()) 
+				{
+					newOrUpdate = "new";
 				
-				// Get student info from text boxes/check boxes
-				studentFirstName = firstNameField_createRecord.getText();
-				studentLastName = lastNameField_createRecord.getText();
-				studentCatalogYear = yearField_createRecord.getText();
-				if(CSmajorCheckBox_createRecord.isSelected()) {studentMajor = "Computer Science";}
-				else if (SWEmajorCheckBox_createRecord.isSelected()) {studentMajor = "Software Engineering";}
-				else if (MISmajorCheckBox_createRecord.isSelected()) {studentMajor = "Management Information Systems";}
-				else {studentMajor = "Mathematics";}
+					// Get student info from text boxes/check boxes
+					studentFirstName = firstNameField_createRecord.getText();
+					studentLastName = lastNameField_createRecord.getText();
+					studentCatalogYear = yearField_createRecord.getText();
+					if(CSmajorCheckBox_createRecord.isSelected()) {studentMajor = "Computer Science";}
+					else if (SWEmajorCheckBox_createRecord.isSelected()) {studentMajor = "Software Engineering";}
+					else if (MISmajorCheckBox_createRecord.isSelected()) {studentMajor = "Management Information Systems";}
+					else {studentMajor = "Mathematics";}
 				
-				// Set button colors to red on Degree Progress Panel
-				liberalArtsCoreButton.setBackground(red);
-				studiesButton.setBackground(red);
-				majorCoreButton.setBackground(red);
-				majorElectivesButton.setBackground(red);
+					// Set button colors to red on Degree Progress Panel
+					liberalArtsCoreButton.setBackground(red);
+					studiesButton.setBackground(red);
+					majorCoreButton.setBackground(red);
+					majorElectivesButton.setBackground(red);
 				
-				// Change card
-				setCardLayoutView("degree progress");
+					// Change card
+					setCardLayoutView("degree progress");
+				}
+				else // One of the required text fields is empty 
+				{
+					// Error message pop-up
+					JOptionPane.showMessageDialog(null, 
+							"Error: Form missing required information.",
+							"Degree Audit: Missing Information",JOptionPane.PLAIN_MESSAGE);
+				}
 			}
 		});
 		nextBtn_createRecord.setFont(new Font("Dialog", Font.BOLD, 16));
@@ -854,114 +875,126 @@ public class DegreeAudit extends JFrame {
 		nextBtn_updateMajor.addActionListener(new ActionListener() 
 		{
 			public void actionPerformed(ActionEvent e)
-			{		
-				// Pop-up to ask for confirmation
-				confirmation = JOptionPane.showConfirmDialog(null, 
+			{	
+				// Check for no student record loaded
+				if(!studentFirstName.isEmpty()) 
+				{
+					// Pop-up to ask for confirmation
+					confirmation = JOptionPane.showConfirmDialog(null, 
 						"Are you sure you want to update the major?",
 						"Degree Audit: Confirm Sumbission",JOptionPane.YES_OPTION, JOptionPane.NO_OPTION);
 				
-				if(confirmation == 0) // Check confirmation
-				{
-					StringBuilder newFileName = new StringBuilder(); // StringBuilder used to update filename
-					StringBuilder fileText = new StringBuilder(); // String builder used to update file content
+					if(confirmation == 0) // Check confirmation
+					{
+						StringBuilder newFileName = new StringBuilder(); // StringBuilder used to update filename
+						StringBuilder fileText = new StringBuilder(); // String builder used to update file content
 					
-					studentRecord.delete(); // Delete old file
+						studentRecord.delete(); // Delete old file
 					
-					if(CSmajorCheckBox_updateMajor.isSelected()) // Get new major from check boxes
-					{
-						studentMajor = "Computer Science";
-					}
-					else if(SWEmajorCheckBox_updateMajor.isSelected())
-					{
-						studentMajor = "Software Engineering";
-					}
-					else if(MISmajorCheckBox_updateMajor.isSelected()) 
-					{
-						studentMajor = "Management Information Systems";
-					}
-					else if(mathMajorCheckBox_updateMajor.isSelected()) 
-					{
-						studentMajor = "Mathematics";
-					}
-					else 
-					{
-						studentMajor = null;
-					}
+						if(CSmajorCheckBox_updateMajor.isSelected()) // Get new major from check boxes
+						{
+							studentMajor = "Computer Science";
+						}
+						else if(SWEmajorCheckBox_updateMajor.isSelected())
+						{
+							studentMajor = "Software Engineering";
+						}
+						else if(MISmajorCheckBox_updateMajor.isSelected()) 
+						{
+							studentMajor = "Management Information Systems";
+						}
+						else if(mathMajorCheckBox_updateMajor.isSelected()) 
+						{
+							studentMajor = "Mathematics";
+						}
+						else 
+						{
+							studentMajor = null;
+						}
 					
-					// Creating filename with updated major
-					newFileName.append(studentLastName)
-					.append("_")
-					.append(studentFirstName)
-					.append("_");
+						// Creating filename with updated major
+						newFileName.append(studentLastName)
+						.append("_")
+						.append(studentFirstName)
+						.append("_");
 					
-					if(studentMajor == "Computer Science") 
-					{
-						newFileName.append("CSC");
-					}
-					else if(studentMajor == "Software Engineering") 
-					{
-						newFileName.append("SWE");
-					}
-					else if(studentMajor == "Management Information Systems") 
-					{
-						newFileName.append("MIS");
-					}
-					else if(studentMajor == "Mathematics")
-					{
-						newFileName.append("MATH");
-					}
-					newFileName.append(".txt");
+						if(studentMajor == "Computer Science") 
+						{
+							newFileName.append("CSC");
+						}
+						else if(studentMajor == "Software Engineering") 
+						{
+							newFileName.append("SWE");
+						}
+						else if(studentMajor == "Management Information Systems") 
+						{
+							newFileName.append("MIS");
+						}
+						else if(studentMajor == "Mathematics")
+						{
+							newFileName.append("MATH");
+						}
+						newFileName.append(".txt");
 					
-					// Creating text for output to file
-					fileText.append("Last Name: ")
-					.append(studentLastName)
-					.append("\n")
-					.append("First Name: ")
-					.append(studentFirstName)
-					.append("\n")
-					.append("Catalog Year: ")
-					.append(studentCatalogYear)
-					.append("\n")
-					.append("Major: ")
-					.append(studentMajor)
-					.append("\n\n")
-					.append("Registered Courses:\n")
-					.append(coursesRegistered)
-					.append("\n")
-					.append("Courses In Progress:\n")
-					.append(coursesInProgress)
-					.append("\n")
-					.append("Completed Courses:\n")
-					.append(completedCourses);
+						// Creating text for output to file
+						fileText.append("Last Name: ")
+						.append(studentLastName)
+						.append("\n")
+						.append("First Name: ")
+						.append(studentFirstName)
+						.append("\n")
+						.append("Catalog Year: ")
+						.append(studentCatalogYear)
+						.append("\n")
+						.append("Major: ")
+						.append(studentMajor)
+						.append("\n\n")
+						.append("Registered Courses:\n")
+						.append(coursesRegistered)
+						.append("\n")
+						.append("Courses In Progress:\n")
+						.append(coursesInProgress)
+						.append("\n")
+						.append("Completed Courses:\n")
+						.append(completedCourses);
 					
-					// File declaration
-					File updatedStudentFile = new File(newFileName.toString());
+						// File declaration
+						File updatedStudentFile = new File(newFileName.toString());
 					
-					// Creating updated file
-					try 
-					{
-						FileWriter writer = new FileWriter(updatedStudentFile);
-						writer.write(fileText.toString());
-						writer.close();
-					}
-					catch (Exception ex) 
-					{
+						// Creating updated file
+						try 
+						{
+							FileWriter writer = new FileWriter(updatedStudentFile);
+							writer.write(fileText.toString());
+							writer.close();
+						}
+						catch (Exception ex) 
+						{
+							JOptionPane.showMessageDialog(null, 
+									"Error: A problem was encountered writing to the file.",
+									"Degree Audit: Error",JOptionPane.PLAIN_MESSAGE);
+						}
+					
+						// Pop-up confirmation of changes
 						JOptionPane.showMessageDialog(null, 
-							"Error: A problem was encountered writing to the file.",
-							"Degree Audit: Error",JOptionPane.PLAIN_MESSAGE);
-					}
-					
-					// Pop-up confirmation of changes
-					JOptionPane.showMessageDialog(null, 
 							"The student's major has been updated",
 							"Degree Audit: Confirmation",JOptionPane.PLAIN_MESSAGE);
 					
-					// Clear student info
-					clearStudent();
+						// Clear student info
+						clearStudent();
 				
-					// Change card to "start"
-					setCardLayoutView("start");
+						// Change card to "start"
+						setCardLayoutView("start");
+					}
 				}
+				else // No student loaded - can't update major 
+				{
+					// Error message pop-up
+					JOptionPane.showMessageDialog(null, 
+							"Error: No student record has been loaded.",
+							"Degree Audit: Record Not Found",JOptionPane.PLAIN_MESSAGE);
+				}
+				
 			}
 		});
 		nextBtn_updateMajor.setFont(new Font("Dialog", Font.BOLD, 16));
