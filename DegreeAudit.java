@@ -1098,6 +1098,12 @@ public class DegreeAudit extends JFrame {
 		{
 			public void actionPerformed(ActionEvent e)
 			{
+				// Clear student course area variables - avoids repeating courses on course summary page
+				libArts = new StringBuilder();
+				studies = new StringBuilder();
+				majorCore = new StringBuilder();
+				majorElec = new StringBuilder();
+				
 				if(newOrUpdate == "new") 
 				{
 					// Change card
@@ -1236,7 +1242,11 @@ public class DegreeAudit extends JFrame {
 		backBtn_courseSummary.addActionListener(new ActionListener() 
 		{
 			public void actionPerformed(ActionEvent e)
-			{
+			{	
+				// Clear text in text area
+				textArea_courseSummary.setText(null);
+				
+				// Change card
 				setCardLayoutView("degree progress");
 			}
 		});
