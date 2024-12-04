@@ -2,6 +2,9 @@
  * CSC 2220 - Group Project
  * Jacob Davis, Kaylee Strope, Dylan Dray
  * November 22, 2024
+ * 
+ * Not 100% sure the color changing button works as it should
+ * Compared the hours of completed courses in each area with the minimum number of hours required but could be way off
  */
 
 
@@ -99,7 +102,7 @@ public class DegreeAudit extends JFrame {
 	
 	//---------------------------------------------------------------------------------------------------------------------File data
 	private String csMajor = null; // File content string declarations
-	private String csElec = null; // TODO: Need to add csMathScienceRequirements.txt. I keep forgetting - Jacob
+	private String csElec = null;
 	private String csCourses = null;
 	private String seCore = null;
 	private String seElec = null;
@@ -544,9 +547,34 @@ public class DegreeAudit extends JFrame {
 							majorCoreButton.setBackground(green);
 						}
 				
-						// TODO: CSC Major Electives
-						// MTH/STA 2180, CSC 3710, 1 3k/4k level math
-						// 2k level programming class, 9 hours upper division course work
+						// CSC Major Electives - 12 hours minimum?
+						// 2k level programming class & 9 hours upper division course work
+						String electiveCourses[] = majorElec.toString().split("\n");
+						int totalMajorElecHours = 0;
+						
+						for(String course : electiveCourses) 
+						{
+							boolean completed = false;
+							
+							for(String completedCourse : completedCourses.split("\n")) 
+							{
+								if(completedCourse.equals(course)) 
+								{
+									completed = true;
+									break;
+								}
+							}
+							
+							if(completed) 
+							{
+								totalMajorElecHours += Integer.parseInt(String.valueOf(course.charAt(course.length()-1)));
+							}
+						}
+						
+						if(totalMajorElecHours >= 12) // If requirement is met, turn button green
+						{
+							studiesButton.setBackground(green);
+						}
 						
 					}
 					else if(studentMajor == "Software Engineering") 
@@ -558,22 +586,36 @@ public class DegreeAudit extends JFrame {
 							majorCoreButton.setBackground(green);
 						}
 				
-						// TODO: SWE Major Electives
-						// 2 3k/4k level SWE Courses - 3240, 3420, or 4240
-						// CSC 1010, 1180, 2180, 2300, 3180 3660, 3400 all required
-						// Math: CSC 3710, MTH 2040, 2050, MTH/STA 2180, MTH 3030
-						// At least 30 hours of math & science courses
-						// 1 math course 3060 or higher
-						// 9 hours from the following:
-						// CSC 2220, 2230, 2240, 4000, 4110, 4150, 4200, 4280, 4281,
-						// 4300, 4350, 4380, 4690, 4950, 4960
-						// DSC/MIS 4350, 4500
+						// SWE Major Electives - 9 hours minimum?
+						String electiveCourses[] = majorElec.toString().split("\n");
+						int totalMajorElecHours = 0;
 						
+						for(String course : electiveCourses) 
+						{
+							boolean completed = false;
+							
+							for(String completedCourse : completedCourses.split("\n")) 
+							{
+								if(completedCourse.equals(course)) 
+								{
+									completed = true;
+									break;
+								}
+							}
+							
+							if(completed) 
+							{
+								totalMajorElecHours += Integer.parseInt(String.valueOf(course.charAt(course.length()-1)));
+							}
+						}
+						
+						if(totalMajorElecHours >= 9) // If requirement is met, turn button green
+						{
+							studiesButton.setBackground(green);
+						}
 					}
 				
 					// Liberal Arts - minimum 48 hours
-					// Instead of finding each required course, calculate hours of liberal arts courses student has had
-					// & compare with minimum required hours
 					String libAcourses[] = libArts.toString().split("\n");
 					int totalLibArtsHours = 0;
 					
@@ -595,6 +637,7 @@ public class DegreeAudit extends JFrame {
 						if(completed) 
 						{
 							// adding course hours to total 
+							// this just picks up the hours from the end of the line, casts to an int & adds it to the total
 							totalLibArtsHours += Integer.parseInt(String.valueOf(course.charAt(course.length()-1)));
 						}
 					}
@@ -604,8 +647,7 @@ public class DegreeAudit extends JFrame {
 						liberalArtsCoreButton.setBackground(green);
 					}
 				
-					// 4 studies - minimum 21 hours
-					// Did the same as process as liberal arts for the studies courses
+					// 4 Studies - minimum 21 hours
 					String studiesCourses[] = libArts.toString().split("\n");
 					int totalStudiesHours = 0;
 					
