@@ -423,7 +423,7 @@ public class DegreeAudit extends JFrame {
 						}
 					} // Didn't bother with other majors due to lack of course files for them
 				
-					//----------------------------------------Change button colors
+					//----------------------------------------Change button colors - this is pretty messy
 					// No progress = red
 					if(majorCore.isEmpty()) 
 					{
@@ -580,8 +580,23 @@ public class DegreeAudit extends JFrame {
 					// loop through student's liberal arts courses
 					for(String course : libAcourses) 
 					{
-						// adding course hours to total 
-						totalLibArtsHours += Integer.parseInt(String.valueOf(course.charAt(course.length()-1)));
+						boolean completed = false;
+						
+						// Check if course has been completed
+						for(String completedCourse : completedCourses.split("\n")) 
+						{
+							if(completedCourse.equals(course)) 
+							{
+								completed = true;
+								break;
+							}
+						}
+						
+						if(completed) 
+						{
+							// adding course hours to total 
+							totalLibArtsHours += Integer.parseInt(String.valueOf(course.charAt(course.length()-1)));
+						}
 					}
 					
 					if(totalLibArtsHours >= 48) // If requirement is met, turn button green
@@ -596,7 +611,21 @@ public class DegreeAudit extends JFrame {
 					
 					for(String course : studiesCourses) 
 					{
-						totalStudiesHours += Integer.parseInt(String.valueOf(course.charAt(course.length()-1)));
+						boolean completed = false;
+						
+						for(String completedCourse : completedCourses.split("\n")) 
+						{
+							if(completedCourse.equals(course)) 
+							{
+								completed = true;
+								break;
+							}
+						}
+						
+						if(completed) 
+						{
+							totalStudiesHours += Integer.parseInt(String.valueOf(course.charAt(course.length()-1)));
+						}
 					}
 					
 					if(totalStudiesHours >= 21) // If requirement is met, turn button green
