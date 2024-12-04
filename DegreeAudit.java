@@ -53,27 +53,27 @@ public class DegreeAudit extends JFrame {
 	private JPanel contentPane;
 	private JPanel MainPanel;
 	private CardLayout cardLayout;
-	private JTextField firstNameTextField_updateRecord;		//
-	private JTextField lastNameTextField_updateRecord;		//
-	private JTextField yearTextField_updateRecord;			//
-	private JTextField firstNameField_createRecord;			//
-	private JTextField lastNameField_createRecord;			//
-	private JTextField yearField_createRecord;				//
-	private JTextField firstNameField_updateMajor; 			// All of these are used to update various GUI items
-	private JTextField lastNameField_updateMajor;			//
-	private JTextField currentMajorField;					//
-	private JTextArea textArea_courseSummary; 				//
-	private JTextArea textArea_available;					//
-	private JTextArea textArea_inProgress;					//
-	private JTextArea textArea_complete;					//
-	private JTextArea textArea_registered;					//
-	private JCheckBox CSmajorCheckBox_updateMajor;			//
-	private JCheckBox SWEmajorCheckBox_updateMajor;			//
-	private JCheckBox MISmajorCheckBox_updateMajor;			//
-	private JCheckBox mathMajorCheckBox_updateMajor;		//
-	private JTextField firstNameField_delteRecord;			//
-	private JTextField lastNameField_deleteRecord;			//
-	private JTextField yearField_deleteRecord;				//
+	private JTextField firstNameTextField_updateRecord; // All of these are used to update various GUI items
+	private JTextField lastNameTextField_updateRecord;
+	private JTextField yearTextField_updateRecord;
+	private JTextField firstNameField_createRecord;
+	private JTextField lastNameField_createRecord;
+	private JTextField yearField_createRecord;
+	private JTextField firstNameField_updateMajor;
+	private JTextField lastNameField_updateMajor;
+	private JTextField currentMajorField;
+	private JTextArea textArea_courseSummary;
+	private JTextArea textArea_available;
+	private JTextArea textArea_inProgress;
+	private JTextArea textArea_complete;
+	private JTextArea textArea_registered;
+	private JCheckBox CSmajorCheckBox_updateMajor;
+	private JCheckBox SWEmajorCheckBox_updateMajor;
+	private JCheckBox MISmajorCheckBox_updateMajor;
+	private JCheckBox mathMajorCheckBox_updateMajor;
+	private JTextField firstNameField_delteRecord;
+	private JTextField lastNameField_deleteRecord;
+	private JTextField yearField_deleteRecord;
 	private String newOrUpdate = ""; // Used for determining if user is creating a new record or updating an existing one
 	private JLabel changingLabel; // Used on the "Course Summary" panel to indicate which category of courses are displayed
 	private JButton liberalArtsCoreButton; // Color-changing button indicates progress
@@ -99,6 +99,7 @@ public class DegreeAudit extends JFrame {
 	private StringBuilder majorCore = new StringBuilder();
 	private StringBuilder majorElec = new StringBuilder();
 	private File studentRecord; // student record file variable
+	private boolean studentLoaded = false; // Boolean to track whether or not a student record has been loaded
 	
 	//---------------------------------------------------------------------------------------------------------------------File data
 	private String csMajor = null; // File content string declarations
@@ -340,7 +341,7 @@ public class DegreeAudit extends JFrame {
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				if(!studentFirstName.isEmpty()) // Check to see if record has been loaded 
+				if(studentLoaded) // Check to see if record has been loaded 
 				{
 					newOrUpdate = "update";
 				
@@ -426,8 +427,9 @@ public class DegreeAudit extends JFrame {
 						}
 					} // Didn't bother with other majors due to lack of course files for them
 				
-					//----------------------------------------Change button colors - this is pretty messy
+					//------------------------------------------------------------------------Change button colors - this gets pretty messy
 					// No progress = red
+					// Just checks if student has no courses in each area
 					if(majorCore.isEmpty()) 
 					{
 						majorCoreButton.setBackground(red); // Major Core
@@ -449,6 +451,7 @@ public class DegreeAudit extends JFrame {
 					}
 				
 					// Registered = orange
+					// These just check for any registered course in each area
 					for(String regCourse : coursesRegistered.split("\n"))  
 					{
 						// Major Core
@@ -493,12 +496,13 @@ public class DegreeAudit extends JFrame {
 					}
 				
 					// In progress = yellow
-					for(String progCourse : coursesInProgress.split("\n"))  
+					// These just check for any in-progress course in each area
+					for(String inProgCourse : coursesInProgress.split("\n"))  
 					{
 						// Major Core
 						for(String majorCourse : majorCore.toString().split("\n")) 
 						{
-							if(progCourse.equals(majorCourse)) 
+							if(inProgCourse.equals(majorCourse)) 
 							{
 								majorCoreButton.setBackground(yellow);
 								break;
@@ -508,7 +512,7 @@ public class DegreeAudit extends JFrame {
 						// Major Electives
 						for(String elecCourse : majorElec.toString().split("\n")) 
 						{
-							if(progCourse.equals(elecCourse)) 
+							if(inProgCourse.equals(elecCourse)) 
 							{
 								majorElectivesButton.setBackground(yellow);
 								break;
@@ -518,7 +522,7 @@ public class DegreeAudit extends JFrame {
 						// Lib Arts
 						for(String libCourse : libArts.toString().split("\n")) 
 						{
-							if(progCourse.equals(libCourse)) 
+							if(inProgCourse.equals(libCourse)) 
 							{
 								liberalArtsCoreButton.setBackground(yellow);
 								break;
@@ -528,7 +532,7 @@ public class DegreeAudit extends JFrame {
 						// Studies
 						for(String studCourse : studies.toString().split("\n")) 
 						{
-							if(progCourse.equals(studCourse)) 
+							if(inProgCourse.equals(studCourse)) 
 							{
 								studiesButton.setBackground(yellow);
 								break;
@@ -541,6 +545,7 @@ public class DegreeAudit extends JFrame {
 					if(studentMajor == "Computer Science") 
 					{
 						// Major Core
+						// Compares size of total CS Core courses with student's CS Core courses
 						// Student's course strings have an extra "\n" somehow so length is incorrect
 						if(csMajor.length() == (majorCore.length()-1))
 						{
@@ -552,21 +557,25 @@ public class DegreeAudit extends JFrame {
 						String electiveCourses[] = majorElec.toString().split("\n");
 						int totalMajorElecHours = 0;
 						
+						// Loop through student's elective courses
 						for(String course : electiveCourses) 
 						{
-							boolean completed = false;
+							boolean completed = false; // Boolean to check if course is completed
 							
+							// Loop through student's completed courses
 							for(String completedCourse : completedCourses.split("\n")) 
 							{
+								// Check if course has been completed
 								if(completedCourse.equals(course)) 
 								{
-									completed = true;
+									completed = true; // If completed, update boolean value
 									break;
 								}
 							}
 							
 							if(completed) 
 							{
+								// Pick out course hours from end of the line, cast to integer, & add to total
 								totalMajorElecHours += Integer.parseInt(String.valueOf(course.charAt(course.length()-1)));
 							}
 						}
@@ -580,13 +589,15 @@ public class DegreeAudit extends JFrame {
 					else if(studentMajor == "Software Engineering") 
 					{
 						// Major Core
+						// Compares size of total SWE Core courses with student's SWE Core courses
 						// Student's course strings have an extra "\n" somehow so length is incorrect
 						if(seCore.length() == (majorCore.length()-1))
 						{
 							majorCoreButton.setBackground(green);
 						}
 				
-						// SWE Major Electives - 9 hours minimum?
+						// SWE Major Electives - 9 hours minimum? Could be way off
+						// Repeats the process for CSC electives found above
 						String electiveCourses[] = majorElec.toString().split("\n");
 						int totalMajorElecHours = 0;
 						
@@ -609,13 +620,14 @@ public class DegreeAudit extends JFrame {
 							}
 						}
 						
-						if(totalMajorElecHours >= 9) // If requirement is met, turn button green
+						if(totalMajorElecHours >= 9)
 						{
 							studiesButton.setBackground(green);
 						}
 					}
 				
 					// Liberal Arts - minimum 48 hours
+					// Repeats the process for CSC electives found above
 					String libAcourses[] = libArts.toString().split("\n");
 					int totalLibArtsHours = 0;
 					
@@ -624,7 +636,6 @@ public class DegreeAudit extends JFrame {
 					{
 						boolean completed = false;
 						
-						// Check if course has been completed
 						for(String completedCourse : completedCourses.split("\n")) 
 						{
 							if(completedCourse.equals(course)) 
@@ -636,8 +647,6 @@ public class DegreeAudit extends JFrame {
 						
 						if(completed) 
 						{
-							// adding course hours to total 
-							// this just picks up the hours from the end of the line, casts to an int & adds it to the total
 							totalLibArtsHours += Integer.parseInt(String.valueOf(course.charAt(course.length()-1)));
 						}
 					}
@@ -648,6 +657,7 @@ public class DegreeAudit extends JFrame {
 					}
 				
 					// 4 Studies - minimum 21 hours
+					// Repeats the process for CSC electives found above
 					String studiesCourses[] = libArts.toString().split("\n");
 					int totalStudiesHours = 0;
 					
@@ -670,7 +680,7 @@ public class DegreeAudit extends JFrame {
 						}
 					}
 					
-					if(totalStudiesHours >= 21) // If requirement is met, turn button green
+					if(totalStudiesHours >= 21)
 					{
 						studiesButton.setBackground(green);
 					}
@@ -982,7 +992,7 @@ public class DegreeAudit extends JFrame {
 			public void actionPerformed(ActionEvent e)
 			{	
 				// Check for no student record loaded
-				if(!studentFirstName.isEmpty()) 
+				if(studentLoaded) 
 				{
 					// Pop-up to ask for confirmation
 					confirmation = JOptionPane.showConfirmDialog(null, 
@@ -1756,8 +1766,8 @@ public class DegreeAudit extends JFrame {
 				if(newOrUpdate == "update") // Displays different message for updating a record & creating new record
 				{
 					confirmation = JOptionPane.showConfirmDialog(null, 
-						"Are you sure you want to submit this record?",
-						"Degree Audit: Confirm Sumbission",JOptionPane.YES_OPTION, JOptionPane.NO_OPTION);
+							"Are you sure you want to submit this record?",
+							"Degree Audit: Confirm Sumbission",JOptionPane.YES_OPTION, JOptionPane.NO_OPTION);
 				}
 				else 
 				{
@@ -1909,7 +1919,7 @@ public class DegreeAudit extends JFrame {
 			public void actionPerformed(ActionEvent e)
 			{
 				// Check for no student loaded
-				if(!studentFirstName.isEmpty())
+				if(studentLoaded)
 				{
 					// Pop-up to ask for confirmation
 					confirmation = JOptionPane.showConfirmDialog(null, 
@@ -2010,6 +2020,9 @@ public class DegreeAudit extends JFrame {
 	// Function to reset student variables
 	private void clearStudent()
 	{
+		// Update studentLoaded variable
+		studentLoaded = false;
+		
 		// Clear student variables
 		studentFirstName = "";
 		studentLastName = "";
@@ -2026,6 +2039,7 @@ public class DegreeAudit extends JFrame {
 		
 		try 
 		{
+			studentLoaded = true;
 			JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory()); // Opens file explorer
 			int returnValue = jfc.showOpenDialog(null); 
 			
