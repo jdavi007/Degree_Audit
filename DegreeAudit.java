@@ -3,7 +3,7 @@
  * Jacob Davis, Kaylee Strope, Dylan Dray
  * November 22, 2024
  * 
- * Not 100% sure the color changing button works as it should
+ * Not 100% sure the color changing buttons work as they should
  * Compared the hours of completed courses in each area with the minimum number of hours required but could be way off
  */
 
