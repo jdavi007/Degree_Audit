@@ -3,7 +3,7 @@
  * Jacob Davis, Kaylee Strope, Dylan Dray
  * November 22, 2024
  * 
- * Not 100% sure the color changing buttons work as they should
+ * Not 100% sure the color changing buttons works as they should
  * Compared the hours of completed courses in each area with the minimum number of hours required but could be way off
  */
 
@@ -631,7 +631,6 @@ public class DegreeAudit extends JFrame {
 					String libAcourses[] = libArts.toString().split("\n");
 					int totalLibArtsHours = 0;
 					
-					// loop through student's liberal arts courses
 					for(String course : libAcourses) 
 					{
 						boolean completed = false;
@@ -1511,7 +1510,7 @@ public class DegreeAudit extends JFrame {
 		textArea_available.setEditable(false);
 		scrollPane_available.setViewportView(textArea_available);
 		
-		JComboBox filterComboBox = new JComboBox(); // Course Filter combo box
+		JComboBox<String> filterComboBox = new JComboBox<>(); // Course Filter combo box
 		filterComboBox.addActionListener(new ActionListener() 
 		{
 			public void actionPerformed(ActionEvent e)
@@ -1706,7 +1705,7 @@ public class DegreeAudit extends JFrame {
 				StringBuilder fileName = new StringBuilder();
 				StringBuilder fileText = new StringBuilder();
 				
-				// get course info from lists
+				// Get course info from lists
 				completedCourses = textArea_complete.getText();
 				coursesInProgress = textArea_inProgress.getText();
 				coursesRegistered = textArea_registered.getText();
@@ -1851,6 +1850,7 @@ public class DegreeAudit extends JFrame {
 		MainPanel.add(DeleteRecord, "delete record");
 		
 		JLabel title_DeleteRecord = new JLabel("Delete Record"); // Panel Title label
+		title_DeleteRecord.setFont(new Font("Dialog", Font.BOLD, 18));
 		title_DeleteRecord.setBounds(306, 0, 260, 15);
 		DeleteRecord.add(title_DeleteRecord);
 		
@@ -1902,7 +1902,7 @@ public class DegreeAudit extends JFrame {
 		SWEmajorCheckBox_deleteRecord.setBounds(149, 205, 64, 23);
 		DeleteRecord.add(SWEmajorCheckBox_deleteRecord);
 		
-		JCheckBox MISmajorCheckBox_deleteRecord = new JCheckBox("MIS"); // MIS Major check-boc
+		JCheckBox MISmajorCheckBox_deleteRecord = new JCheckBox("MIS"); // MIS Major check-box
 		MISmajorCheckBox_deleteRecord.setFont(new Font("Dialog", Font.BOLD, 16));
 		MISmajorCheckBox_deleteRecord.setEnabled(false);
 		MISmajorCheckBox_deleteRecord.setBounds(220, 205, 60, 23);
