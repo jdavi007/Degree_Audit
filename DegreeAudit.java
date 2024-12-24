@@ -1,10 +1,7 @@
 /*
  * CSC 2220 - Group Project
- * Jacob Davis, Kaylee Strope, Dylan Dray
+ * Jacob Davis
  * November 22, 2024
- * 
- * Not 100% sure the color changing buttons works as they should
- * Compared the hours of completed courses in each area with the minimum number of hours required but could be way off
  */
 
 
